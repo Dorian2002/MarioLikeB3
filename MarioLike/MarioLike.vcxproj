@@ -108,6 +108,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,10 +133,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\manager\GameManager.cpp" />
+    <ClCompile Include="src\engine\GameEngine.cpp" />
+    <ClCompile Include="src\engine\Window.cpp" />
+    <ClCompile Include="src\models\GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\manager\GameManager.h" />
+    <ClInclude Include="include\engine\GameEngine.h" />
+    <ClInclude Include="include\engine\Window.h" />
+    <ClInclude Include="include\models\GameObject.h" />
     <ClInclude Include="include\utils\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
