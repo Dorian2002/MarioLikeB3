@@ -133,12 +133,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\component\Transform.cpp" />
     <ClCompile Include="src\engine\GameEngine.cpp" />
+    <ClCompile Include="src\managers\AssetManager.cpp" />
+    <ClCompile Include="src\managers\LevelManager.cpp" />
+    <ClCompile Include="src\models\Block.cpp" />
+    <ClCompile Include="src\models\Boomba.cpp" />
+    <ClCompile Include="src\models\Bouseur.cpp" />
+    <ClCompile Include="src\models\Coin.cpp" />
+    <ClCompile Include="src\models\Component.cpp" />
+    <ClCompile Include="src\models\Ennemy.cpp" />
+    <ClCompile Include="src\models\Entity.cpp" />
+    <ClCompile Include="src\models\Kupla.cpp" />
+    <ClCompile Include="src\models\Level.cpp" />
+    <ClCompile Include="src\models\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\component\Transform.h" />
+    <ClInclude Include="include\managers\AssetManager.h" />
+    <ClInclude Include="include\managers\LevelManager.h" />
     <ClInclude Include="include\manager\GameManager.h" />
+    <ClInclude Include="include\models\Block.h" />
+    <ClInclude Include="include\models\Boomba.h" />
+    <ClInclude Include="include\models\Bouseur.h" />
+    <ClInclude Include="include\models\Coin.h" />
+    <ClInclude Include="include\models\Component.h" />
+    <ClInclude Include="include\models\Ennemy.h" />
+    <ClInclude Include="include\models\Entity.h" />
     <ClInclude Include="include\models\GameObject.h" />
     <ClInclude Include="include\engine\GameEngine.h" />
+    <ClInclude Include="include\models\Kupla.h" />
+    <ClInclude Include="include\models\Level.h" />
+    <ClInclude Include="include\models\Player.h" />
     <ClInclude Include="include\utils\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

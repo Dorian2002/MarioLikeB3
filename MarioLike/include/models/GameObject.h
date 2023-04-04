@@ -1,7 +1,8 @@
+#pragma once
 class GameObject
 {
 public:
-	virtual void Start();
-	virtual void Update(float);
+	virtual void Start() {};
+	virtual void Update(float) {};
 };
 
