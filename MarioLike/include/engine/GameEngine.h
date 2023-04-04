@@ -1,5 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "models/Level.h"
+#include "managers/LevelManager.h"
 class GameEngine
 {
 public:
@@ -15,9 +17,11 @@ private:
 	void Start();
 	void Update();
 	void Render();
+	bool LoadResources();
 	static GameEngine* m_engine;
 	sf::Clock m_clock;
 	void ResetTime();
 	sf::RenderWindow* m_window;
+	LevelManager* m_level;
 };
 
