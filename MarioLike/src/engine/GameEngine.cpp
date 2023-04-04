@@ -17,6 +17,7 @@ GameEngine* GameEngine::GetInstance()
 GameEngine::~GameEngine()
 {
 	delete m_engine;
+	delete m_window;
 }
 void GameEngine::Start()
 {

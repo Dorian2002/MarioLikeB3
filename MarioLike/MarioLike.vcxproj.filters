@@ -21,6 +21,12 @@
     <ClCompile Include="src\engine\GameEngine.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\manager\StateManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\manager\EventManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\utils\Vector2.h">
@@ -32,10 +38,20 @@
     <ClInclude Include="include\models\GameObject.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="include\manager\GameManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="include\utils\Sling.h">
+=======
+    <ClInclude Include="include\models\State.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\manager\StateManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\manager\EventManager.h">
+>>>>>>> 3dd3e4c... Event Manager / StateManager WIP
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
