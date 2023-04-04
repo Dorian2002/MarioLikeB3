@@ -74,6 +74,7 @@
     <ClInclude Include="include\manager\GameManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\utils\Sling.h">
     <ClInclude Include="include\models\Entity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

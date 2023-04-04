@@ -1,7 +1,10 @@
 #include "engine/GameEngine.h"
+#include "utils/Sling.h"
 #include <managers/AssetManager.h>
 
 GameEngine* GameEngine::m_engine = nullptr;
+
+DECLARE_DELEGATE(FOnUpdate, float);
 
 GameEngine* GameEngine::GetInstance()
 {

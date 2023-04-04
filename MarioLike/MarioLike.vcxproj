@@ -166,6 +166,7 @@
     <ClInclude Include="include\models\Level.h" />
     <ClInclude Include="include\models\Player.h" />
     <ClInclude Include="include\utils\Vector2.h" />
+    <ClInclude Include="include\utils\Sling.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
