@@ -142,11 +142,8 @@
     <ClInclude Include="include\manager\StateManager.h" />
     <ClInclude Include="include\models\GameObject.h" />
     <ClInclude Include="include\engine\GameEngine.h" />
-<<<<<<< HEAD
     <ClInclude Include="include\utils\Sling.h" />
-=======
     <ClInclude Include="include\models\State.h" />
->>>>>>> 3dd3e4c... Event Manager / StateManager WIP
     <ClInclude Include="include\utils\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
