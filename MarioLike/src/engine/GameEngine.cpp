@@ -19,9 +19,15 @@ GameEngine::~GameEngine()
 	delete m_engine;
 	delete m_window;
 }
+
 void GameEngine::Start()
 {
 	m_window = new sf::RenderWindow(sf::VideoMode(500, 500), "Suuuuupair maria brasse");
+	m_inputManager = InputManager::GetInstance();
+}
+
+void GameEngine::HandleInput()
+{
 }
 
 void GameEngine::Update()
@@ -39,6 +45,7 @@ bool GameEngine::Run()
 	Start();
 	while(m_window->isOpen())
 	{
+		HandleInput();
 		Update();
 		Render();
 		ResetTime();

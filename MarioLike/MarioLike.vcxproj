@@ -134,14 +134,16 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\engine\GameEngine.cpp" />
-    <ClCompile Include="src\manager\EventManager.cpp" />
+    <ClCompile Include="src\manager\InputManager.cpp" />
     <ClCompile Include="src\manager\StateManager.cpp" />
+    <ClCompile Include="src\utils\ISingleton.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\manager\EventManager.h" />
+    <ClInclude Include="include\manager\InputManager.h" />
     <ClInclude Include="include\manager\StateManager.h" />
     <ClInclude Include="include\models\GameObject.h" />
     <ClInclude Include="include\engine\GameEngine.h" />
+    <ClInclude Include="include\utils\ISingleton.h" />
     <ClInclude Include="include\utils\Sling.h" />
     <ClInclude Include="include\models\State.h" />
     <ClInclude Include="include\utils\Vector2.h" />
