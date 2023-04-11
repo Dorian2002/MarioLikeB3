@@ -133,13 +133,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\engine\EntityManager.cpp" />
     <ClCompile Include="src\engine\GameEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\engine\EntityManager.h" />
     <ClInclude Include="include\manager\GameManager.h" />
+    <ClInclude Include="include\models\Component.h" />
+    <ClInclude Include="include\models\Entity.h" />
     <ClInclude Include="include\models\GameObject.h" />
     <ClInclude Include="include\engine\GameEngine.h" />
+    <ClInclude Include="include\models\toto.h" />
+    <ClInclude Include="include\utils\Rtti.h" />
     <ClInclude Include="include\utils\Sling.h" />
+    <ClInclude Include="include\utils\TestComponent.h" />
     <ClInclude Include="include\utils\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
