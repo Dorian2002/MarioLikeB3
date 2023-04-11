@@ -12,5 +12,7 @@ public:
 	void Rotate(int x1, int y1, int theta);
 	void Translate(int x1, int y1, int theta, int addx, int addy);
 	void Scale();
+	//Vec2f* GetPosition();
+	//void SetPosition(Vec2f* _v);
 	Vec2f m_position;
 };

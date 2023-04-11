@@ -133,10 +133,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\component\SpriteComponent.cpp" />
     <ClCompile Include="src\component\Transform.cpp" />
     <ClCompile Include="src\engine\GameEngine.cpp" />
     <ClCompile Include="src\managers\AssetManager.cpp" />
     <ClCompile Include="src\managers\LevelManager.cpp" />
+    <ClCompile Include="src\managers\RenderManager.cpp" />
     <ClCompile Include="src\models\Block.cpp" />
     <ClCompile Include="src\models\Boomba.cpp" />
     <ClCompile Include="src\models\Bouseur.cpp" />
@@ -149,9 +151,11 @@
     <ClCompile Include="src\models\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\component\SpriteComponent.h" />
     <ClInclude Include="include\component\Transform.h" />
     <ClInclude Include="include\managers\AssetManager.h" />
     <ClInclude Include="include\managers\LevelManager.h" />
+    <ClInclude Include="include\managers\RenderManager.h" />
     <ClInclude Include="include\manager\GameManager.h" />
     <ClInclude Include="include\models\Block.h" />
     <ClInclude Include="include\models\Boomba.h" />
