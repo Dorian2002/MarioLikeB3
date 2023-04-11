@@ -46,6 +46,8 @@ set (SOURCES
     main.cpp
 )
 
+#find_package(sfml REQUIRED)
+
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
@@ -54,6 +56,10 @@ endif()
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_auto_type)
 
+#target_link_libraries(${PROJECT_NAME}
+#  PRIVATE
+#    sfml::sfml)
+
 target_include_directories(${PROJECT_NAME}
   PUBLIC
     $<INSTALL_INTERFACE:include>
@@ -61,3 +67,4 @@ target_include_directories(${PROJECT_NAME}
   PRIVATE
     ${SOURCE_DIR}
 )
+
