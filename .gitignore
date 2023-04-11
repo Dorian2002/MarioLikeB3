@@ -403,3 +403,8 @@ vcpkg.json
 *.sln
 *.vcxproj
 *.vcxproj.filters
+*.txt
+!CMakeLists.txt
+CMakeFiles/*
+*.cmake
+*.depend
