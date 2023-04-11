@@ -1,5 +1,6 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
+#include <models/toto.h>
 #include <managers/AssetManager.h>
 
 GameEngine* GameEngine::m_engine = nullptr;
@@ -39,6 +40,8 @@ void GameEngine::Render()
 bool GameEngine::Run()
 {
 	Start();
+	//toto* var = new toto();
+	//var->Start();
 	while(m_window->isOpen())
 	{
 		Update();
