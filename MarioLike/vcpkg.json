@@ -1,7 +1,0 @@
-{
-  "name": "mario",
-  "description": "mario",
-  "dependencies": [
-    "sfml"
-  ]
-}
