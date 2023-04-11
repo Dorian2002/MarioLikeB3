@@ -402,3 +402,4 @@ vcpkg_installed/
 vcpkg.json
 *.sln
 *.vcxproj
+*.vcxproj.filters
