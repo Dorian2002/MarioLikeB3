@@ -23,6 +23,7 @@ public:
 	sf::Sprite* m_sprite;
 	Vec2f m_spriteSize;
 
+	Entity() {};
 	Entity(Vec2f _spriteSize);
 	~Entity() = default;
 	void SetSprite(const std::string& _assetId, const Vec2f& _position = { 0.f, 0.f }, const Vec2f& _size = { 0.f, 0.f });
