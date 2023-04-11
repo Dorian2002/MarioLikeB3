@@ -405,6 +405,6 @@ vcpkg.json
 *.vcxproj.filters
 *.txt
 !CMakeLists.txt
-CMakeFiles/*
+CMakeFiles/
 *.cmake
 *.depend
