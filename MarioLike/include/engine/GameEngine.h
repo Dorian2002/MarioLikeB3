@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "models/Level.h"
 #include "managers/LevelManager.h"
+#include "EntityManager.h"
 class GameEngine
 {
 public:
@@ -23,5 +24,6 @@ private:
 	void ResetTime();
 	sf::RenderWindow* m_window;
 	LevelManager* m_level;
+	EntityManager* m_entityManager;
 };
 

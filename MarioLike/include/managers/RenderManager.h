@@ -1,11 +1,12 @@
 #pragma once
 #include "component/SpriteComponent.h"
 #include <utils/Vector2.h>
+#include <vector>
 class RenderManager
 {
 public:
-	SpriteComponent* m_spriteComponent;
+	std::vector<Entity*> m_toRender;
 	void RenderLevel(sf::RenderTarget& _target);
-	static void DrawCall();
+	void DrawCall(Entity*);
 };
 

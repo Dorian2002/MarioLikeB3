@@ -5,13 +5,13 @@
 #include "managers/AssetManager.h"
 #include <utils/Vector2.h>
 
-class SpriteComponent : public GameObject
+class SpriteComponent : public Component
 {
 public:
+	DEFINE_RTTI(SpriteComponent);
 	sf::Sprite* m_sprite;
-	Transform* m_transform;
 	Vec2f m_spriteSize;
-	SpriteComponent();
+	SpriteComponent(std::string&);
 	~SpriteComponent() = default;
 	void SetSprite(const std::string& _assetId, const Vec2f& _position, const Vec2f& _size);
 };

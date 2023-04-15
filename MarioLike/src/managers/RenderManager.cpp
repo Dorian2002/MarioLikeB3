@@ -11,6 +11,8 @@ void RenderManager::RenderLevel(sf::RenderTarget& _target)
 	//}
 }
 
-void RenderManager::DrawCall()
+void RenderManager::DrawCall(Entity* _entity)
 {
+	if (std::find(m_toRender.begin(), m_toRender.end(), _entity) == m_toRender.end())
+		m_toRender.push_back(_entity);
 }

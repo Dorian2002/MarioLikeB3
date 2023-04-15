@@ -1,24 +1,30 @@
 #pragma once
 #include "models/GameObject.h"
 #include "models/Component.h"
+#include <unordered_map>
 #include "utils/Vector2.h"
-#include "component/Transform.h"
+#include "component/Transform.h"0
+#include "component/SpriteComponent.h"
 #include <iostream>
 #include <map>
 #include <string>
 
-class Entity : public GameObject
-{
+class Entity : public GameObject {
 public:
-	Transform* m_transform;
-	sf::RectangleShape m_shape;
-	sf::Sprite* m_sprite;
-	Vec2f m_spriteSize;
+	void Start() override {
+		for (auto& component : Components) {
+			std::cout<< " - " << component->GetClassRttiName() << std::endl;
+		}
+		std::cout << std::endl;  
+	}
 
+	static const int id;
+	std::vector<Component*> Components;
+
+	Entity() {};
 	Entity(Vec2f _spriteSize);
 	~Entity() = default;
-	void SetSprite(const std::string& _assetId, const Vec2f& _position = { 0.f, 0.f }, const Vec2f& _size = { 0.f, 0.f });
-
+	
 	private:
 		std::map<std::string, int> tab;
 };

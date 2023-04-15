@@ -1,5 +1,6 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
+#include <models/toto.h>
 #include <managers/AssetManager.h>
 
 GameEngine* GameEngine::m_engine = nullptr;
@@ -23,6 +24,8 @@ void GameEngine::Start()
 {
 	m_window = new sf::RenderWindow(sf::VideoMode(500, 500), "Suuuuupair maria brasse");
 	m_level = new LevelManager();
+	m_entityManager = new EntityManager();
+	m_entityManager->Start();
 }
 
 void GameEngine::Update()
@@ -69,7 +72,7 @@ bool GameEngine::LoadResources()
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
 
-	success &= assetManager->LoadTexture("images/Nice_bro.png", "test");
+	success &= assetManager->LoadTexture("images/Nice_bro.png", "toto");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
 	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");
