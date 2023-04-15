@@ -3,7 +3,7 @@
 #include "models/Entity.h"
 #include <memory>
 #include "models/Component.h"
-#include <utils/TestComponent.h>
+#include <component/TestComponent.h>
 #include <iostream>
 
 class toto : public Entity

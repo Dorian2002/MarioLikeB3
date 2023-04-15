@@ -14,7 +14,7 @@ public:
 		for (auto& component : Components) {
 			std::cout<< " - " << component->GetClassRttiName() << std::endl;
 		}
-		std::cout << std::endl;
+		std::cout << std::endl;  
 	}
 	static const int id;
 	std::vector<Component*> Components;
