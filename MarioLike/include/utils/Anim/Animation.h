@@ -1,16 +1,12 @@
 #pragma once
-#include "Link.h"
+#include <vector>
+#include "utils/Rtti.h"
 
-class Animation
+class Animation : public Rtti
 {
 public:
-	std::vector<Link*> GetLinks() {
-		return m_outLinks;
-	}
-	bool GetIsPlaying() {
-		return m_isPlaying;
-	}
+	DEFINE_RTTI(Animation)
+	bool GetIsPlaying();
 private:
 	bool m_isPlaying;
-	std::vector<Link*> m_outLinks;
 };
