@@ -1,5 +1,6 @@
 #include "./engine/EntityManager.h"
 #include <models/toto.h>
+#include <managers/RenderManager.h>
 
 EntityManager* EntityManager::m_instance = nullptr;
 
@@ -19,6 +20,7 @@ void EntityManager::Start()
 	for (Entity* entity : m_entities)
 	{
 		entity->Start();
+		RenderManager::GetInstance()->DrawCall(entity);
 	}
 }
 

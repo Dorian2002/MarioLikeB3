@@ -6,7 +6,7 @@
 class EntityManager
 {
 public:
-	EntityManager* GetInstance();
+	static EntityManager* GetInstance();
 	void Start();
 private:
 	static EntityManager* m_instance;

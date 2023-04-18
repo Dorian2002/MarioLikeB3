@@ -22,10 +22,13 @@ GameEngine::~GameEngine()
 }
 void GameEngine::Start()
 {
+	LoadResources();
 	m_window = new sf::RenderWindow(sf::VideoMode(500, 500), "Suuuuupair maria brasse");
 	m_level = new LevelManager();
-	m_entityManager = new EntityManager();
+	m_entityManager = EntityManager::GetInstance();
 	m_entityManager->Start();
+	m_renderManager = RenderManager::GetInstance();
+	m_renderManager->RenderLevel(*m_window);
 }
 
 void GameEngine::Update()
@@ -35,7 +38,8 @@ void GameEngine::Update()
 void GameEngine::Render()
 {
 	m_window->clear();
-	m_level->LoadLevel(*m_window, { 16,16 });
+	//m_level->LoadLevel(*m_window, { 16,16 });
+	m_renderManager->RenderLevel(*m_window);
 	m_window->display();
 }
 
@@ -44,6 +48,15 @@ bool GameEngine::Run()
 	Start();
 	while(m_window->isOpen())
 	{
+		sf::Event e;
+		while (m_window->pollEvent(e)) {
+			switch (e.type)
+			{case sf::Event::Closed:
+				m_window->close();
+			default:
+				break;
+			}
+		}
 		Update();
 		Render();
 		ResetTime();
@@ -72,7 +85,7 @@ bool GameEngine::LoadResources()
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
 
-	success &= assetManager->LoadTexture("images/Nice_bro.png", "toto");
+	success &= assetManager->LoadTexture("Nice_bro.png", "toto");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
 	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");

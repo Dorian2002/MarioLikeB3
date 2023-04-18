@@ -11,7 +11,7 @@ public:
 	DEFINE_RTTI(SpriteComponent);
 	sf::Sprite* m_sprite;
 	Vec2f m_spriteSize;
-	SpriteComponent(std::string&);
+	SpriteComponent(const std::string&);
 	~SpriteComponent() = default;
 	void SetSprite(const std::string& _assetId, const Vec2f& _position, const Vec2f& _size);
 };

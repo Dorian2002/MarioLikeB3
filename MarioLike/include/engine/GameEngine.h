@@ -3,6 +3,7 @@
 #include "models/Level.h"
 #include "managers/LevelManager.h"
 #include "EntityManager.h"
+#include <managers/RenderManager.h>
 class GameEngine
 {
 public:
@@ -25,5 +26,6 @@ private:
 	sf::RenderWindow* m_window;
 	LevelManager* m_level;
 	EntityManager* m_entityManager;
+	RenderManager* m_renderManager;
 };
 

@@ -3,8 +3,6 @@
 #include <utils/Vector2.h>
 #include "models/Component.h"
 
-class Entity;
-
 class Transform : public Component
 {
 public:

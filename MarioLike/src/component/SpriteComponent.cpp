@@ -1,7 +1,7 @@
 #include "component/SpriteComponent.h"
 #include <managers/RenderManager.h>
 
-SpriteComponent::SpriteComponent(std::string& _assetId)
+SpriteComponent::SpriteComponent(const std::string& _assetId)
 {
 	m_sprite = nullptr;
 	m_spriteSize = { 16,16 };

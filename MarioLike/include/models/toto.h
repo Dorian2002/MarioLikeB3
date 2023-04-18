@@ -13,7 +13,7 @@ class toto : public Entity
 public:
 	DEFINE_RTTI(toto);
 	toto() {
-		Components = { new TestComponent(), new Transform({0,0}), new SpriteComponent()};
+		Components = { new TestComponent(), new Transform({0,0}), new SpriteComponent("toto")};
 	}
 	void Start() override {
 		std::cout << GetClassRttiName() << std::endl;
