@@ -4,13 +4,20 @@ project("MarioLikeB3")
 
 set(CMAKE_CXX_STANDARD 20)
 
+include(C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
+
+find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
+
 set (HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set (SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set (HEADERS
+    ${HEADER_DIR}/component/Animator.h
     ${HEADER_DIR}/component/Transform.h
+    ${HEADER_DIR}/component/TestComponent.h
     ${HEADER_DIR}/engine/GameEngine.h
+    ${HEADER_DIR}/engine/EntityManager.h
     ${HEADER_DIR}/managers/AssetManager.h
     ${HEADER_DIR}/managers/LevelManager.h
     ${HEADER_DIR}/models/Block.h
@@ -24,12 +31,18 @@ set (HEADERS
     ${HEADER_DIR}/models/Kupla.h
     ${HEADER_DIR}/models/Level.h
     ${HEADER_DIR}/models/Player.h
+    ${HEADER_DIR}/models/toto.h
+    ${HEADER_DIR}/utils/Anim/Link.h
+    ${HEADER_DIR}/utils/Anim/Animation.h
+    ${HEADER_DIR}/utils/Rtti.h
     ${HEADER_DIR}/utils/Sling.h
     ${HEADER_DIR}/utils/Vector2.h
 )
 
 set (SOURCES
+    ${SOURCE_DIR}/component/Animator.cpp
     ${SOURCE_DIR}/component/Transform.cpp
+    ${SOURCE_DIR}/engine/EntityManager.cpp
     ${SOURCE_DIR}/engine/GameEngine.cpp
     ${SOURCE_DIR}/managers/AssetManager.cpp
     ${SOURCE_DIR}/managers/LevelManager.cpp
@@ -43,12 +56,16 @@ set (SOURCES
     ${SOURCE_DIR}/models/Kupla.cpp
     ${SOURCE_DIR}/models/Level.cpp
     ${SOURCE_DIR}/models/Player.cpp
+    ${SOURCE_DIR}/utils/Animation.cpp
+    ${SOURCE_DIR}/utils/Link.cpp
     main.cpp
 )
 
 #find_package(sfml REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET MarioLikeB3 PROPERTY CXX_STANDARD 20)
