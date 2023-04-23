@@ -407,3 +407,5 @@ vcpkg_installed/
 CMakeFiles/
 *.cmake
 *.depend
+.env
+.vs/
