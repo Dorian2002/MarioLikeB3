@@ -12,13 +12,13 @@ void Level::RenderLevel(sf::RenderTarget& _target, const Vec2f& _tileSize)
 
 	Entity* r = new Entity({64,64});
 
-	r->m_transform->Rotate(100, 100, 35);
+	//r->m_transform->Rotate(100, 100, 35);
 
-	r->m_transform->Translate(100, 100, 35, 100, 100);
+	//r->m_transform->Translate(100, 100, 35, 100, 100);
 
-	r->SetSprite("test");
+	//r->SetSprite("test");
 
 	//r->m_shape.setFillColor(sf::Color(100, 250, 50));
 	//_target.draw(r->m_shape);
-	delete r, r->m_transform;
+	//delete r, r->m_transform;
 }

@@ -21,3 +21,14 @@ void Transform::Translate(int x1, int y1, int theta, int addx, int addy)
 void Transform::Scale()
 {
 }
+
+//Vec2f* Transform::GetPosition()
+//{
+//	return m_position;
+//}
+//
+//void Transform::SetPosition(Vec2f* _v)
+//{
+//	m_position = _v;
+//}
+

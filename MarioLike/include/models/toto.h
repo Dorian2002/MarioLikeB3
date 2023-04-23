@@ -4,6 +4,8 @@
 #include <memory>
 #include "models/Component.h"
 #include <component/TestComponent.h>
+#include <component/Transform.h>
+#include <component/SpriteComponent.h>
 #include <iostream>
 
 class toto : public Entity
@@ -11,7 +13,7 @@ class toto : public Entity
 public:
 	DEFINE_RTTI(toto);
 	toto() {
-		Components = { new TestComponent() };
+		Components = { new TestComponent(), new Transform({0,0}), new SpriteComponent("toto")};
 	}
 	void Start() override {
 		std::cout << GetClassRttiName() << std::endl;

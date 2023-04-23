@@ -15,11 +15,13 @@ set (SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (HEADERS
     ${HEADER_DIR}/component/Animator.h
     ${HEADER_DIR}/component/Transform.h
+    ${HEADER_DIR}/component/SpriteComponent.h
     ${HEADER_DIR}/component/TestComponent.h
     ${HEADER_DIR}/engine/GameEngine.h
     ${HEADER_DIR}/engine/EntityManager.h
     ${HEADER_DIR}/managers/AssetManager.h
     ${HEADER_DIR}/managers/LevelManager.h
+    ${HEADER_DIR}/managers/RenderManager.h
     ${HEADER_DIR}/models/Block.h
     ${HEADER_DIR}/models/Boomba.h
     ${HEADER_DIR}/models/Bouseur.h
@@ -42,10 +44,12 @@ set (HEADERS
 set (SOURCES
     ${SOURCE_DIR}/component/Animator.cpp
     ${SOURCE_DIR}/component/Transform.cpp
+    ${SOURCE_DIR}/component/SpriteComponent.cpp
     ${SOURCE_DIR}/engine/EntityManager.cpp
     ${SOURCE_DIR}/engine/GameEngine.cpp
     ${SOURCE_DIR}/managers/AssetManager.cpp
     ${SOURCE_DIR}/managers/LevelManager.cpp
+    ${SOURCE_DIR}/managers/RenderManager.cpp
     ${SOURCE_DIR}/models/Block.cpp
     ${SOURCE_DIR}/models/Boomba.cpp
     ${SOURCE_DIR}/models/Bouseur.cpp
