@@ -19,7 +19,9 @@ GameEngine* GameEngine::GetInstance()
 GameEngine::~GameEngine()
 {
 	delete m_engine;
+	delete m_window;
 }
+
 void GameEngine::Start()
 {
 	LoadResources();
@@ -29,6 +31,11 @@ void GameEngine::Start()
 	m_entityManager->Start();
 	m_renderManager = RenderManager::GetInstance();
 	m_renderManager->RenderLevel(*m_window);
+	m_inputManager = InputManager::GetInstance();
+}
+
+void GameEngine::HandleInput()
+{
 }
 
 void GameEngine::Update()
@@ -57,6 +64,7 @@ bool GameEngine::Run()
 				break;
 			}
 		}
+		HandleInput();
 		Update();
 		Render();
 		ResetTime();

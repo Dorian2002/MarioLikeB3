@@ -75,12 +75,6 @@ namespace Event
             return *this;
         }
 
-        Slot& operator = (Slot&& slot) {
-            this->disconnect();
-            this->move(&slot);
-            return *this;
-        }
-
         void disconnect() {
             if (this->connection != nullptr) {
                 this->connection->signal->disconnect(this);
@@ -210,12 +204,12 @@ namespace Event
 }
 #endif
 
-/*Event::Slot MySlot = Event::Slot(this, &GameEngine::Update);
-
-Event::Signal MySignal = Event::Signal();
-MySignal.connect(MySlot);
-
-MySignal.emit();*/
+//Event::Slot MySlot = Event::Slot(this, &GameEngine::Update);
+//
+//Event::Signal MySignal = Event::Signal();
+//MySignal.connect(MySlot);
+//
+//MySignal.emit();
 
 /*Event::Slot<float> MySlot = Event::Slot<float>(this, &GameEngine::Update);
 
