@@ -4,7 +4,18 @@ project("MarioLikeB3")
 
 set(CMAKE_CXX_STANDARD 20)
 
-include(C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.env)
+  file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/.env ENV_VARS)
+  foreach(env_var ${ENV_VARS})
+    string(REGEX REPLACE "^[^=]+=" "" env_value ${env_var})
+    string(REGEX REPLACE "=.*$" "" env_name ${env_var})
+    set(ENV{${env_name}} ${env_value})
+  endforeach()
+endif()
+
+if(DEFINED ENV{PATH_VCPKG})
+	include($ENV{PATH_VCPKG})
+endif()
 
 find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 
