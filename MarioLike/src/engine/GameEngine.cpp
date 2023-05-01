@@ -43,6 +43,7 @@ void GameEngine::HandleInput()
 	m_inputManager->HandleInput();
 }
 
+
 void GameEngine::Update()
 {
 }
