@@ -10,7 +10,7 @@ public:
 	static EntityManager* GetInstance();
 	void Start();
 	void Update();
-	bool MoveEntity(Vec2f, Transform*);
+	bool MoveEntity(Transform*);
 private:
 	static EntityManager* m_instance;
 	std::vector<Entity*> m_entities;

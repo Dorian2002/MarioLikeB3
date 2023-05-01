@@ -9,6 +9,7 @@
 #include <component/SpriteComponent.h>
 #include <component/BoxColliderComponent.h>
 #include <iostream>
+#include "managers/InputManager.h"
 
 class toto : public Entity
 {
@@ -20,8 +21,24 @@ public:
 	void Start() override {
 		std::cout << GetClassRttiName() << std::endl;
 		Entity::Start();
+		auto inputManager = InputManager::GetInstance();
+		inputManager->AddSlot(sf::Keyboard::Q, new Event::Slot<>(this, &toto::MoveLeft));
+		inputManager->AddSlot(sf::Keyboard::D, new Event::Slot<>(this, &toto::MoveRight));
 	};
 	void Update(float deltaT) override {
 		Entity::Update(deltaT);
+
+
+	}
+
+	void MoveRight()
+	{
+		auto t = GetComponent<Transform>();
+		t->Translate(0, 0.1, 0);
+	}
+	void MoveLeft()
+	{
+		auto t = GetComponent<Transform>();
+		t->Translate(0, -0.1, 0);
 	}
 };

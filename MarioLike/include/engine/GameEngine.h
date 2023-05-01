@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "models/Level.h"
 #include "managers/LevelManager.h"
-#include "EntityManager.h"
+#include "managers/EntityManager.h"
 #include <managers/RenderManager.h>
 #include "managers/InputManager.h"
 class GameEngine

@@ -11,9 +11,10 @@ public:
 
 	void Rotate(float x1, float y1, int theta);
 	Vec2f Translate(float x1, float y1, int theta, float addx, float addy);
+	void Translate(int theta, float addx, float addy);
 	void Scale();
 
-	//Vec2f* GetPosition();
-	//void SetPosition(Vec2f* _v);
+	Vec2f GetPosition();
+	void SetPosition(Vec2f _v);
 	Vec2f m_position;
 };

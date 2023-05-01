@@ -1,4 +1,4 @@
-#include <engine/EntityManager.h>
+#include <managers/EntityManager.h>
 #include <models/toto.h>
 #include <managers/RenderManager.h>
 #include <engine/GameEngine.h>
@@ -35,18 +35,16 @@ void EntityManager::Update()
 	}
 }
 
-bool EntityManager::MoveEntity(Vec2f newPosition, Transform* transform)
+bool EntityManager::MoveEntity(Transform* transform)
 {
 	Entity* entity = transform->m_root;
 	if (auto col = entity->GetComponent<BoxColliderComponent>()) {
 		if (col->CheckCollisions(transform)) {
-			transform->m_position = newPosition;
 			RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
 			return true;
 		}
 	}
 	else {
-		transform->m_position = newPosition;
 		RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
 		return true;
 	}

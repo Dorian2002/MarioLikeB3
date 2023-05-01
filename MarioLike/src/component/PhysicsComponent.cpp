@@ -14,7 +14,12 @@ void PhysicsComponent::Update(float deltaT)
 	if (m_isKinematic && deltaT < 0.03) {
 		float d = 0.5 * 9.81 * deltaT;
 		Transform* t = m_root->GetComponent<Transform>();
-		EntityManager::GetInstance()->MoveEntity(t->Translate(t->m_position.x, t->m_position.y, 0, 0, d * 4),t);
+		auto lastPos = t->GetPosition();
+		t->Translate(0, 0, d * 4);
+		if(!EntityManager::GetInstance()->MoveEntity(t))
+		{
+			t->SetPosition(lastPos);
+		}
 	}
 }
 

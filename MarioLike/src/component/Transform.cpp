@@ -20,17 +20,24 @@ Vec2f Transform::Translate(float x1, float y1, int theta, float addx, float addy
 	return { x,y };
 }
 
+void Transform::Translate(int theta, float addx, float addy)
+{
+	float x = m_position.x * cos(theta) + m_position.y * (-sin(theta)) + 1 * addx;
+	float y = m_position.x * sin(theta) + m_position.y * cos(theta) + 1 * addy;
+	m_position = { x, y };
+}
+
 void Transform::Scale()
 {
 }
 
-//Vec2f* Transform::GetPosition()
-//{
-//	return m_position;
-//}
-//
-//void Transform::SetPosition(Vec2f* _v)
-//{
-//	m_position = _v;
-//}
+Vec2f Transform::GetPosition()
+{
+	return m_position;
+}
+
+void Transform::SetPosition(Vec2f _v)
+{
+	m_position = _v;
+}
 
