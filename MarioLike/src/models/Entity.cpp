@@ -9,6 +9,13 @@ void Entity::Start()
 	std::cout << std::endl;
 }
 
+void Entity::Update(float deltaT)
+{
+	for (auto& component : Components) {
+		component->Update(deltaT);
+	}
+}
+
 Entity::Entity(Vec2f _spriteSize)
 {
 }

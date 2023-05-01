@@ -1,21 +1,23 @@
 #include "component/Transform.h"
 #include "models/Entity.h"
 
-Transform::Transform(Vec2f v)
+Transform::Transform(Entity* root, Vec2f v)
 {
 	m_position = v;
+	m_root = root;
 }
 
-void Transform::Rotate(int x1, int y1, int theta)
+void Transform::Rotate(float x1, float y1, int theta)
 {
 	int x = x1 * cos(theta) + y1 * (-sin(theta));
 	int y = x1 * sin(theta) + y1 * cos(theta);
 }
 
-void Transform::Translate(int x1, int y1, int theta, int addx, int addy)
+Vec2f Transform::Translate(float x1, float y1, int theta, float addx, float addy)
 {
-	int x = x1 * cos(theta) + y1 * (-sin(theta)) + 1 * addx;
-	int y = x1 * sin(theta) + y1 * cos(theta) + 1 * addy;
+	float x = x1 * cos(theta) + y1 * (-sin(theta)) + 1 * addx;
+	float y = x1 * sin(theta) + y1 * cos(theta) + 1 * addy;
+	return { x,y };
 }
 
 void Transform::Scale()

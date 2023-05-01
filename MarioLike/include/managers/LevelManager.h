@@ -11,8 +11,9 @@ public:
 	LevelManager(LevelManager& _other) = delete;
 	void operator=(const LevelManager& _other) = delete;
 	static LevelManager* GetInstance();
-
-	Level* LoadLevel(sf::RenderTarget& _target, const Vec2f& _tileSize);
+	Level* LoadLevel();
+	void RenderLevel();
+	Level* GetLevel();
 
 private:
 	static LevelManager* m_instance;

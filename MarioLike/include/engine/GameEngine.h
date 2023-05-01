@@ -24,7 +24,7 @@ private:
 	sf::Clock m_clock;
 	void ResetTime();
 	sf::RenderWindow* m_window;
-	LevelManager* m_level;
+	LevelManager* m_levelManager;
 	EntityManager* m_entityManager;
 	RenderManager* m_renderManager;
 };
