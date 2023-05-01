@@ -2,6 +2,7 @@
 #include "utils/Sling.h"
 #include <models/toto.h>
 #include <managers/AssetManager.h>
+#include "utils/Sling.h"
 
 GameEngine* GameEngine::m_engine = nullptr;
 
@@ -20,6 +21,8 @@ GameEngine::~GameEngine()
 {
 	delete m_engine;
 	delete m_window;
+	delete m_renderManager;
+	delete m_inputManager;
 }
 
 void GameEngine::Start()
@@ -32,10 +35,12 @@ void GameEngine::Start()
 	m_renderManager = RenderManager::GetInstance();
 	m_renderManager->RenderLevel(*m_window);
 	m_inputManager = InputManager::GetInstance();
+	m_inputManager->AddSlot(sf::Keyboard::Z, new Event::Slot<>(nullptr));
 }
 
 void GameEngine::HandleInput()
 {
+	m_inputManager->HandleInput();
 }
 
 void GameEngine::Update()
@@ -55,15 +60,6 @@ bool GameEngine::Run()
 	Start();
 	while(m_window->isOpen())
 	{
-		sf::Event e;
-		while (m_window->pollEvent(e)) {
-			switch (e.type)
-			{case sf::Event::Closed:
-				m_window->close();
-			default:
-				break;
-			}
-		}
 		HandleInput();
 		Update();
 		Render();

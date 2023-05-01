@@ -33,6 +33,7 @@ set (HEADERS
     ${HEADER_DIR}/managers/AssetManager.h
     ${HEADER_DIR}/managers/LevelManager.h
     ${HEADER_DIR}/managers/RenderManager.h
+    ${HEADER_DIR}/managers/InputManager.h
     ${HEADER_DIR}/models/Block.h
     ${HEADER_DIR}/models/Boomba.h
     ${HEADER_DIR}/models/Bouseur.h
@@ -50,6 +51,7 @@ set (HEADERS
     ${HEADER_DIR}/utils/Rtti.h
     ${HEADER_DIR}/utils/Sling.h
     ${HEADER_DIR}/utils/Vector2.h
+    ${HEADER_DIR}/utils/ISingleton.h
 )
 
 set (SOURCES
@@ -61,6 +63,7 @@ set (SOURCES
     ${SOURCE_DIR}/managers/AssetManager.cpp
     ${SOURCE_DIR}/managers/LevelManager.cpp
     ${SOURCE_DIR}/managers/RenderManager.cpp
+    ${SOURCE_DIR}/managers/InputManager.cpp
     ${SOURCE_DIR}/models/Block.cpp
     ${SOURCE_DIR}/models/Boomba.cpp
     ${SOURCE_DIR}/models/Bouseur.cpp
