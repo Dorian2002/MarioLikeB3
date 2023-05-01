@@ -1,5 +1,6 @@
 #include <iostream>
 #include "managers/LevelManager.h"
+#include <managers/RenderManager.h>
 
 LevelManager* LevelManager::m_instance = nullptr;
 
@@ -7,7 +8,7 @@ LevelManager* LevelManager::GetInstance()
 {
 	if (m_instance == nullptr)
 	{
-		m_instance = new LevelManager();
+ 		m_instance = new LevelManager();
 	}
 
 	return m_instance;
@@ -31,7 +32,7 @@ LevelManager::~LevelManager()
 	}
 }
 
-Level* LevelManager::LoadLevel(sf::RenderTarget& _target, const Vec2f& _tileSize)
+Level* LevelManager::LoadLevel()
 {
 	if (m_level != nullptr)
 	{
@@ -39,7 +40,22 @@ Level* LevelManager::LoadLevel(sf::RenderTarget& _target, const Vec2f& _tileSize
 	}
 
 	m_level = new Level();
-	m_level->RenderLevel(_target, _tileSize);
+	m_level->LoadLevel("resources/levels/1-1.txt","resources/levels/1-1.txt");
 
+	return m_level;
+}
+
+void LevelManager::RenderLevel()
+{
+	RenderManager* renderManager = RenderManager::GetInstance();
+	for (std::vector<Entity*> line : m_level->m_map) {
+		for (Entity* entity : line) {
+			renderManager->AddDrawCall(new DrawCall(entity, 1));
+		}
+	}
+}
+
+Level* LevelManager::GetLevel()
+{
 	return m_level;
 }

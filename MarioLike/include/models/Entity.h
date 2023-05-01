@@ -1,10 +1,7 @@
 #pragma once
-#include "models/GameObject.h"
 #include "models/Component.h"
 #include <unordered_map>
 #include "utils/Vector2.h"
-#include "component/Transform.h"
-#include "component/SpriteComponent.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -12,6 +9,7 @@
 class Entity : public GameObject {
 public:
 	void Start() override;
+	void Update(float) override;
 	static const int id;
 	std::vector<Component*> Components;
 	template<typename T>

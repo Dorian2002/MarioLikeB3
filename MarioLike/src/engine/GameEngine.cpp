@@ -29,7 +29,9 @@ void GameEngine::Start()
 {
 	LoadResources();
 	m_window = new sf::RenderWindow(sf::VideoMode(500, 500), "Suuuuupair maria brasse");
-	m_level = new LevelManager();
+	m_levelManager = LevelManager::GetInstance();
+	m_levelManager->LoadLevel();
+	m_levelManager->RenderLevel();
 	m_entityManager = EntityManager::GetInstance();
 	m_entityManager->Start();
 	m_renderManager = RenderManager::GetInstance();
@@ -46,6 +48,7 @@ void GameEngine::HandleInput()
 
 void GameEngine::Update()
 {
+	m_entityManager->Update();
 }
 
 void GameEngine::Render()
@@ -90,7 +93,8 @@ bool GameEngine::LoadResources()
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
 
-	success &= assetManager->LoadTexture("Nice_bro.png", "toto");
+	success &= assetManager->LoadTexture("PetitMario.png", "petitMario");
+	success &= assetManager->LoadTexture("Block.png", "block");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
 	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");

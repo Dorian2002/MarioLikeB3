@@ -7,6 +7,7 @@ class Level : public GameObject
 public:
 	Level();
 	~Level() = default;
-	void RenderLevel(sf::RenderTarget& _target, const Vec2f& _tileSize);
+	bool LoadLevel(const std::string _fileNameFront,const std::string _fileNameBack);
+	std::vector<std::vector<Entity*>> m_map;
 };
 
