@@ -1,5 +1,5 @@
 #include "models/Level.h"
-#include "models/Level.h"
+#include "models/Background.h"
 #include <iostream>
 #include <fstream>
 #include "models/Player.h"
@@ -65,4 +65,10 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 		std::cout << ">> File level cannot be open !" << std::endl;
 		return false;
 	}
+}
+
+void Level::LoadBackground()
+{
+	Background* Sky = new Background({ 16,16 });
+	RenderManager::GetInstance()->AddDrawCall(new DrawCall(Sky, 2));
 }

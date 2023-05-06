@@ -15,6 +15,9 @@ class toto : public Entity
 {
 public:
 	DEFINE_RTTI(toto);
+
+	Vec2f m_lastposition;
+
 	toto() {
 		Components = {new Transform(this, {1,0}), new SpriteComponent(this, "petitMario"), new PhysicsComponent(this, true), new BoxColliderComponent(this, new Vec2f({12,16}))};
 	}
@@ -34,11 +37,15 @@ public:
 	void MoveRight()
 	{
 		auto t = GetComponent<Transform>();
+		m_lastposition = t->m_position;
 		t->Translate(0, 0.1, 0);
+		//std::cout << t->m_position.x*16 << " , " << t->m_position.x << std::endl;
 	}
 	void MoveLeft()
 	{
 		auto t = GetComponent<Transform>();
+		m_lastposition = t->m_position;
 		t->Translate(0, -0.1, 0);
+		//std::cout << t->m_position.x * 16 << " , " << t->m_position.x << std::endl;
 	}
 };

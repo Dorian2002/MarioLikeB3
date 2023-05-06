@@ -14,6 +14,7 @@ public:
 	Level* LoadLevel();
 	void RenderLevel();
 	Level* GetLevel();
+	void MoveLevel();
 
 private:
 	static LevelManager* m_instance;

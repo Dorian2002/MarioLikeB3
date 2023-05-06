@@ -8,6 +8,7 @@ public:
 	Level();
 	~Level() = default;
 	bool LoadLevel(const std::string _fileNameFront,const std::string _fileNameBack);
+	void LoadBackground();
 	std::vector<std::vector<Entity*>> m_map;
 };
 
