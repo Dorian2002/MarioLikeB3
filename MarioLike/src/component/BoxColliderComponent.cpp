@@ -1,6 +1,7 @@
 #include "component/BoxColliderComponent.h"
 #include <component/Transform.h>
 #include<managers/LevelManager.h>
+#include <component/SpriteComponent.h>
 
 BoxColliderComponent::BoxColliderComponent(Entity* root, Vec2f* size)
 {
@@ -8,11 +9,32 @@ BoxColliderComponent::BoxColliderComponent(Entity* root, Vec2f* size)
 	m_size = size;
 }
 
-bool BoxColliderComponent::CheckCollisions(Transform* transform)
+bool BoxColliderComponent::CheckCollisions()
 {
+	Vec2f rtp = m_root->GetComponent<Transform>()->GetPosition();
+	Vec2f rsp = m_root->GetComponent<SpriteComponent>()->m_spriteSize;
+	std::vector<BoxColliderComponent*> colliders = LevelManager::GetInstance()->GetLevel()->m_colliders;
 	std::vector<std::vector<Entity*>> map = LevelManager::GetInstance()->GetLevel()->m_map;
-	if (map.at(transform->m_position.y+1).at(transform->m_position.x)->GetClassRttiName() == "Block") {
-		return false;
+
+	float rootLeft = floor(rtp.x * rsp.x);
+	float rootRight = std::round(rtp.x * rsp.x + rsp.x);
+	float rootTop = floor(rtp.y * rsp.y);
+	float rootBot = std::round(rtp.y * rsp.y + rsp.y);
+
+	for (std::vector<Entity*> l : map) {
+		for (Entity* e : l) {
+			if (BoxColliderComponent* col = e->GetComponent<BoxColliderComponent>()) {
+				Vec2f etp = e->GetComponent<Transform>()->GetPosition();
+				Vec2f esp = e->GetComponent<SpriteComponent>()->m_spriteSize;
+				float posLeft = floor(etp.x * esp.x);
+				float posRight = std::round(etp.x * esp.x + esp.x);
+				float posTop = floor(etp.y * esp.y);
+				float posBot = std::round(etp.y * esp.y + esp.y);
+				if (rootRight>=posLeft && rootLeft<=posRight && rootBot >= posTop && rootTop <= posBot) {
+					return false;
+				}
+			}
+		}
 	}
 	return true;
 }

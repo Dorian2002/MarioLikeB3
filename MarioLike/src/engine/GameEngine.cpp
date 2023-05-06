@@ -65,6 +65,7 @@ bool GameEngine::Run()
 	while(m_window->isOpen())
 	{
 		HandleInput();
+		ResetTime();
 		Update();
 		Render();
 		ResetTime();

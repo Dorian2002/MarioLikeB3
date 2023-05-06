@@ -5,22 +5,27 @@
 
 PhysicsComponent::PhysicsComponent(Entity* root, bool isKinematic)
 {
-	m_isKinematic = isKinematic;
-	m_root = root;
+    m_isKinematic = isKinematic;
+    m_root = root;
+    velocity = { 0,0 };
+    isGrounded = false;
 }
 
 void PhysicsComponent::Update(float deltaT)
 {
-	if (m_isKinematic && deltaT < 0.03) {
-		float d = 0.5 * 9.81 * deltaT;
-		Transform* t = m_root->GetComponent<Transform>();
-		auto lastPos = t->GetPosition();
-		t->Translate(0, 0, d * 4);
-		if(!EntityManager::GetInstance()->MoveEntity(t))
-		{
-			t->SetPosition(lastPos);
-		}
-	}
+    if (m_isKinematic) {
+        jumpForce += 100000 * deltaT;
+        velocity.y += jumpForce * deltaT;
+        Transform* t = m_root->GetComponent<Transform>();
+        auto lastPos = t->GetPosition();
+        t->Translate(0, 0, velocity.y);
+        if (!EntityManager::GetInstance()->MoveEntity(m_root))
+        {
+            velocity.y = 0;
+            t->SetPosition(lastPos);
+            isGrounded = true;
+        }
+    }
 }
 
 void PhysicsComponent::Start()
@@ -29,10 +34,10 @@ void PhysicsComponent::Start()
 
 bool PhysicsComponent::GetIsKinematic()
 {
-	return m_isKinematic;
+    return m_isKinematic;
 }
 
 void PhysicsComponent::SetIsKinematic(bool value)
 {
-	m_isKinematic = value;
+    m_isKinematic = value;
 }
