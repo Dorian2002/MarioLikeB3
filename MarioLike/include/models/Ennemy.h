@@ -6,3 +6,7 @@ public:
 	void Move();
 };
 
+class Background
+{
+};
+
