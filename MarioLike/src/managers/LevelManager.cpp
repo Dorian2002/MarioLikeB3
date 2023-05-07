@@ -1,7 +1,6 @@
 #include <iostream>
 #include "managers/LevelManager.h"
 #include <managers/RenderManager.h>
-#include <models/Background.h>
 #include <managers/EntityManager.h>
 #include <engine/GameEngine.h>
 
@@ -52,8 +51,8 @@ Level* LevelManager::LoadLevel()
 void LevelManager::RenderLevel()
 {
 	RenderManager* renderManager = RenderManager::GetInstance();
-	Background* Sky = new Background({ 0,0 });
-	RenderManager::GetInstance()->AddDrawCall(new DrawCall(Sky, 1));
+	m_sky = new Background({ 0,0 });
+	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 1));
 	for (std::vector<Entity*> line : m_level->m_map) {
 		for (Entity* entity : line) {
 			renderManager->AddDrawCall(new DrawCall(entity, 1));
@@ -69,7 +68,8 @@ Level* LevelManager::GetLevel()
 void LevelManager::MoveLevel()
 {
 	auto t = EntityManager::GetInstance()->m_toto;
-	bool ok = false;
+	bool right = false;
+	bool left = false;
 
 
 	RenderManager* renderManager = RenderManager::GetInstance();
@@ -78,15 +78,24 @@ void LevelManager::MoveLevel()
 			if (t->GetComponent<Transform>()->m_position.x * 16 >= WINDOW_SIZE / 2 && entity->GetComponent<Transform>() && t->m_lastposition.x <= t->GetComponent<Transform>()->m_position.x)
 			{
 				entity->GetComponent<Transform>()->m_position.x -= 0.1;
-				ok = true;
+				right = true;
 			}
-			else if(t->GetComponent<Transform>()->m_position.x * 16 < WINDOW_SIZE / 2 && entity->GetComponent<Transform>() && t->m_lastposition.x > t->GetComponent<Transform>()->m_position.x)
+			else if(t->GetComponent<Transform>()->m_position.x * 16 < WINDOW_SIZE / 8 && entity->GetComponent<Transform>() && t->m_lastposition.x > t->GetComponent<Transform>()->m_position.x)
 			{
 				entity->GetComponent<Transform>()->m_position.x += 0.1;
-				ok = true;
+				left = true;
 			}
 		}
 	}
-	if(ok)
+	if (right)
+	{
 		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		m_sky->GetComponent<Transform>()->m_position.x -= 0.001;
+	}
+	else if (left)
+	{
+		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		m_sky->GetComponent<Transform>()->m_position.x += 0.001;
+	}
+
 }

@@ -2,6 +2,7 @@
 
 #include <string>
 #include "models/Level.h"
+#include <models/Background.h>
 
 class LevelManager
 {
@@ -19,4 +20,5 @@ public:
 private:
 	static LevelManager* m_instance;
 	Level* m_level;
+	Background* m_sky;
 };
