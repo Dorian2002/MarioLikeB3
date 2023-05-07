@@ -409,3 +409,4 @@ CMakeFiles/
 *.depend
 .env
 .vs/
+!**/levels/*

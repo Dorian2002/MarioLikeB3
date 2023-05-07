@@ -2,8 +2,9 @@
 #include "SFML/Graphics.hpp"
 #include "models/Level.h"
 #include "managers/LevelManager.h"
-#include "EntityManager.h"
+#include "managers/EntityManager.h"
 #include <managers/RenderManager.h>
+#include "managers/InputManager.h"
 class GameEngine
 {
 public:
@@ -17,6 +18,7 @@ public:
 private:
 	GameEngine() = default;
 	void Start();
+	void HandleInput();
 	void Update();
 	void Render();
 	bool LoadResources();
@@ -24,7 +26,8 @@ private:
 	sf::Clock m_clock;
 	void ResetTime();
 	sf::RenderWindow* m_window;
-	LevelManager* m_level;
+	LevelManager* m_levelManager;
 	EntityManager* m_entityManager;
 	RenderManager* m_renderManager;
+	InputManager* m_inputManager;
 };

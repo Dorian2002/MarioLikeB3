@@ -1,11 +1,11 @@
 #include "component/SpriteComponent.h"
-#include <managers/RenderManager.h>
 
-SpriteComponent::SpriteComponent(const std::string& _assetId)
+SpriteComponent::SpriteComponent(Entity* root, const std::string& _assetId)
 {
 	m_sprite = nullptr;
 	m_spriteSize = { 16,16 };
 	SetSprite(_assetId, {0,0}, m_spriteSize);
+	m_root = root;
 }
 
 void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _position, const Vec2f& _size)

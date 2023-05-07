@@ -28,11 +28,15 @@ set (HEADERS
     ${HEADER_DIR}/component/Transform.h
     ${HEADER_DIR}/component/SpriteComponent.h
     ${HEADER_DIR}/component/TestComponent.h
+    ${HEADER_DIR}/component/BoxColliderComponent.h
+    ${HEADER_DIR}/component/CharacterControllerComponent.h
+    ${HEADER_DIR}/component/PhysicsComponent.h
     ${HEADER_DIR}/engine/GameEngine.h
-    ${HEADER_DIR}/engine/EntityManager.h
+    ${HEADER_DIR}/managers/EntityManager.h
     ${HEADER_DIR}/managers/AssetManager.h
     ${HEADER_DIR}/managers/LevelManager.h
     ${HEADER_DIR}/managers/RenderManager.h
+    ${HEADER_DIR}/managers/InputManager.h
     ${HEADER_DIR}/models/Block.h
     ${HEADER_DIR}/models/Boomba.h
     ${HEADER_DIR}/models/Bouseur.h
@@ -45,22 +49,28 @@ set (HEADERS
     ${HEADER_DIR}/models/Level.h
     ${HEADER_DIR}/models/Player.h
     ${HEADER_DIR}/models/toto.h
+    ${HEADER_DIR}/models/Void.h
     ${HEADER_DIR}/utils/Anim/Link.h
     ${HEADER_DIR}/utils/Anim/Animation.h
     ${HEADER_DIR}/utils/Rtti.h
     ${HEADER_DIR}/utils/Sling.h
     ${HEADER_DIR}/utils/Vector2.h
+    ${HEADER_DIR}/utils/ISingleton.h
+    ${HEADER_DIR}/utils/DrawCall.h
 )
 
 set (SOURCES
     ${SOURCE_DIR}/component/Animator.cpp
     ${SOURCE_DIR}/component/Transform.cpp
     ${SOURCE_DIR}/component/SpriteComponent.cpp
-    ${SOURCE_DIR}/engine/EntityManager.cpp
+    ${SOURCE_DIR}/component/BoxColliderComponent.cpp
+    ${SOURCE_DIR}/component/PhysicsComponent.cpp
     ${SOURCE_DIR}/engine/GameEngine.cpp
+    ${SOURCE_DIR}/managers/EntityManager.cpp
     ${SOURCE_DIR}/managers/AssetManager.cpp
     ${SOURCE_DIR}/managers/LevelManager.cpp
     ${SOURCE_DIR}/managers/RenderManager.cpp
+    ${SOURCE_DIR}/managers/InputManager.cpp
     ${SOURCE_DIR}/models/Block.cpp
     ${SOURCE_DIR}/models/Boomba.cpp
     ${SOURCE_DIR}/models/Bouseur.cpp
@@ -73,6 +83,7 @@ set (SOURCES
     ${SOURCE_DIR}/models/Player.cpp
     ${SOURCE_DIR}/utils/Animation.cpp
     ${SOURCE_DIR}/utils/Link.cpp
+    ${SOURCE_DIR}/utils/DrawCall.cpp
     main.cpp
 )
 
