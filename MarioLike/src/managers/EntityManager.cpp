@@ -36,11 +36,10 @@ void EntityManager::Update()
 	}
 }
 
-bool EntityManager::MoveEntity(Transform* transform)
+bool EntityManager::MoveEntity(Entity* entity)
 {
-	Entity* entity = transform->m_root;
 	if (auto col = entity->GetComponent<BoxColliderComponent>()) {
-		if (col->CheckCollisions(transform)) {
+		if (col->CheckCollisions()) {
 			RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
 			return true;
 		}

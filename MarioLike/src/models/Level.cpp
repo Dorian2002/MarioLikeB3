@@ -41,6 +41,7 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 				{
 					Block* entity = new Block(position);
 					rowEntities.emplace_back(entity);
+					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());
 					//entity->GetComponent<Transform>()->Scale(Vec2f{ 64.0f, 64.0f });
 					break;
 				}
@@ -51,7 +52,6 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 					break;
 				}
 				}
-
 				column++;
 			}
 			m_map.emplace_back(rowEntities);

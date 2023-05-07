@@ -50,6 +50,7 @@ set (HEADERS
     ${HEADER_DIR}/models/Player.h
     ${HEADER_DIR}/models/toto.h
     ${HEADER_DIR}/models/Background.h
+    ${HEADER_DIR}/models/Void.h
     ${HEADER_DIR}/utils/Anim/Link.h
     ${HEADER_DIR}/utils/Anim/Animation.h
     ${HEADER_DIR}/utils/Rtti.h

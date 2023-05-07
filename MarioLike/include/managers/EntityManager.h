@@ -12,7 +12,8 @@ public:
 	void Start();
 	void Update();
 	bool MoveEntity(Transform*);
-	toto* m_toto;
+	bool MoveEntity(Entity*);
+  toto* m_toto;
 private:
 	static EntityManager* m_instance;
 	std::vector<Entity*> m_entities;
