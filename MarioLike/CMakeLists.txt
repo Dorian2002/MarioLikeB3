@@ -25,10 +25,10 @@ set (SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set (HEADERS
     ${HEADER_DIR}/component/Animator.h
+    ${HEADER_DIR}/component/BoxColliderComponent.h
     ${HEADER_DIR}/component/Transform.h
     ${HEADER_DIR}/component/SpriteComponent.h
     ${HEADER_DIR}/component/TestComponent.h
-    ${HEADER_DIR}/component/BoxColliderComponent.h
     ${HEADER_DIR}/component/CharacterControllerComponent.h
     ${HEADER_DIR}/component/PhysicsComponent.h
     ${HEADER_DIR}/engine/GameEngine.h
@@ -49,8 +49,11 @@ set (HEADERS
     ${HEADER_DIR}/models/Level.h
     ${HEADER_DIR}/models/Player.h
     ${HEADER_DIR}/models/toto.h
+    ${HEADER_DIR}/models/Void.h
     ${HEADER_DIR}/utils/Anim/Link.h
     ${HEADER_DIR}/utils/Anim/Animation.h
+    ${HEADER_DIR}/utils/Anim/Animations/MarioIdle.h
+    ${HEADER_DIR}/utils/Anim/Animations/MarioRun.h
     ${HEADER_DIR}/utils/Rtti.h
     ${HEADER_DIR}/utils/Sling.h
     ${HEADER_DIR}/utils/Vector2.h

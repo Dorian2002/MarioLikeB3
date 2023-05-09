@@ -14,4 +14,5 @@ public:
 	SpriteComponent(Entity*, const std::string&);
 	~SpriteComponent() = default;
 	void SetSprite(const std::string& _assetId, const Vec2f& _position, const Vec2f& _size);
+	void UpdateSprite(sf::Texture* texture, int frame, bool isLast);
 };

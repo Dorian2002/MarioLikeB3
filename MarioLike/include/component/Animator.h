@@ -3,20 +3,25 @@
 #include <vector>
 #include "utils/Anim/Animation.h"
 #include "utils/Anim/Link.h"
+#include <utils/Sling.h>
 
-class Animator : Component
+class Animator : public Component
 {
 public:
 	DEFINE_RTTI(Animator)
 	void Update(float) override;
 	void Start() override;
+	Animator(Entity*, std::vector<Animation*>);
+	void CreateLink(Animation*, Animation*, Event::Signal<bool>*, bool);
+	bool m_changeAnim;
 private:
-	struct Data{};
+	int m_animIndex;
+	float Timer;
 	std::vector<Animation*> m_states;
 	Animation* m_currentState;
 	void Play(Animation* anim);
 	void CheckState();
-	std::vector<Link*> m_Links;
+	std::vector<Link*> m_links;
 	std::vector<Link*> GetLinksWithOrigin(Animation* originAnim);
 };
 

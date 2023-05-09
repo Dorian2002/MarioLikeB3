@@ -3,5 +3,5 @@
 DrawCall::DrawCall(Entity* entity, int plan)
 {
 	m_entity = entity;
-	m_plan = &plan;
+	m_plan = plan;
 }

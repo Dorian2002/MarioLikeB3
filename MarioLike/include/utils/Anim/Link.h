@@ -1,13 +1,17 @@
 #pragma once
 #include "utils/Anim/Animation.h"
+#include "utils/Sling.h"
 
 class Link
 {
 public:
-	virtual bool CheckCondition() = 0;
+	void CheckCondition();
 	Animation* GetTarget();
 	Animation* GetOrigin();
+	Link(Animation*, Animation*, Event::Signal<bool>*, bool);
 private:
+	Event::Signal<bool>* m_sig;
 	Animation* m_origin;
 	Animation* m_target;
+	bool m_toValidate;
 };
