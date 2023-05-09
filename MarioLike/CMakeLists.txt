@@ -49,6 +49,7 @@ set (HEADERS
     ${HEADER_DIR}/models/Level.h
     ${HEADER_DIR}/models/Player.h
     ${HEADER_DIR}/models/toto.h
+    ${HEADER_DIR}/models/Background.h
     ${HEADER_DIR}/models/Void.h
     ${HEADER_DIR}/utils/Anim/Link.h
     ${HEADER_DIR}/utils/Anim/Animation.h
@@ -83,6 +84,7 @@ set (SOURCES
     ${SOURCE_DIR}/models/Kupla.cpp
     ${SOURCE_DIR}/models/Level.cpp
     ${SOURCE_DIR}/models/Player.cpp
+    ${SOURCE_DIR}/models/Background.cpp
     ${SOURCE_DIR}/utils/Animation.cpp
     ${SOURCE_DIR}/utils/Link.cpp
     ${SOURCE_DIR}/utils/DrawCall.cpp

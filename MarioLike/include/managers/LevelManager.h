@@ -2,7 +2,7 @@
 
 #include <string>
 #include "models/Level.h"
-
+#include <models/Background.h>
 class LevelManager
 {
 public:
@@ -14,8 +14,10 @@ public:
 	Level* LoadLevel();
 	void RenderLevel();
 	Level* GetLevel();
+	void MoveLevel();
 
 private:
 	static LevelManager* m_instance;
 	Level* m_level;
+	Background* m_sky;
 };

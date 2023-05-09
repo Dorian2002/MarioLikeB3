@@ -17,7 +17,8 @@ EntityManager* EntityManager::GetInstance()
 
 void EntityManager::Start()
 {
-	m_entities.push_back(new toto());
+	m_toto = new toto();
+	m_entities.push_back(m_toto);
 	
 	for (Entity* entity : m_entities)
 	{

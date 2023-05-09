@@ -21,6 +21,10 @@ public:
     bool m_isWalking;
     Vec2f velocity;
     DEFINE_RTTI(toto);
+
+
+    Vec2f m_lastposition;
+
     toto() {
         MarioRun* run = new MarioRun(AssetManager::GetInstance()->GetTexture("littleMarioRun"), 3);
         MarioIdle* idle = new MarioIdle(AssetManager::GetInstance()->GetTexture("littleMarioIdle"), 1);
