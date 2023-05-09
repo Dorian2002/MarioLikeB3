@@ -37,7 +37,6 @@ void GameEngine::Start()
 	m_renderManager = RenderManager::GetInstance();
 	m_renderManager->RenderLevel(*m_window);
 	m_inputManager = InputManager::GetInstance();
-	m_inputManager->AddSlot(sf::Keyboard::Z, new Event::Slot<>(nullptr));
 }
 
 void GameEngine::HandleInput()
@@ -65,6 +64,7 @@ bool GameEngine::Run()
 	while(m_window->isOpen())
 	{
 		HandleInput();
+		ResetTime();
 		Update();
 		Render();
 		ResetTime();
@@ -83,7 +83,7 @@ float GameEngine::GetDeltaTime()
 	return m_clock.getElapsedTime().asSeconds();
 }
 
-void GameEngine::ResetTime()
+void GameEngine:: ResetTime()
 {
 	m_clock.restart();
 }

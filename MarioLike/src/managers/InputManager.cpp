@@ -2,38 +2,59 @@
 #include "engine/GameEngine.h"
 #include <iostream>
 #include "SFML/Graphics.hpp"
-#include <algorithm>
 #include "utils/Sling.h"
-DECLARE_DELEGATE(FOnInputPressed);
 
 InputManager* InputManager::m_instance = nullptr;
 
 InputManager::~InputManager()
 {
 	delete m_instance;
-	for(const auto& it : m_signals)
+	for (const auto& it : m_signals)
 	{
-		delete it.second;
+		for (const auto& iterator : it.second)
+		{
+			delete iterator.second;
+		}
 	}
 }
 
 void InputManager::HandleInput()
 {
-    sf::Event e;
-	while(m_window->pollEvent(e))
+	using event = sf::Event;
+	event e;
+	while (m_window->pollEvent(e))
 	{
-		switch(e.type)
+		switch (e.type)
 		{
-		case sf::Event::Closed:
+		case event::Closed:
 			m_window->close();
 			break;
-		case sf::Event::KeyPressed:
-			auto it = m_signals.find(e.key.code);
-			if (it != m_signals.end()) {
-				m_signals[e.key.code]->emit();
-			} else
+		case event::KeyPressed:
+			if (m_signals[onKeyPress].contains(e.key.code) && !m_keyPressed[e.key.code])
 			{
-				std::cout << "Not Found\n";
+				m_signals[onKeyPress][e.key.code]->emit();
+			}
+			m_keyPressed[e.key.code] = true;
+			break;
+		case event::KeyReleased:
+			if (m_signals[onKeyRelease].contains(e.key.code))
+			{
+				m_signals[onKeyRelease][e.key.code]->emit();
+			}
+			m_keyPressed[e.key.code] = false;
+			break;
+		}
+	}
+	for (const auto& it : m_keyPressed)
+	{
+		if (it.second)
+		{
+			if (m_signals[onKeyHeld].contains(it.first))
+			{
+				if (m_signals[onKeyHeld][it.first])
+				{
+					m_signals[onKeyHeld][it.first]->emit();
+				}
 			}
 		}
 	}
@@ -53,28 +74,31 @@ InputManager::InputManager()
 	m_window = GameEngine::GetInstance()->GetWindow();
 }
 
-void InputManager::AddSlot(sf::Keyboard::Key key, Event::Slot<>* slot)
+void InputManager::AddKeyBind(sf::Keyboard::Key key, Event::Slot<>* slot, KeyInput state)
 {
-	auto it = m_signals.find(key);
-	if (it != m_signals.end()) {
-		m_signals[key]->connect(slot);
-	} else
+	if(!m_signals.contains(state))
 	{
-		m_signals[key] = new Event::Signal<>;
-		m_signals[key]->connect(slot);
+		m_signals[state] = SignalMap{};
 	}
-	
-}
-
-void InputManager::RemoveSlot(sf::Keyboard::Key key, Event::Slot<>* slot)
-{
-	m_signals[key]->disconnect(slot);
-}
-
-void InputManager::ClearSignals()
-{
-	for(const auto& it: m_signals)
+	if(!m_signals[state].contains(key))
 	{
-		it.second->clear();
+		m_signals[state][key] = new Event::Signal<>;
+	}
+	m_signals[state][key]->connect(slot);
+}
+
+void InputManager::RemoveKeyBind(sf::Keyboard::Key key, Event::Slot<>* slot)
+{
+	m_signals[onKeyHeld][key]->disconnect(slot);
+}
+
+void InputManager::ClearKeyBinds()
+{
+	for (const auto& it : m_signals)
+	{
+		for (const auto& iterator : it.second)
+		{
+			iterator.second->clear();
+		}
 	}
 }
