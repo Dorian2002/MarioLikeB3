@@ -3,7 +3,6 @@
 #include <string>
 #include "models/Level.h"
 #include <models/Background.h>
-
 class LevelManager
 {
 public:

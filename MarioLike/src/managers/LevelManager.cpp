@@ -3,6 +3,7 @@
 #include <managers/RenderManager.h>
 #include <managers/EntityManager.h>
 #include <engine/GameEngine.h>
+class toto;
 
 LevelManager* LevelManager::m_instance = nullptr;
 
@@ -70,7 +71,6 @@ void LevelManager::MoveLevel()
 	auto t = EntityManager::GetInstance()->m_toto;
 	bool right = false;
 	bool left = false;
-
 
 	RenderManager* renderManager = RenderManager::GetInstance();
 	for (std::vector<Entity*> line : m_level->m_map) {

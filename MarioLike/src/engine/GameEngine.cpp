@@ -1,8 +1,8 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
-#include <models/toto.h>
 #include <managers/AssetManager.h>
 #include "utils/Sling.h"
+class toto;
 
 GameEngine* GameEngine::m_engine = nullptr;
 

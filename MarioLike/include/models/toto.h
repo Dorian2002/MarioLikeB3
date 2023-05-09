@@ -16,6 +16,10 @@ class toto : public Entity
 {
 public:
     DEFINE_RTTI(toto);
+
+
+    Vec2f m_lastposition;
+
     toto() {
         Components = { new Transform(this, {2,10}), new SpriteComponent(this, "petitMario"), new PhysicsComponent(this, true), new BoxColliderComponent(this, new Vec2f{16,12})};
     }
@@ -35,6 +39,7 @@ public:
     {
         auto t = GetComponent<Transform>();
         auto lastPos = t->GetPosition();
+        m_lastposition = t->m_position;
         t->Translate(0, 0.1, 0);
         if (!EntityManager::GetInstance()->MoveEntity(this))
         {
@@ -45,6 +50,7 @@ public:
     {
         auto t = GetComponent<Transform>();
         auto lastPos = t->GetPosition();
+        m_lastposition = t->m_position;
         t->Translate(0, -0.1, 0);
         if (!EntityManager::GetInstance()->MoveEntity(this))
         {
