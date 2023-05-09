@@ -94,7 +94,8 @@ bool GameEngine::LoadResources()
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
 
-	success &= assetManager->LoadTexture("PetitMario.png", "petitMario");
+	success &= assetManager->LoadTexture("littleMarioRun.png", "littleMarioRun");
+	success &= assetManager->LoadTexture("littleMarioIdle.png", "littleMarioIdle");
 	success &= assetManager->LoadTexture("Block.png", "block");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");

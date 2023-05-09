@@ -33,3 +33,7 @@ void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _posit
 		}
 	}
 }
+
+void SpriteComponent::UpdateSprite(sf::Texture* texture, int val, bool isLast) {
+	m_sprite->setTextureRect(sf::IntRect(val, 0, m_spriteSize.x, m_spriteSize.y));
+}

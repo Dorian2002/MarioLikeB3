@@ -210,17 +210,17 @@ namespace Event
 //MySignal.connect(MySlot);
 //
 //MySignal.emit();
-
-/*Event::Slot<float> MySlot = Event::Slot<float>(this, &GameEngine::Update);
-
-Event::Signal<float> MySignal = Event::Signal<float>();
-MySignal.connect(MySlot);
-
-MySignal.emit(0.0f);*/
-
-/*void GameEngine::Update()
-{
-    FOnUpdate OnUpdateDelegate;
-    OnUpdateDelegate.connect(MAKE_SLOT(this, &GameEngine::Update, float));
-    OnUpdateDelegate.emit(0);
-}*/
+//
+//Event::Slot<float> MySlot = Event::Slot<float>(this, &GameEngine::Update);
+//
+//Event::Signal<float> MySignal = Event::Signal<float>();
+//MySignal.connect(MySlot);
+//
+//MySignal.emit(0.0f);
+//
+//void GameEngine::Update()
+//{
+//    FOnUpdate OnUpdateDelegate;
+//    OnUpdateDelegate.connect(MAKE_SLOT(this, &GameEngine::Update, float));
+//    OnUpdateDelegate.emit(0);
+//}
