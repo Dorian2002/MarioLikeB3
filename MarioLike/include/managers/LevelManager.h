@@ -18,6 +18,7 @@ public:
 
 private:
 	static LevelManager* m_instance;
+	RenderManager* m_renderManager;
 	Level* m_level;
 	Background* m_sky;
 };

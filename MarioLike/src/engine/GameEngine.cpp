@@ -32,10 +32,11 @@ void GameEngine::Start()
 	m_levelManager = LevelManager::GetInstance();
 	m_levelManager->LoadLevel();
 	m_levelManager->RenderLevel();
-	m_entityManager = EntityManager::GetInstance();
-	m_entityManager->Start();
 	m_renderManager = RenderManager::GetInstance();
 	m_renderManager->RenderLevel(*m_window);
+	m_entityManager = EntityManager::GetInstance();
+	m_entityManager->Start();
+
 	m_inputManager = InputManager::GetInstance();
 	m_inputManager->AddSlot(sf::Keyboard::Z, new Event::Slot<>(nullptr));
 }

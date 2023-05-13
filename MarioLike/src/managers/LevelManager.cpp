@@ -3,7 +3,7 @@
 #include <managers/RenderManager.h>
 #include <managers/EntityManager.h>
 #include <engine/GameEngine.h>
-class toto;
+#include <models/toto.h>
 
 LevelManager* LevelManager::m_instance = nullptr;
 
@@ -37,6 +37,7 @@ LevelManager::~LevelManager()
 
 Level* LevelManager::LoadLevel()
 {
+	m_renderManager = RenderManager::GetInstance();
 	if (m_level != nullptr)
 	{
 		delete m_level;
@@ -51,12 +52,11 @@ Level* LevelManager::LoadLevel()
 
 void LevelManager::RenderLevel()
 {
-	RenderManager* renderManager = RenderManager::GetInstance();
 	m_sky = new Background({ 0,0 });
-	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 1));
+	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 2));
 	for (std::vector<Entity*> line : m_level->m_map) {
 		for (Entity* entity : line) {
-			renderManager->AddDrawCall(new DrawCall(entity, 1));
+			m_renderManager->AddDrawCall(new DrawCall(entity, 1));
 		}
 	}
 }
@@ -68,7 +68,7 @@ Level* LevelManager::GetLevel()
 
 void LevelManager::MoveLevel()
 {
-	auto t = EntityManager::GetInstance()->m_toto;
+	toto* t = EntityManager::GetInstance()->m_toto;
 	bool right = false;
 	bool left = false;
 

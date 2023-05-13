@@ -1,6 +1,7 @@
 #include "managers/RenderManager.h"
 #include <models/Entity.h>
 #include <vector>
+#include <algorithm>
 
 RenderManager* RenderManager::m_instance = nullptr;
 RenderManager* RenderManager::GetInstance()
@@ -27,6 +28,11 @@ void RenderManager::RenderLevel(sf::RenderTarget& _target)
 			_target.draw(*T->m_sprite);
 		}
 	}
+}
+
+bool RenderManager::compareDrawcallOrder(const DrawCall& dc1, const DrawCall& dc2)
+{
+	return dc1.m_plan > dc2.m_plan;
 }
 
 void RenderManager::AddDrawCall(DrawCall* drawCall)

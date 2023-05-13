@@ -10,6 +10,7 @@ class RenderManager
 public:
 	static RenderManager* GetInstance();
 	static RenderManager* m_instance;
+	bool compareDrawcallOrder(const DrawCall& dc1, const DrawCall& dc2);
 	std::vector<DrawCall*> m_toRender;
 	void RenderLevel(sf::RenderTarget& _target);
 	void AddDrawCall(DrawCall*);
