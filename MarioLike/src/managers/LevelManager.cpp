@@ -3,7 +3,6 @@
 #include <managers/RenderManager.h>
 #include <managers/EntityManager.h>
 #include <engine/GameEngine.h>
-class toto;
 
 LevelManager* LevelManager::m_instance = nullptr;
 
@@ -20,6 +19,7 @@ LevelManager* LevelManager::GetInstance()
 LevelManager::LevelManager()
 {
 	m_level = nullptr;
+	m_parallaxSky = new Background({0,0});
 }
 
 LevelManager::~LevelManager()
@@ -32,6 +32,11 @@ LevelManager::~LevelManager()
 	if (m_instance != nullptr)
 	{
 		delete m_instance;
+	}
+
+	if (m_parallaxSky != nullptr)
+	{
+		delete m_parallaxSky;
 	}
 }
 
@@ -53,7 +58,8 @@ void LevelManager::RenderLevel()
 {
 	RenderManager* renderManager = RenderManager::GetInstance();
 	m_sky = new Background({ 0,0 });
-	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 1));
+	m_mainSky = m_sky;
+	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 2));
 	for (std::vector<Entity*> line : m_level->m_map) {
 		for (Entity* entity : line) {
 			renderManager->AddDrawCall(new DrawCall(entity, 1));
@@ -90,7 +96,18 @@ void LevelManager::MoveLevel()
 	if (right)
 	{
 		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		if (m_mainSky->GetComponent<Transform>()->m_position.x < -0.85)
+		{
+			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x + 0.85;
+		}
+		else if (m_mainSky->GetComponent<Transform>()->m_position.x < 0)
+		{
+			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x + 0.85;
+			std::cout << m_sky->GetComponent<Transform>()->m_position.x << std::endl;
+			RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 3));
+		}
 		m_sky->GetComponent<Transform>()->m_position.x -= 0.001;
+		m_parallaxSky->GetComponent<Transform>()->m_position.x -= 0.001;
 	}
 	else if (left)
 	{

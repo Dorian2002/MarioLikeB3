@@ -10,8 +10,6 @@
 #include <component/BoxColliderComponent.h>
 #include <iostream>
 #include "managers/InputManager.h"
-#include "engine/GameEngine.h"
-
 class toto : public Entity
 {
 public:
@@ -29,7 +27,7 @@ public:
         auto inputManager = InputManager::GetInstance();
         inputManager->AddSlot(sf::Keyboard::Q, new Event::Slot<>(this, &toto::MoveLeft));
         inputManager->AddSlot(sf::Keyboard::D, new Event::Slot<>(this, &toto::MoveRight));
-        inputManager->AddSlot(sf::Keyboard::Space, new Event::Slot<>(this, &toto::jump));
+        //inputManager->AddSlot(sf::Keyboard::Space, new Event::Slot<>(this, &toto::jump));
     };
     void Update(float deltaT) override {
         Entity::Update(deltaT);
@@ -38,32 +36,15 @@ public:
     void MoveRight()
     {
         auto t = GetComponent<Transform>();
-        auto lastPos = t->GetPosition();
         m_lastposition = t->m_position;
         t->Translate(0, 0.1, 0);
-        if (!EntityManager::GetInstance()->MoveEntity(this))
-        {
-            t->SetPosition(lastPos);
-        }
+        //std::cout << t->m_position.x*16 << " , " << t->m_position.x << std::endl;
     }
     void MoveLeft()
     {
         auto t = GetComponent<Transform>();
-        auto lastPos = t->GetPosition();
         m_lastposition = t->m_position;
         t->Translate(0, -0.1, 0);
-        if (!EntityManager::GetInstance()->MoveEntity(this))
-        {
-            t->SetPosition(lastPos);
-        }
-    }
-    void jump()
-    {
-        auto t = GetComponent<PhysicsComponent>();
-        if (t->isGrounded) {
-            float deltaT = GameEngine::GetInstance()->GetDeltaTime();
-            t->isGrounded = false;
-            t->jumpForce -= 200000*deltaT;
-        }
+        //std::cout << t->m_position.x * 16 << " , " << t->m_position.x << std::endl;
     }
 };

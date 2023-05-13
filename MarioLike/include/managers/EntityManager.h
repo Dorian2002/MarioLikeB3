@@ -4,7 +4,7 @@
 #include <models/Entity.h>
 #include <unordered_map>
 #include <component/Transform.h>
-class toto;
+#include <models/toto.h>
 class EntityManager
 {
 public:

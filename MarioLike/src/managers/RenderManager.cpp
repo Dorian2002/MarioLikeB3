@@ -1,6 +1,7 @@
 #include "managers/RenderManager.h"
 #include <models/Entity.h>
 #include <vector>
+#include <algorithm>
 
 RenderManager* RenderManager::m_instance = nullptr;
 RenderManager* RenderManager::GetInstance()
@@ -12,8 +13,15 @@ RenderManager* RenderManager::GetInstance()
 	return m_instance;
 }
 
+struct
+{
+	bool operator() (DrawCall* a, DrawCall* b) const { return a->m_plan > b->m_plan; }
+} sortRender;
+
 void RenderManager::RenderLevel(sf::RenderTarget& _target)
 {
+	//sort m_torender
+	std::sort(m_toRender.begin(), m_toRender.end(), sortRender);
 	for (DrawCall* call : m_toRender) 
 	{
 		Vec2f position;

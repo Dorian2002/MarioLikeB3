@@ -14,5 +14,6 @@ public:
 	void RenderLevel(sf::RenderTarget& _target);
 	void AddDrawCall(DrawCall*);
 	bool FindEntity(Entity* entity);
+	//bool sortRender(DrawCall* a, DrawCall* b);
 };
 
