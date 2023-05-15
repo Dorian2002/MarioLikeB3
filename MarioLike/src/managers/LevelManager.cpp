@@ -112,7 +112,18 @@ void LevelManager::MoveLevel()
 	else if (left)
 	{
 		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		if (m_mainSky->GetComponent<Transform>()->m_position.x > 0.85)
+		{
+			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x - 0.85;
+		}
+		else if (m_mainSky->GetComponent<Transform>()->m_position.x > 0)
+		{
+			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x - 0.85;
+			std::cout << m_sky->GetComponent<Transform>()->m_position.x << std::endl;
+			RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 3));
+		}
 		m_sky->GetComponent<Transform>()->m_position.x += 0.001;
+		m_parallaxSky->GetComponent<Transform>()->m_position.x += 0.001;
 	}
 
 }
