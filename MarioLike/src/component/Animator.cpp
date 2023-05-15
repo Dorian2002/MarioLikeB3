@@ -15,7 +15,6 @@ void Animator::Play(Animation* anim)
 		m_animIndex = 0;
 	}
 	else {
-		std::cout << anim->GetClassRttiName() << std::endl;
 		if (Timer >= anim->GetFrameTime()) {
 			Timer = 0;
 			if (m_animIndex == anim->GetFrameNumber()) {

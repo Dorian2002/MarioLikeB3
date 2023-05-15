@@ -37,6 +37,10 @@ void RenderManager::AddDrawCall(DrawCall* drawCall)
 {
 	if (!FindEntity(drawCall->m_entity))
 		m_toRender.push_back(drawCall);
+	else
+	{
+		delete drawCall;
+	}
 }
 
 bool RenderManager::FindEntity(Entity* entity) {

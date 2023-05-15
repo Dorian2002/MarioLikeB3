@@ -17,6 +17,7 @@ public:
     Vec2f velocity;
     bool isGrounded;
     float jumpForce = 0;
+    bool isJumping = true;
 private:
     bool m_isKinematic;
 };
