@@ -1,24 +1,76 @@
 #include "models/Level.h"
+#include "models/Background.h"
+#include <iostream>
+#include <fstream>
+#include "models/Player.h"
+#include <iostream>
+#include <random>
+#include <cmath>
+#include <models/Block.h>
+#include <models/Coin.h>
+#include <models/Void.h>
 
 Level::Level()
 {
 
 }
 
-void Level::RenderLevel(sf::RenderTarget& _target, const Vec2f& _tileSize)
+bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileNameBack)
 {
-	//sf::RectangleShape rectangle(sf::Vector2f(120, 50));
-	//rectangle.setSize(sf::Vector2f(100, 100));
+	std::ifstream fileFront(_fileNameFront, std::ios_base::in);
+	if (fileFront.is_open())
+	{
+		std::cout << ">> File level is open" << std::endl;
+		std::string line;
+		unsigned int row = 0;
+		unsigned int column = 0;
+		float tileSize = 64.f;
+		std::vector<Vec2u> emptyPos;
 
-	Entity* r = new Entity({64,64});
+		while (std::getline(fileFront, line))
+		{
+			column = 0;
+			std::vector<Entity*> rowEntities;
 
-	//r->m_transform->Rotate(100, 100, 35);
+			for (auto& c : line)
+			{
+				Vec2u position = { column, row };
 
-	//r->m_transform->Translate(100, 100, 35, 100, 100);
-
-	//r->SetSprite("test");
-
-	//r->m_shape.setFillColor(sf::Color(100, 250, 50));
-	//_target.draw(r->m_shape);
-	//delete r, r->m_transform;
+				switch (c)
+				{
+				case '1':
+				{
+					Block* entity = new Block(position);
+					rowEntities.emplace_back(entity);
+					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());
+					//entity->GetComponent<Transform>()->Scale(Vec2f{ 64.0f, 64.0f });
+					break;
+				}
+				case '3':
+				{
+					Coin* entity = new Coin(position);
+					rowEntities.emplace_back(entity);
+					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());
+					break;
+				}
+				default:
+				{
+					Void* entity = new Void();
+					rowEntities.emplace_back(entity);
+					break;
+				}
+				}
+				column++;
+			}
+			m_map.emplace_back(rowEntities);
+			row++;
+		}
+		fileFront.close();
+		return true;
+	}
+	else
+	{
+		std::cout << ">> File level cannot be open !" << std::endl;
+		return false;
+	}
 }

@@ -1,7 +1,9 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
-#include <models/toto.h>
 #include <managers/AssetManager.h>
+#include "utils/Sling.h"
+#include "managers/EntityManager.h"
+#include "managers/LevelManager.h"
 
 GameEngine* GameEngine::m_engine = nullptr;
 
@@ -20,13 +22,17 @@ GameEngine::~GameEngine()
 {
 	delete m_engine;
 	delete m_window;
+	delete m_renderManager;
+	delete m_inputManager;
 }
 
 void GameEngine::Start()
 {
 	LoadResources();
-	m_window = new sf::RenderWindow(sf::VideoMode(500, 500), "Suuuuupair maria brasse");
-	m_level = new LevelManager();
+	m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Suuuuupair maria brasse");
+	m_levelManager = LevelManager::GetInstance();
+	m_levelManager->LoadLevel();
+	m_levelManager->RenderLevel();
 	m_entityManager = EntityManager::GetInstance();
 	m_entityManager->Start();
 	m_renderManager = RenderManager::GetInstance();
@@ -36,16 +42,19 @@ void GameEngine::Start()
 
 void GameEngine::HandleInput()
 {
+	m_inputManager->HandleInput();
 }
+
 
 void GameEngine::Update()
 {
+	m_entityManager->Update();
 }
 
 void GameEngine::Render()
 {
 	m_window->clear();
-	//m_level->LoadLevel(*m_window, { 16,16 });
+	//m_levelManager->MoveLevel();
 	m_renderManager->RenderLevel(*m_window);
 	m_window->display();
 }
@@ -53,21 +62,26 @@ void GameEngine::Render()
 bool GameEngine::Run()
 {
 	Start();
+	
+	using clock = std::chrono::high_resolution_clock;
+	auto gameTimeStart = clock::now();
+	auto frameTimeStart = clock::now();
+	std::chrono::nanoseconds accumulator(0);
 	while(m_window->isOpen())
 	{
-		sf::Event e;
-		while (m_window->pollEvent(e)) {
-			switch (e.type)
-			{case sf::Event::Closed:
-				m_window->close();
-			default:
-				break;
-			}
+		if(clock::now() - frameTimeStart > std::chrono::milliseconds(1))
+		{
+			auto deltaTime = clock::now() - frameTimeStart;
+			frameTimeStart = clock::now();
+			accumulator += deltaTime;
 		}
 		HandleInput();
 		Update();
 		Render();
-		ResetTime();
+		
+		auto timePassed = clock::now() - gameTimeStart;
+		auto millisPassed = std::chrono::duration_cast<std::chrono::milliseconds>(timePassed);
+		//std::cout << "frames per second: " << (float)m_frames / ((float)millisPassed.count() / 1000.f) << std::endl;
 	}
 	return true;
 }
@@ -80,10 +94,10 @@ sf::RenderWindow* GameEngine::GetWindow()
 
 float GameEngine::GetDeltaTime()
 {
-	return m_clock.getElapsedTime().asSeconds();
+	return std::chrono::duration<float>(FRAMETIME).count();
 }
 
-void GameEngine::ResetTime()
+void GameEngine:: ResetTime()
 {
 	m_clock.restart();
 }
@@ -93,7 +107,13 @@ bool GameEngine::LoadResources()
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
 
-	success &= assetManager->LoadTexture("Nice_bro.png", "toto");
+	success &= assetManager->LoadTexture("littleMarioRun.png", "littleMarioRun");
+	success &= assetManager->LoadTexture("littleMarioIdle.png", "littleMarioIdle");
+	success &= assetManager->LoadTexture("BoombaRun.png", "boombaRun");
+	success &= assetManager->LoadTexture("BoombaIdle.png", "boombaIdle");
+	success &= assetManager->LoadTexture("Block.png", "block");
+	success &= assetManager->LoadTexture("coin.png", "coin");
+	success &= assetManager->LoadTexture("Sky.png", "Background");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
 	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");

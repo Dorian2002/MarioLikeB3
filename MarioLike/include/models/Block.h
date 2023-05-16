@@ -1,6 +1,14 @@
 #pragma once
 #include "Entity.h"
-class Block : public Entity
-{
-};
+#include "utils/Rtti.h"
+#include "component/PhysicsComponent.h"
+#include <component/SpriteComponent.h>
 
+class Block : public Entity, public Rtti
+{
+public:
+	DEFINE_RTTI(Block)
+	Block(Vec2f);
+	void Start() override;
+	void Update(float deltaT) override;
+};

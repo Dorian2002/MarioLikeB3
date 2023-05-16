@@ -2,6 +2,8 @@
 
 #include <string>
 #include "models/Level.h"
+#include "models/Background.h"
+#include "models/Player.h"
 
 class LevelManager
 {
@@ -11,10 +13,15 @@ public:
 	LevelManager(LevelManager& _other) = delete;
 	void operator=(const LevelManager& _other) = delete;
 	static LevelManager* GetInstance();
-
-	Level* LoadLevel(sf::RenderTarget& _target, const Vec2f& _tileSize);
+	Level* LoadLevel();
+	void RenderLevel();
+	Level* GetLevel();
+	void MoveLevel();
 
 private:
 	static LevelManager* m_instance;
 	Level* m_level;
+	Background* m_sky;
+	Background* m_parallaxSky;
+	Background* m_mainSky;
 };

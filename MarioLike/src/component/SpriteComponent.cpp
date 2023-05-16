@@ -1,11 +1,11 @@
 #include "component/SpriteComponent.h"
-#include <managers/RenderManager.h>
 
-SpriteComponent::SpriteComponent(const std::string& _assetId)
+SpriteComponent::SpriteComponent(Entity* root, const std::string& _assetId, const Vec2f& _size)
 {
 	m_sprite = nullptr;
-	m_spriteSize = { 16,16 };
+	m_spriteSize = _size;
 	SetSprite(_assetId, {0,0}, m_spriteSize);
+	m_root = root;
 }
 
 void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _position, const Vec2f& _size)
@@ -32,4 +32,8 @@ void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _posit
 			m_spriteSize = { (float)texture->getSize().x, (float)texture->getSize().y };
 		}
 	}
+}
+
+void SpriteComponent::UpdateSprite(sf::Texture* texture, int val, bool isLast) {
+	m_sprite->setTextureRect(sf::IntRect(val, 0, m_spriteSize.x, m_spriteSize.y));
 }

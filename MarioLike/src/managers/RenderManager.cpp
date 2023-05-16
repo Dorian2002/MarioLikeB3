@@ -1,6 +1,7 @@
 #include "managers/RenderManager.h"
 #include <models/Entity.h>
 #include <vector>
+#include <algorithm>
 
 RenderManager* RenderManager::m_instance = nullptr;
 RenderManager* RenderManager::GetInstance()
@@ -12,29 +13,45 @@ RenderManager* RenderManager::GetInstance()
 	return m_instance;
 }
 
+struct
+{
+	bool operator() (DrawCall* a, DrawCall* b) const { return a->m_plan > b->m_plan; }
+} sortRender;
+
 void RenderManager::RenderLevel(sf::RenderTarget& _target)
 {
-	for (Entity* entity : m_toRender) 
+	//sort m_torender
+	std::sort(m_toRender.begin(), m_toRender.end(), sortRender);
+	for (DrawCall* call : m_toRender) 
 	{
 		Vec2f position;
 		Vec2f size;
-		if (auto* T = entity->GetComponent<Transform>();T) {
+		if (auto* T = call->m_entity->GetComponent<Transform>();T) {
 			position = T->m_position;
 		}
-		if (auto* T = entity->GetComponent<SpriteComponent>(); T) {
+		if (auto* T = call->m_entity->GetComponent<SpriteComponent>(); T) {
 			size = T->m_spriteSize;
-			position *= size;//A check, peut TOUT PETER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			T->m_sprite->setPosition(position * size);//A check, peut TOUT PETER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			_target.draw(*T->m_sprite);
 		}
 	}
-	//Vec2f position = m_spriteComponent->m_transform->m_position;
-	//Vec2f size = m_spriteComponent->m_spriteSize;
-	//m_spriteComponent->m_transform->m_position = position * size;
-	//_target.draw(m_spriteComponent->m_sprite);
 }
 
-void RenderManager::DrawCall(Entity* _entity)
+void RenderManager::AddDrawCall(DrawCall* drawCall)
 {
-	if (std::find(m_toRender.begin(), m_toRender.end(), _entity) == m_toRender.end())
-		m_toRender.push_back(_entity);
+	if (!FindEntity(drawCall->m_entity))
+		m_toRender.push_back(drawCall);
+	else
+	{
+		delete drawCall;
+	}
+}
+
+bool RenderManager::FindEntity(Entity* entity) {
+	for (DrawCall* _drawcall : m_toRender) {
+		if (_drawcall->m_entity == entity) {
+			return true;
+		}
+	}
+	return false;
 }

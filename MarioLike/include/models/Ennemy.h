@@ -3,6 +3,7 @@
 class Ennemy : public Entity
 {
 public:
-	void Move();
+    virtual bool MoveRight() = 0;
+    virtual bool MoveLeft() = 0;
 };
 

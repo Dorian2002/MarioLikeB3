@@ -1,11 +1,12 @@
 #pragma once
 #include "models/GameObject.h"
-#include "utils/Rtti.h"
-class Component : GameObject
+class Entity;
+class Component : public GameObject
 {
 public:
 	DEFINE_RTTI(Component);
 	virtual void Start() override {};
 	virtual void Update(float) {};
+	Entity* m_root;
 };
 
