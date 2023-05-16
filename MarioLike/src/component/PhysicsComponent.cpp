@@ -1,6 +1,7 @@
 #include "component/PhysicsComponent.h"
 #include "component/Transform.h"
-#include "engine/GameEngine.h"
+#include "models/Entity.h"
+#include "managers/EntityManager.h"
 
 
 PhysicsComponent::PhysicsComponent(Entity* root, bool isKinematic)

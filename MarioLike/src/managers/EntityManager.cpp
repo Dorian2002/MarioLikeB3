@@ -18,7 +18,8 @@ EntityManager* EntityManager::GetInstance()
 
 void EntityManager::Start()
 {
-	m_entities.push_back(new Player());
+	m_player = new Player();
+	m_entities.push_back(m_player);
 	m_entities.push_back(new Boomba());
 	
 	for (Entity* entity : m_entities)

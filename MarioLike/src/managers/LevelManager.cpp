@@ -3,6 +3,7 @@
 #include <managers/RenderManager.h>
 #include <managers/EntityManager.h>
 #include <engine/GameEngine.h>
+class Player;
 
 LevelManager* LevelManager::m_instance = nullptr;
 
@@ -84,7 +85,7 @@ Level* LevelManager::GetLevel()
 void LevelManager::MoveLevel()
 {
 	//We get the player in the EntityManager
-	auto t = EntityManager::GetInstance()->m_toto;
+	auto t = EntityManager::GetInstance()->m_player;
 	bool right = false;
 	bool left = false;
 

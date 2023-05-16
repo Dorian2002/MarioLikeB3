@@ -1,9 +1,7 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
-#include <models/Player.h>
-#include <managers/AssetManager.h>
-#include "utils/Sling.h"
-class Player;
+#include "managers/EntityManager.h"
+#include "managers/LevelManager.h"
 
 GameEngine* GameEngine::m_engine = nullptr;
 

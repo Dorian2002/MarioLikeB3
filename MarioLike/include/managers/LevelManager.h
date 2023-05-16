@@ -2,7 +2,9 @@
 
 #include <string>
 #include "models/Level.h"
-#include <models/Background.h>
+#include "models/Background.h"
+#include "models/Player.h"
+
 class LevelManager
 {
 public:

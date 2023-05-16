@@ -10,7 +10,7 @@
 #include <component/SpriteComponent.h>
 #include <iostream>
 
-class Background : public Entity, public Rtti
+class Background : public Entity
 {
 public:
 	DEFINE_RTTI(Background)

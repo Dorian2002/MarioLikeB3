@@ -18,6 +18,7 @@
 class Player : public Entity
 {
 public:
+    Vec2f m_lastposition;
     bool m_isWalking;
     Vec2f velocity;
     DEFINE_RTTI(Player);

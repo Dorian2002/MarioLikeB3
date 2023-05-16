@@ -1,4 +1,5 @@
 #include "models/Boomba.h"
+#include "managers/EntityManager.h"
 
 Boomba::Boomba()
 {

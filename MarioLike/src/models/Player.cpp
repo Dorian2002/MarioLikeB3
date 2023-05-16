@@ -1,4 +1,5 @@
 #include "models/Player.h"
+#include "managers/EntityManager.h"
 Player::Player() {
     MarioRun* run = new MarioRun(AssetManager::GetInstance()->GetTexture("littleMarioRun"), 3);
     MarioIdle* idle = new MarioIdle(AssetManager::GetInstance()->GetTexture("littleMarioIdle"), 1);
@@ -39,7 +40,7 @@ void Player::MoveRight() {
     std::cout << deltaT << std::endl;
     m_isWalking = true;
     auto t = GetComponent<Transform>();
-    auto lastPos = t->GetPosition();
+    m_lastposition = t->GetPosition();
     if (velocity.x < 0.02) {
         velocity.x += 0.02;
     }
@@ -53,7 +54,7 @@ void Player::MoveRight() {
 
     if (!EntityManager::GetInstance()->MoveEntity(this))
     {
-        t->SetPosition(lastPos);
+        t->SetPosition(m_lastposition);
     }
 }
 
@@ -62,7 +63,7 @@ void Player::MoveLeft()
     float deltaT = GameEngine::GetInstance()->GetDeltaTime();
     m_isWalking = true;
     auto t = GetComponent<Transform>();
-    auto lastPos = t->GetPosition();
+    m_lastposition = t->GetPosition();
     if (velocity.x > -0.02) {
         velocity.x += -0.02;
     }
@@ -76,7 +77,7 @@ void Player::MoveLeft()
 
     if (!EntityManager::GetInstance()->MoveEntity(this))
     {
-        t->SetPosition(lastPos);
+        t->SetPosition(m_lastposition);
     }
 }
 

@@ -1,8 +1,6 @@
 #pragma once
+
 #include "models/Component.h"
-#include <vector>
-#include "utils/Anim/Animation.h"
-#include "utils/Anim/Link.h"
 #include "utils/Vector2.h"
 
 class PhysicsComponent : public Component
