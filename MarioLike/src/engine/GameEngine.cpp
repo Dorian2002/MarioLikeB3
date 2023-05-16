@@ -28,6 +28,8 @@ void GameEngine::Start()
 {
 	LoadResources();
 	m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Suuuuupair maria brasse");
+	m_view = new sf::View(sf::FloatRect(0.f, 0.f, WINDOW_SIZE, WINDOW_SIZE));
+	m_window->setView(*m_view);
 	m_levelManager = LevelManager::GetInstance();
 	m_levelManager->LoadLevel();
 	m_levelManager->RenderLevel();

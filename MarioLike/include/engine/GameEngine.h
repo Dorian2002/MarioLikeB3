@@ -34,4 +34,5 @@ private:
 	EntityManager* m_entityManager;
 	RenderManager* m_renderManager;
 	InputManager* m_inputManager;
+	sf::View* m_view;
 };

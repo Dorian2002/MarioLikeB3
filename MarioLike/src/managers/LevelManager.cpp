@@ -86,39 +86,63 @@ void LevelManager::MoveLevel()
 {
 	//We get the player in the EntityManager
 	auto t = EntityManager::GetInstance()->m_player;
+	auto cameraView = GameEngine::GetInstance()->GetWindow();
+	sf::View currentView = cameraView->getView();
+	int levelSize = m_level->m_map[0].size();
 	bool right = false;
 	bool left = false;
+
+
 
 	//Get render manager
 	RenderManager* renderManager = RenderManager::GetInstance();
 
-	//For each element in the map
-	for (std::vector<Entity*> line : m_level->m_map) {
-		for (Entity* entity : line) {
-
-			//If player position is milddle screen an dplayer go to the right
-			if (t->GetComponent<Transform>()->m_position.x * 16 >= WINDOW_SIZE / 2 && entity->GetComponent<Transform>() && t->m_lastposition.x <= t->GetComponent<Transform>()->m_position.x)
-			{
-				//Move the map to the right
-				entity->GetComponent<Transform>()->m_position.x -= 0.1;
-				right = true;
-			}
-
-			//If player position is 1/4 screen and go to the left
-			else if(t->GetComponent<Transform>()->m_position.x * 16 < WINDOW_SIZE / 8 && entity->GetComponent<Transform>() && t->m_lastposition.x > t->GetComponent<Transform>()->m_position.x)
-			{
-				//Move the map to the left
-				entity->GetComponent<Transform>()->m_position.x += 0.1;
-				left = true;
-			}
-		}
+	//If player position is milddle screen an dplayer go to the right
+	std::cout << t->GetComponent<Transform>()->m_position.x * 16 << std::endl;
+	if (t->GetComponent<Transform>()->m_position.x * 16 >= WINDOW_SIZE / 2 && t->m_lastposition.x != t->GetComponent<Transform>()->m_position.x)
+	{
+		//Move the map to the right
+		currentView.move(0.1,0);
+		cameraView->setView(currentView);
+		right = true;
 	}
+
+		//If player position is 1/4 screen and go to the left
+		else if(t->GetComponent<Transform>()->m_position.x * 16 < WINDOW_SIZE / 8 && t->m_lastposition.x > t->GetComponent<Transform>()->m_position.x)
+		{
+			//Move the map to the left
+			currentView.move(-0.1, 0);
+			cameraView->setView(currentView);
+			left = true;
+		}
+
+	//For each element in the map
+	//for (std::vector<Entity*> line : m_level->m_map) {
+	//	for (Entity* entity : line) {
+
+	//		//If player position is milddle screen an dplayer go to the right
+	//		if (t->GetComponent<Transform>()->m_position.x * 16 >= WINDOW_SIZE / 2 && entity->GetComponent<Transform>() && t->m_lastposition.x <= t->GetComponent<Transform>()->m_position.x)
+	//		{
+	//			//Move the map to the right
+	//			entity->GetComponent<Transform>()->m_position.x -= 0.1;
+	//			right = true;
+	//		}
+
+	//		//If player position is 1/4 screen and go to the left
+	//		else if(t->GetComponent<Transform>()->m_position.x * 16 < WINDOW_SIZE / 8 && entity->GetComponent<Transform>() && t->m_lastposition.x > t->GetComponent<Transform>()->m_position.x)
+	//		{
+	//			//Move the map to the left
+	//			entity->GetComponent<Transform>()->m_position.x += 0.1;
+	//			left = true;
+	//		}
+	//	}
+	//}
 
 	//If the level move to the right
 	if (right)
 	{
 		//lock player in middle screen position
-		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		t->GetComponent<Transform>()->m_position.x = (WINDOW_SIZE / 2)/16;
 
 		//If the main background not cover entirely cicle with the other background
 		if (m_mainSky->GetComponent<Transform>()->m_position.x < -0.85)
@@ -139,7 +163,7 @@ void LevelManager::MoveLevel()
 	else if (left)
 	{
 		//lock player in 1/4 screen position
-		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		t->GetComponent<Transform>()->m_position.x = (WINDOW_SIZE / 8)/16;
 
 		//If the main background not cover entirely cicle with the other background
 		if (m_mainSky->GetComponent<Transform>()->m_position.x > 0.85)
