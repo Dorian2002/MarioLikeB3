@@ -20,81 +20,121 @@ Player::Player() {
 }
 
 void Player::Start() {
-    std::cout << GetClassRttiName() << std::endl;
     Entity::Start();
     auto inputManager = InputManager::GetInstance();
-    inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &Player::MoveLeft));
-    inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &Player::MoveRight));
-    inputManager->AddKeyBind(sf::Keyboard::Space, new Event::Slot<>(this, &Player::jump), onKeyPress);
+    inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &Player::StartLeft), onKeyPress);
+    inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &Player::StartRight), onKeyPress);
+    inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &Player::StopLeft), onKeyRelease);
+    inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &Player::StopRight), onKeyRelease);
+    inputManager->AddKeyBind(sf::Keyboard::Space, new Event::Slot<>(this, &Player::jump), onKeyHeld);
 }
 
 void Player::Update(float deltaT) {
+    auto t = GetComponent<PhysicsComponent>();
+    if (t->isJumping)
+    {
+        speedCoefficient = 0.08f;
+    }
+    else
+    {
+        speedCoefficient = 1.0f;
+    }
     Entity::Update(deltaT);
-    if (velocity.x < 0.02 && velocity.x > -0.02) {
-        m_isWalking = false;
-    }
-}
-
-void Player::MoveRight() {
-    float deltaT = GameEngine::GetInstance()->GetDeltaTime();
-    std::cout << deltaT << std::endl;
-    m_isWalking = true;
-    auto t = GetComponent<Transform>();
-    m_lastposition = t->GetPosition();
-    if (velocity.x < 0.02) {
-        velocity.x += 0.02;
-    }
-    t->Translate(0, velocity.x * deltaT * 10000, 0);
-
-
-    auto sprite = GetComponent<SpriteComponent>()->m_sprite;
-    sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
-    sprite->setScale({ -1, 1 });
-
-
-    if (!EntityManager::GetInstance()->MoveEntity(this))
+    if (left)
     {
-        t->SetPosition(m_lastposition);
+        SetVelX(-0.05f * speedCoefficient);
+        auto spriteComponent = GetComponent<SpriteComponent>();
+        spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
+        spriteComponent->m_sprite->setScale({ 1, 1 });
+    }
+    if (right)
+    {
+        SetVelX(0.05f * speedCoefficient);
+        auto sprite = GetComponent<SpriteComponent>()->m_sprite;
+        sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
+        sprite->setScale({ -1, 1 });
+    }
+    if (!left && !right)
+    {
+        if (velocity.x > 0)
+        {
+            SetVelX(-0.05f * speedCoefficient);
+        }
+        if (velocity.x < 0)
+        {
+            SetVelX(0.05f * speedCoefficient);
+        }
+    }
+    if (velocity.x < 0.05f * speedCoefficient && velocity.x > -0.05f * speedCoefficient) {
+        velocity.x = 0;
+    }
+    auto dist = velocity.x * deltaT;
+
+    if (dist > 0)
+    {
+        Move(dist, 0.99f);
+    }
+    else
+    {
+        Move(dist, -0.99f);
     }
 }
 
-void Player::MoveLeft()
+void Player::Move(float dist, float val)
 {
-    float deltaT = GameEngine::GetInstance()->GetDeltaTime();
-    m_isWalking = true;
-    auto t = GetComponent<Transform>();
-    m_lastposition = t->GetPosition();
-    if (velocity.x > -0.02) {
-        velocity.x += -0.02;
-    }
-    t->Translate(0, velocity.x * deltaT * 10000, 0);
-
-
-    auto spriteComponent = GetComponent<SpriteComponent>();
-    spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
-    spriteComponent->m_sprite->setScale({ 1, 1 });
-
-
-    if (!EntityManager::GetInstance()->MoveEntity(this))
+    bool collide = false;
+    while (dist < -0.99f)
     {
-        t->SetPosition(m_lastposition);
+        collide = EntityManager::GetInstance()->MoveEntity(this, Vec2f(val, 0));
+        if (collide)
+            break;
+        dist -= val;
     }
+    if (!collide)
+    {
+        EntityManager::GetInstance()->MoveEntity(this, Vec2f(dist, 0));
+    }
+}
+void Player::SetVelX(float acceleration)
+{
+    velocity.x = std::clamp(velocity.x + acceleration, -1.f, 1.f);
+}
+
+void Player::StartRight()
+{
+    right = true;
+}
+
+void Player::StopRight()
+{
+    right = false;
+}
+
+void Player::StopLeft()
+{
+    left = false;
+}
+
+void Player::StartLeft()
+{
+    left = true;
 }
 
 void Player::jump() {
     auto t = GetComponent<PhysicsComponent>();
     if (t->isGrounded) {
-        float deltaT = GameEngine::GetInstance()->GetDeltaTime();
-        t->isGrounded = false;
-        t->jumpForce -= 200000 * deltaT;
+        if (t->isGrounded) {
+            t->jumpForce = -.18f;
+            t->isGrounded = false;
+            t->isJumping = true;
+        }
     }
 }
 
 void Player::IsWalking(bool val) {
-    if (m_isWalking == val) {
+    if ((velocity.x != 0) == val) {
         GetComponent<Animator>()->m_changeAnim = true;
     }
-    return;
 }
 
 void Player::SetUpAnimatorLink(Animation* run, Animation* idle) {

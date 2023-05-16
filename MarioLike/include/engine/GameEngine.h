@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include <chrono>
 
 #define WINDOW_SIZE 500
 
@@ -9,12 +10,7 @@ class EntityManager;
 class RenderManager;
 class InputManager;
 
-#include "models/Level.h"
-#include "managers/LevelManager.h"
-#include "managers/EntityManager.h"
-#include <managers/RenderManager.h>
-#include "managers/InputManager.h"
-#include <chrono>
+
 class GameEngine
 {
 public:

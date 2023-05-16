@@ -22,12 +22,22 @@ public:
     bool m_isWalking;
     Vec2f velocity;
     DEFINE_RTTI(Boomba);
+    bool left = false;
+    bool right = false;
 
     Boomba();
 
     void Start() override;
 
     void Update(float deltaT) override;
+
+    void StartRight();
+
+    void StopRight();
+
+    void StopLeft();
+
+    void StartLeft();
 
     bool MoveRight() override;
 

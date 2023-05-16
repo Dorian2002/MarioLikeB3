@@ -36,6 +36,26 @@ void Boomba::Update(float deltaT)
     }
 }
 
+void Boomba::StartRight()
+{
+    right = true;
+}
+
+void Boomba::StopRight()
+{
+    right = false;
+}
+
+void Boomba::StopLeft()
+{
+    left = false;
+}
+
+void Boomba::StartLeft()
+{
+    left = true;
+}
+
 bool Boomba::MoveRight()
 {
     float deltaT = GameEngine::GetInstance()->GetDeltaTime();

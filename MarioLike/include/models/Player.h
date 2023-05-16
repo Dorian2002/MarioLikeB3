@@ -18,6 +18,10 @@
 class Player : public Entity
 {
 public:
+    bool left = false;
+    bool right = false;
+    float maxDist = 0;
+    float speedCoefficient = 1.0f;
     Vec2f m_lastposition;
     bool m_isWalking;
     Vec2f velocity;
@@ -29,11 +33,20 @@ public:
 
     void Update(float deltaT) override;
 
-    void MoveRight();
+    void Move(float dist, float val);
 
-    void MoveLeft();
+    void SetVelX(float acceleration);
+
+    void StartRight();
+
+    void StopRight();
+
+    void StopLeft();
+
+    void StartLeft();
 
     void jump();
+
 
     void IsWalking(bool val);
 

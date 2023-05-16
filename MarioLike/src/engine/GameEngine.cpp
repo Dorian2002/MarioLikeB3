@@ -1,9 +1,7 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
-#include <models/toto.h>
 #include <managers/AssetManager.h>
 #include "utils/Sling.h"
-#include <chrono>
 #include "managers/EntityManager.h"
 #include "managers/LevelManager.h"
 
@@ -50,15 +48,13 @@ void GameEngine::HandleInput()
 
 void GameEngine::Update()
 {
-	m_frames++;
-	std::cout << "update\n";
 	m_entityManager->Update();
 }
 
 void GameEngine::Render()
 {
 	m_window->clear();
-	m_levelManager->MoveLevel();
+	//m_levelManager->MoveLevel();
 	m_renderManager->RenderLevel(*m_window);
 	m_window->display();
 }
