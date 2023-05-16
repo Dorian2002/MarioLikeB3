@@ -5,6 +5,9 @@
 #include "managers/EntityManager.h"
 #include <managers/RenderManager.h>
 #include "managers/InputManager.h"
+
+#define WINDOW_SIZE 500
+
 class GameEngine
 {
 public:

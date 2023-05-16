@@ -7,3 +7,7 @@ public:
     virtual bool MoveLeft() = 0;
 };
 
+class Background
+{
+};
+

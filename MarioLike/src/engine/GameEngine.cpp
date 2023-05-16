@@ -3,6 +3,7 @@
 #include <models/Player.h>
 #include <managers/AssetManager.h>
 #include "utils/Sling.h"
+class Player;
 
 GameEngine* GameEngine::m_engine = nullptr;
 
@@ -28,7 +29,7 @@ GameEngine::~GameEngine()
 void GameEngine::Start()
 {
 	LoadResources();
-	m_window = new sf::RenderWindow(sf::VideoMode(500, 500), "Suuuuupair maria brasse");
+	m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Suuuuupair maria brasse");
 	m_levelManager = LevelManager::GetInstance();
 	m_levelManager->LoadLevel();
 	m_levelManager->RenderLevel();
@@ -53,7 +54,7 @@ void GameEngine::Update()
 void GameEngine::Render()
 {
 	m_window->clear();
-	//m_level->LoadLevel(*m_window, { 16,16 });
+	m_levelManager->MoveLevel();
 	m_renderManager->RenderLevel(*m_window);
 	m_window->display();
 }
@@ -98,6 +99,7 @@ bool GameEngine::LoadResources()
 	success &= assetManager->LoadTexture("BoombaRun.png", "boombaRun");
 	success &= assetManager->LoadTexture("BoombaIdle.png", "boombaIdle");
 	success &= assetManager->LoadTexture("Block.png", "block");
+	success &= assetManager->LoadTexture("Sky.png", "Background");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
 	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");
