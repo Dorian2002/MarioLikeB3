@@ -1,6 +1,6 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
-#include <models/toto.h>
+#include <models/Player.h>
 #include <managers/AssetManager.h>
 #include "utils/Sling.h"
 
@@ -95,6 +95,8 @@ bool GameEngine::LoadResources()
 
 	success &= assetManager->LoadTexture("littleMarioRun.png", "littleMarioRun");
 	success &= assetManager->LoadTexture("littleMarioIdle.png", "littleMarioIdle");
+	success &= assetManager->LoadTexture("BoombaRun.png", "boombaRun");
+	success &= assetManager->LoadTexture("BoombaIdle.png", "boombaIdle");
 	success &= assetManager->LoadTexture("Block.png", "block");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");

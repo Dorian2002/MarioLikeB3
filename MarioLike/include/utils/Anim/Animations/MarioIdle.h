@@ -4,5 +4,5 @@ class MarioIdle : public Animation
 {
 public:
 	DEFINE_RTTI(MarioIdle)
-		Animation::Animation;
+	Animation::Animation;
 };
