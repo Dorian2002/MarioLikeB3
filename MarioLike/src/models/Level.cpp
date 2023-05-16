@@ -66,9 +66,3 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 		return false;
 	}
 }
-
-void Level::LoadBackground()
-{
-	Background* Sky = new Background({ 16,16 });
-	RenderManager::GetInstance()->AddDrawCall(new DrawCall(Sky, 2));
-}
