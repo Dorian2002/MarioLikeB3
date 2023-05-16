@@ -5,6 +5,7 @@
 #include "managers/EntityManager.h"
 #include <managers/RenderManager.h>
 #include "managers/InputManager.h"
+#include <chrono>
 class GameEngine
 {
 public:
@@ -13,8 +14,10 @@ public:
 	void operator =(const GameEngine& _other) = delete;
 	static GameEngine* GetInstance();
 	bool Run();
+	int m_frames = 0;
 	sf::RenderWindow* GetWindow();
 	float GetDeltaTime();
+	const std::chrono::nanoseconds FRAMETIME = std::chrono::nanoseconds(16666667);;
 private:
 	GameEngine() = default;
 	void Start();

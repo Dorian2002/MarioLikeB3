@@ -14,13 +14,14 @@ public:
 	std::vector<Component*> Components;
 	template<typename T>
 	T* GetComponent();
-
 	Entity() {};
 	Entity(Vec2f _spriteSize);
 	~Entity() = default;
+	virtual void OnOverlap(Component* overlapComponent, Entity* overlapEntity);
+	virtual void OnCollide(Component* overlapComponent, Entity* overlapEntity);
 	
-	private:
-		std::map<std::string, int> tab;
+private:
+	std::map<std::string, int> tab;
 };
 
 template<typename T>

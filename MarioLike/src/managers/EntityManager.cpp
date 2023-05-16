@@ -50,3 +50,22 @@ bool EntityManager::MoveEntity(Entity* entity)
 	return false;
 }
 
+bool EntityManager::MoveEntity(Entity* entity, Vec2f translate, bool moving)
+{
+	if (auto col = entity->GetComponent<BoxColliderComponent>()) {
+		if (col->CheckCollisions(translate)) {
+			if (moving)
+			{
+				entity->GetComponent<Transform>()->Translate(0, translate.x, translate.y);
+			}
+			RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
+			return true;
+		}
+	}
+	else {
+		RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
+		return true;
+	}
+	return false;
+}
+

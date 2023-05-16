@@ -31,7 +31,7 @@ void Animator::Play(Animation* anim)
 
 void Animator::Update(float deltaT)
 {
-	Timer += deltaT*1000;
+	Timer += deltaT;
 	CheckState();
 	Play(m_currentState);
 }

@@ -21,6 +21,7 @@ public:
     bool left = false;
     bool right = false;
     float maxDist = 0;
+    float speedCoefficient = 1.0f;
     Vec2f velocity;
     DEFINE_RTTI(toto);
     toto() {
@@ -45,27 +46,33 @@ public:
     void Start() override {
         Entity::Start();
         auto inputManager = InputManager::GetInstance();
-        /*inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &toto::MoveLeft));
-        inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &toto::MoveRight));*/
         inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &toto::StartLeft), onKeyPress);
         inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &toto::StartRight), onKeyPress);
         inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &toto::StopLeft), onKeyRelease);
         inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &toto::StopRight), onKeyRelease);
-        inputManager->AddKeyBind(sf::Keyboard::Space, new Event::Slot<>(this, &toto::jump), onKeyPress);
+        inputManager->AddKeyBind(sf::Keyboard::Space, new Event::Slot<>(this, &toto::jump), onKeyHeld);
     };
 
     void Update(float deltaT) override {
+        auto t = GetComponent<PhysicsComponent>();
+        if (t->isJumping)
+        {
+            speedCoefficient = 0.08f;
+        } else
+        {
+            speedCoefficient = 1.0f;
+        }
         Entity::Update(deltaT);
         if (left)
         {
-            SetVelX(-0.1f);
+            SetVelX(-0.05f * speedCoefficient);
             auto spriteComponent = GetComponent<SpriteComponent>();
             spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
             spriteComponent->m_sprite->setScale({ 1, 1 });
         }
         if (right)
         {
-            SetVelX(0.1f);
+            SetVelX(0.05f * speedCoefficient);
             auto sprite = GetComponent<SpriteComponent>()->m_sprite;
             sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
             sprite->setScale({ -1, 1 });
@@ -74,72 +81,46 @@ public:
         {
             if (velocity.x > 0)
             {
-                SetVelX(-0.1f);
+                SetVelX(-0.05f * speedCoefficient);
             }
             if (velocity.x < 0)
             {
-                SetVelX(0.1f);
+                SetVelX(0.05f * speedCoefficient);
             }
         }
-        if (velocity.x < 0.1 && velocity.x > -0.1) {
+        if (velocity.x < 0.05f * speedCoefficient && velocity.x > -0.05f * speedCoefficient) {
             velocity.x = 0;
         }
-        auto t = GetComponent<Transform>();
-        auto lastPos = t->GetPosition();
-        auto dist = velocity.x * deltaT * 10000;
-        bool collide = false;
+        auto dist = velocity.x * deltaT;
 
-        // TODO : refactor
         if (dist > 0)
         {
-            while (dist > 0.99f)
-            {
-                t->Translate(0, 0.99f, 0);
-                if (!EntityManager::GetInstance()->MoveEntity(this))
-                {
-                    t->SetPosition(lastPos);
-                    collide = true;
-                    break;
-                }
-                    lastPos = t->GetPosition();
-                dist -= 0.99f;
-            }
-            if (!collide)
-            {
-                t->Translate(0, dist, 0);
-                if (!EntityManager::GetInstance()->MoveEntity(this))
-                {
-                    t->SetPosition(lastPos);
-                }
-            }
-        } else
+            Move(dist, 0.99f);
+        }
+    	else
         {
-            while (dist < -0.99f)
-            {
-                t->Translate(0, -0.99f, 0);
-                if (!EntityManager::GetInstance()->MoveEntity(this))
-                {
-                    t->SetPosition(lastPos);
-                    collide = true;
-                    break;
-                }
-                    lastPos = t->GetPosition();
-                dist += 0.99f;
-            }
-            if(!collide)
-            {
-	            t->Translate(0, dist, 0);
-	            if (!EntityManager::GetInstance()->MoveEntity(this))
-	            {
-	                t->SetPosition(lastPos);
-	            }
-            }
+            Move(dist, -0.99f);
+        }
+    }
+    void Move(float dist, float val)
+    {
+        bool collide = false;
+        while (dist < -0.99f)
+        {
+            collide = EntityManager::GetInstance()->MoveEntity(this, Vec2f(val, 0));
+            if (collide)
+                break;
+            dist -= val;
+        }
+        if (!collide)
+        {
+            EntityManager::GetInstance()->MoveEntity(this, Vec2f(dist, 0));
         }
     }
 
     void SetVelX(float acceleration)
     {
-        velocity.x = std::clamp(velocity.x + acceleration, -2.f, 2.f);
+        velocity.x = std::clamp(velocity.x + acceleration, -1.f, 1.f);
     }
 
     void StartRight()
@@ -166,9 +147,8 @@ public:
     {
         auto t = GetComponent<PhysicsComponent>();
         if (t->isGrounded) {
-            auto t = GetComponent<PhysicsComponent>();
             if (t->isGrounded) {
-                t->jumpForce = -20;
+                t->jumpForce = -.18f;
                 t->isGrounded = false;
                 t->isJumping = true;
             }

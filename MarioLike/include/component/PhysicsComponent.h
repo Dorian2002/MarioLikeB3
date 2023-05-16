@@ -9,7 +9,7 @@ class PhysicsComponent : public Component
 {
 public:
     DEFINE_RTTI(PhysicsComponent)
-        PhysicsComponent(Entity*, bool);
+	PhysicsComponent(Entity*, bool);
     void Update(float) override;
     void Start() override;
     bool GetIsKinematic();
@@ -18,6 +18,7 @@ public:
     bool isGrounded;
     float jumpForce = 0;
     bool isJumping = true;
+    float maxVel = 0;
 private:
     bool m_isKinematic;
 };

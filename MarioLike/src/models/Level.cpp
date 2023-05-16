@@ -7,6 +7,7 @@
 #include <random>
 #include <cmath>
 #include <models/Block.h>
+#include <models/Coin.h>
 #include <models/Void.h>
 
 Level::Level()
@@ -43,6 +44,13 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 					rowEntities.emplace_back(entity);
 					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());
 					//entity->GetComponent<Transform>()->Scale(Vec2f{ 64.0f, 64.0f });
+					break;
+				}
+				case '3':
+				{
+					Coin* entity = new Coin(position);
+					rowEntities.emplace_back(entity);
+					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());
 					break;
 				}
 				default:

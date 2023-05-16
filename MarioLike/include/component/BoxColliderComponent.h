@@ -11,8 +11,10 @@ class BoxColliderComponent : public Component
 {
 public:
 	DEFINE_RTTI(BoxColliderComponent)
-	BoxColliderComponent(Entity*, Vec2f*);
+	BoxColliderComponent(Entity*, Vec2f*, bool isBlocking = true);
 	bool CheckCollisions();
+	bool CheckCollisions(Vec2f translate);
 private:
 	Vec2f* m_size;
+	bool m_isBlocking;
 };

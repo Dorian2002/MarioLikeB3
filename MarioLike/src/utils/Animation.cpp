@@ -7,10 +7,10 @@ bool Animation::GetIsPlaying()
 
 Animation::Animation(sf::Texture* texture, int frames)
 {
-	m_texture = texture;
+	m_texture = texture; 
 	m_frameNumber = frames;
 	m_isPlaying = false;
-	m_frameTime = 0.03;
+	m_frameTime = 1.1f;
 }
 
 sf::Texture* Animation::GetTexture()

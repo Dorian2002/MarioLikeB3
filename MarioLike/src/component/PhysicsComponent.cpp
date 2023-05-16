@@ -13,28 +13,26 @@ PhysicsComponent::PhysicsComponent(Entity* root, bool isKinematic)
 
 void PhysicsComponent::Update(float deltaT)
 {
+    if (isGrounded)
+    {
+        isGrounded = !EntityManager::GetInstance()->MoveEntity(m_root, Vec2f{0, 9.81f * deltaT * 0.005f }, false);
+    }
     if (m_isKinematic) {
-        /*jumpForce += 100000 * deltaT;
-        velocity.y += jumpForce * deltaT;
-        Transform* t = m_root->GetComponent<Transform>();
-        auto lastPos = t->GetPosition();
-        t->Translate(0, 0, velocity.y);
-        if (!EntityManager::GetInstance()->MoveEntity(m_root))
-        {
-            velocity.y = 0;
-            t->SetPosition(lastPos);
-            isGrounded = true;
-        }*/
         if(isJumping && jumpForce < 0)
         {
-            jumpForce += 9.81 * deltaT * 20000;
-            velocity.y += jumpForce * deltaT * 100;
+            jumpForce += 9.81f * deltaT * 0.005f;
+            velocity.y += jumpForce * deltaT * 0.5f;
         }
         if(!isGrounded)
         {
-            velocity.y += 9.81 * deltaT * 100;
+            velocity.y += 9.81f * deltaT * 0.005f;
         }
-        std::cout<< "vy: " << jumpForce << std::endl;
+        if(velocity.y > maxVel)
+        {
+            maxVel = velocity.y;
+        }
+        velocity.y = std::min(velocity.y, 0.034f);
+        std::cout << "maxvel: " << maxVel << std::endl;
         Transform* t = m_root->GetComponent<Transform>();
         auto lastPos = t->GetPosition();
         t->Translate(0, 0, velocity.y);

@@ -3,6 +3,7 @@
 #include <models/toto.h>
 #include <managers/AssetManager.h>
 #include "utils/Sling.h"
+#include <chrono>
 
 GameEngine* GameEngine::m_engine = nullptr;
 
@@ -47,6 +48,8 @@ void GameEngine::HandleInput()
 
 void GameEngine::Update()
 {
+	m_frames++;
+	std::cout << "update\n";
 	m_entityManager->Update();
 }
 
@@ -61,13 +64,26 @@ void GameEngine::Render()
 bool GameEngine::Run()
 {
 	Start();
+	
+	using clock = std::chrono::high_resolution_clock;
+	auto gameTimeStart = clock::now();
+	auto frameTimeStart = clock::now();
+	std::chrono::nanoseconds accumulator(0);
 	while(m_window->isOpen())
 	{
+		if(clock::now() - frameTimeStart > std::chrono::milliseconds(1))
+		{
+			auto deltaTime = clock::now() - frameTimeStart;
+			frameTimeStart = clock::now();
+			accumulator += deltaTime;
+		}
 		HandleInput();
-		ResetTime();
 		Update();
 		Render();
-		ResetTime();
+		
+		auto timePassed = clock::now() - gameTimeStart;
+		auto millisPassed = std::chrono::duration_cast<std::chrono::milliseconds>(timePassed);
+		//std::cout << "frames per second: " << (float)m_frames / ((float)millisPassed.count() / 1000.f) << std::endl;
 	}
 	return true;
 }
@@ -80,7 +96,7 @@ sf::RenderWindow* GameEngine::GetWindow()
 
 float GameEngine::GetDeltaTime()
 {
-	return m_clock.getElapsedTime().asSeconds();
+	return std::chrono::duration<float>(FRAMETIME).count();
 }
 
 void GameEngine:: ResetTime()
@@ -96,6 +112,7 @@ bool GameEngine::LoadResources()
 	success &= assetManager->LoadTexture("littleMarioRun.png", "littleMarioRun");
 	success &= assetManager->LoadTexture("littleMarioIdle.png", "littleMarioIdle");
 	success &= assetManager->LoadTexture("Block.png", "block");
+	success &= assetManager->LoadTexture("coin.png", "coin");
 
 	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
 	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");

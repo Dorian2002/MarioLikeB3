@@ -19,3 +19,13 @@ void Entity::Update(float deltaT)
 Entity::Entity(Vec2f _spriteSize)
 {
 }
+
+void Entity::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
+{
+	return;
+}
+
+void Entity::OnCollide(Component* overlapComponent, Entity* overlapEntity)
+{
+	return;
+}
