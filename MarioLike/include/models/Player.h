@@ -47,7 +47,6 @@ public:
 
     void jump();
 
-
     void IsWalking(bool val);
 
     void SetUpAnimatorLink(Animation* run, Animation* idle);

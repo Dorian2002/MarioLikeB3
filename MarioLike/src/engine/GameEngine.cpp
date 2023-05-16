@@ -63,25 +63,24 @@ bool GameEngine::Run()
 {
 	Start();
 	
-	using clock = std::chrono::high_resolution_clock;
-	auto gameTimeStart = clock::now();
-	auto frameTimeStart = clock::now();
-	std::chrono::nanoseconds accumulator(0);
+	auto clock = sf::Clock();
+	//auto gameTimeStart = clock::now();
+	//float frameTimeStart = 0.0f;
+	//std::chrono::nanoseconds accumulator(0);
 	while(m_window->isOpen())
 	{
-		if(clock::now() - frameTimeStart > std::chrono::milliseconds(1))
-		{
-			auto deltaTime = clock::now() - frameTimeStart;
-			frameTimeStart = clock::now();
-			accumulator += deltaTime;
-		}
+
+		deltatime = clock.restart().asSeconds();
+		
 		HandleInput();
 		Update();
 		Render();
-		
-		auto timePassed = clock::now() - gameTimeStart;
-		auto millisPassed = std::chrono::duration_cast<std::chrono::milliseconds>(timePassed);
+
+		std::cout << GetDeltaTime() << std::endl;
+
+		 //= clock.getElapsedTime().asSeconds() - frameTimeStart;
 		//std::cout << "frames per second: " << (float)m_frames / ((float)millisPassed.count() / 1000.f) << std::endl;
+
 	}
 	return true;
 }
@@ -94,7 +93,8 @@ sf::RenderWindow* GameEngine::GetWindow()
 
 float GameEngine::GetDeltaTime()
 {
-	return std::chrono::duration<float>(FRAMETIME).count();
+	//return std::chrono::duration<float>(FRAMETIME).count();
+	return deltatime;
 }
 
 void GameEngine:: ResetTime()

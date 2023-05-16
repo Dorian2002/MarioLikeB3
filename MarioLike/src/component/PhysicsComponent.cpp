@@ -33,7 +33,6 @@ void PhysicsComponent::Update(float deltaT)
             maxVel = velocity.y;
         }
         velocity.y = std::min(velocity.y, 0.034f);
-        std::cout << "maxvel: " << maxVel << std::endl;
         Transform* t = m_root->GetComponent<Transform>();
         auto lastPos = t->GetPosition();
         t->Translate(0, 0, velocity.y);
