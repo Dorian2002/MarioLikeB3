@@ -6,5 +6,6 @@ public:
 	DEFINE_RTTI(GameObject)
 	virtual void Start() {};
 	virtual void Update(float) {};
+	virtual void Destroy() {};
 };
 

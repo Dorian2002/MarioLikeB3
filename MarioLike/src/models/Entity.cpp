@@ -16,6 +16,17 @@ void Entity::Update(float deltaT)
 	}
 }
 
+void Entity::Destroy()
+{
+	for (int COMPONENT_INDEX = Components.size(); COMPONENT_INDEX >= 0; COMPONENT_INDEX--)
+	{
+		Components[COMPONENT_INDEX]->Destroy();
+		delete Components[COMPONENT_INDEX];
+		Components[COMPONENT_INDEX] = nullptr;
+	}
+	delete Components;
+}
+
 Entity::Entity(Vec2f _spriteSize)
 {
 }

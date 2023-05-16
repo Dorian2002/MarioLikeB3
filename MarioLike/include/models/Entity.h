@@ -10,6 +10,7 @@ class Entity : public GameObject {
 public:
 	void Start() override;
 	void Update(float) override;
+
 	static const int id;
 	std::vector<Component*> Components;
 	template<typename T>

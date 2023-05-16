@@ -24,6 +24,9 @@ void RenderManager::RenderLevel(sf::RenderTarget& _target)
 	std::sort(m_toRender.begin(), m_toRender.end(), sortRender);
 	for (DrawCall* call : m_toRender) 
 	{
+		if (call->m_entity == nullptr) {
+			remove(m_toRender.begin(), m_toRender.end(), call);
+		}
 		Vec2f position;
 		Vec2f size;
 		if (auto* T = call->m_entity->GetComponent<Transform>();T) {
