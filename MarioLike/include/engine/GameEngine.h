@@ -1,5 +1,14 @@
 #pragma once
+
 #include "SFML/Graphics.hpp"
+
+#define WINDOW_SIZE 500
+
+class LevelManager;
+class EntityManager;
+class RenderManager;
+class InputManager;
+
 #include "models/Level.h"
 #include "managers/LevelManager.h"
 #include "managers/EntityManager.h"

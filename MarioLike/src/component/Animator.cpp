@@ -47,6 +47,7 @@ void Animator::CreateLink(Animation* anim1, Animation* anim2, Event::Signal<bool
 
 Animator::Animator(Entity* root, std::vector<Animation*> states)
 {
+	Timer = 0;
 	m_root = root;
 	m_states = states;
 	m_links = std::vector<Link*>();
@@ -55,6 +56,9 @@ Animator::Animator(Entity* root, std::vector<Animation*> states)
 	for (Animation* state : m_states) {
 		if (state->GetClassRttiName().find("Idle") != std::string::npos) {
 			m_currentState = state;
+		}
+		else {
+			m_currentState = m_states[0];
 		}
 	}
 }

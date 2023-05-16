@@ -2,6 +2,8 @@
 
 #include <string>
 #include "models/Level.h"
+#include "models/Background.h"
+#include "models/Player.h"
 
 class LevelManager
 {
@@ -14,8 +16,12 @@ public:
 	Level* LoadLevel();
 	void RenderLevel();
 	Level* GetLevel();
+	void MoveLevel();
 
 private:
 	static LevelManager* m_instance;
 	Level* m_level;
+	Background* m_sky;
+	Background* m_parallaxSky;
+	Background* m_mainSky;
 };

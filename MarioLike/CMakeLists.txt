@@ -24,7 +24,9 @@ set (HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set (SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 set (HEADERS
+    ${HEADER_DIR}/component/BT/BoombaBT.h
     ${HEADER_DIR}/component/Animator.h
+    ${HEADER_DIR}/component/BehaviorTree.h
     ${HEADER_DIR}/component/BoxColliderComponent.h
     ${HEADER_DIR}/component/Transform.h
     ${HEADER_DIR}/component/SpriteComponent.h
@@ -48,12 +50,24 @@ set (HEADERS
     ${HEADER_DIR}/models/Kupla.h
     ${HEADER_DIR}/models/Level.h
     ${HEADER_DIR}/models/Player.h
-    ${HEADER_DIR}/models/toto.h
+    ${HEADER_DIR}/models/Background.h
     ${HEADER_DIR}/models/Void.h
+    ${HEADER_DIR}/utils/AI/Nodes/Patrol.h
+    ${HEADER_DIR}/utils/AI/Node.h
+    ${HEADER_DIR}/utils/AI/Selector.h
+    ${HEADER_DIR}/utils/AI/Sequence.h
     ${HEADER_DIR}/utils/Anim/Link.h
     ${HEADER_DIR}/utils/Anim/Animation.h
+    ${HEADER_DIR}/utils/Anim/Animations/BoombaIdle.h
+    ${HEADER_DIR}/utils/Anim/Animations/BoombaRun.h
     ${HEADER_DIR}/utils/Anim/Animations/MarioIdle.h
     ${HEADER_DIR}/utils/Anim/Animations/MarioRun.h
+    ${HEADER_DIR}/utils/BlackBoard/Blackboard.hpp
+    ${HEADER_DIR}/utils/BlackBoard/BlackboardID.hpp
+    ${HEADER_DIR}/utils/BlackBoard/BlackboardT.hpp
+    ${HEADER_DIR}/utils/BlackBoard/BlackboardT.inl
+    ${HEADER_DIR}/utils/BlackBoard/Valuehandle.hpp
+    ${HEADER_DIR}/utils/BlackBoard/Valuehandle.inl
     ${HEADER_DIR}/utils/Rtti.h
     ${HEADER_DIR}/utils/Sling.h
     ${HEADER_DIR}/utils/Vector2.h
@@ -78,11 +92,11 @@ set (SOURCES
     ${SOURCE_DIR}/models/Bouseur.cpp
     ${SOURCE_DIR}/models/Coin.cpp
     ${SOURCE_DIR}/models/Component.cpp
-    ${SOURCE_DIR}/models/Ennemy.cpp
     ${SOURCE_DIR}/models/Entity.cpp
     ${SOURCE_DIR}/models/Kupla.cpp
     ${SOURCE_DIR}/models/Level.cpp
     ${SOURCE_DIR}/models/Player.cpp
+    ${SOURCE_DIR}/models/Background.cpp
     ${SOURCE_DIR}/utils/Animation.cpp
     ${SOURCE_DIR}/utils/Link.cpp
     ${SOURCE_DIR}/utils/DrawCall.cpp

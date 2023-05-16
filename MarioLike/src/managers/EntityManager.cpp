@@ -1,5 +1,6 @@
 #include <managers/EntityManager.h>
-#include <models/toto.h>
+#include <models/Player.h>
+#include <models/Boomba.h>
 #include <managers/RenderManager.h>
 #include <engine/GameEngine.h>
 #include <utils/DrawCall.h>
@@ -17,7 +18,9 @@ EntityManager* EntityManager::GetInstance()
 
 void EntityManager::Start()
 {
-	m_entities.push_back(new toto());
+	m_player = new Player();
+	m_entities.push_back(m_player);
+	m_entities.push_back(new Boomba());
 	
 	for (Entity* entity : m_entities)
 	{

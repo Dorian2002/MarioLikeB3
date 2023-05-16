@@ -4,6 +4,7 @@
 #include <models/Entity.h>
 #include <unordered_map>
 #include <component/Transform.h>
+class Player;
 class EntityManager
 {
 public:
@@ -11,6 +12,7 @@ public:
 	void Start();
 	void Update();
 	bool MoveEntity(Entity*);
+    Player* m_player;
 	bool MoveEntity(Entity*, Vec2f translate , bool moving = true);
 private:
 	static EntityManager* m_instance;
