@@ -7,7 +7,7 @@ Player::Player() {
         new Transform(this, {2,10}),
         new SpriteComponent(this, "littleMarioIdle"),
         new PhysicsComponent(this, true),
-        new BoxColliderComponent(this, new Vec2f{16,16}),
+        new BoxColliderComponent(this, new Vec2f{16,16}, false),
         new Animator(
             this,
             std::vector<Animation*>{
@@ -154,3 +154,20 @@ void Player::SetUpAnimatorLink(Animation* run, Animation* idle) {
     sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::IsWalking));
     animator->CreateLink(idle, run, sigIdleToRun, true);
 }
+void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)
+{
+	if(overlapEntity->GetClassRttiName() == "Block")
+	{
+        return;
+	}
+}
+
+void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
+{
+	std::cout << overlapEntity->GetClassRttiName()<< std::endl;
+    if (overlapEntity->GetClassRttiName() == "Coin")
+    {
+        m_coins++;
+    }
+}
+

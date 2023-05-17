@@ -48,6 +48,11 @@ public:
 
     void SetUpAnimatorLink(Animation* run, Animation* idle);
 
+    void OnCollide(Component* overlapComponent, Entity* overlapEntity) override;
+
+    void OnOverlap(Component* overlapComponent, Entity* overlapEntity) override;
+
 private:
     float speedCoefficient = 1.0f;
+    int m_coins = 0;
 };
