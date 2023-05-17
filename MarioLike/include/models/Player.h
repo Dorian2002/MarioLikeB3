@@ -20,11 +20,8 @@ class Player : public Entity
 public:
     bool left = false;
     bool right = false;
-    float maxDist = 0;
-    float speedCoefficient = 1.0f;
+
     Vec2f m_lastposition;
-    bool m_isWalking;
-    Vec2f velocity;
     DEFINE_RTTI(Player);
 
     Player();
@@ -33,7 +30,7 @@ public:
 
     void Update(float deltaT) override;
 
-    void Move(float dist, float val);
+    void Move(float dist);
 
     void SetVelX(float acceleration);
 
@@ -50,4 +47,7 @@ public:
     void IsWalking(bool val);
 
     void SetUpAnimatorLink(Animation* run, Animation* idle);
+
+private:
+    float speedCoefficient = 1.0f;
 };

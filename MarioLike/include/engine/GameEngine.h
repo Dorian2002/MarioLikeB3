@@ -23,7 +23,6 @@ public:
 	sf::RenderWindow* GetWindow();
 	float GetDeltaTime();
 	float deltatime = 0.0f;	
-	//const std::chrono::nanoseconds FRAMETIME = std::chrono::nanoseconds(16666667);;
 private:
 	GameEngine() = default;
 	void Start();

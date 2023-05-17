@@ -14,28 +14,21 @@ PhysicsComponent::PhysicsComponent(Entity* root, bool isKinematic)
 
 void PhysicsComponent::Update(float deltaT)
 {
+
     if (isGrounded)
     {
-        isGrounded = !EntityManager::GetInstance()->MoveEntity(m_root, Vec2f{0, 9.81f * deltaT * 0.005f }, false);
+        isGrounded = !EntityManager::GetInstance()->MoveEntity(m_root, Vec2f{ 0, 9.81f * deltaT * 0.005f }, false);
     }
+
     if (m_isKinematic) {
-        if(isJumping && jumpForce < 0)
+        if (!isGrounded)
         {
-            jumpForce += 9.81f * deltaT * 0.005f;
-            velocity.y += jumpForce * deltaT * 0.5f;
+            velocity.y += 9.81f * deltaT * 2;
         }
-        if(!isGrounded)
-        {
-            velocity.y += 9.81f * deltaT * 0.005f;
-        }
-        if(velocity.y > maxVel)
-        {
-            maxVel = velocity.y;
-        }
-        velocity.y = std::min(velocity.y, 0.034f);
         Transform* t = m_root->GetComponent<Transform>();
         auto lastPos = t->GetPosition();
-        t->Translate(0, 0, velocity.y);
+        t->Translate(0, 0, velocity.y * deltaT);
+
         if (!EntityManager::GetInstance()->MoveEntity(m_root))
         {
             velocity.y = 0;
