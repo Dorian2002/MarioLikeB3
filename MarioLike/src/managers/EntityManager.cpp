@@ -19,8 +19,8 @@ EntityManager* EntityManager::GetInstance()
 void EntityManager::Start()
 {
 	m_player = new Player();
-	m_entities.push_back(m_player);
-	m_entities.push_back(new Boomba());
+	AddEntity(m_player);
+	AddEntity(new Boomba());
 	
 	for (Entity* entity : m_entities)
 	{
@@ -37,6 +37,37 @@ void EntityManager::Update()
 		entity->Update(deltaT);
 	}
 }
+void EntityManager::AddEntity(Entity* entity)
+{
+	m_entities.push_back(entity);
+	auto collider = entity->GetComponent<BoxColliderComponent>();
+	if(collider != nullptr)
+	{
+		if(collider->IsBlocking())
+		{
+			m_blockCollider.push_back(collider);
+		}
+		else
+		{
+			m_overlapCollider.push_back(collider);
+		}
+	}
+}
+
+std::vector<Entity*> EntityManager::GetEntities()
+{
+	return m_entities;
+}
+
+std::vector<BoxColliderComponent*> EntityManager::GetOverlapColliders()
+{
+	return m_overlapCollider;
+}
+std::vector<BoxColliderComponent*> EntityManager::GetBlockingColliders()
+{
+	return m_blockCollider;
+}
+
 
 bool EntityManager::MoveEntity(Entity* entity)
 {
@@ -70,5 +101,25 @@ bool EntityManager::MoveEntity(Entity* entity, Vec2f translate, bool moving)
 		return true;
 	}
 	return false;
+}
+
+void EntityManager::DeleteEntity(Entity* entity)
+{
+	for(auto& e : m_entities )
+	{
+		if (e == entity)
+		{
+			if (e->GetComponent<BoxColliderComponent>()->IsBlocking())
+			{
+				for (auto& c: m_blockCollider)
+				{
+					if (c == e->GetComponent<BoxColliderComponent>())
+					{
+						
+					}
+				}
+			}
+		}
+	}
 }
 
