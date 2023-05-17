@@ -14,6 +14,8 @@ public:
 	BoxColliderComponent(Entity*, Vec2f*, bool isBlocking = true);
 	bool CheckCollisions();
 	bool CheckCollisions(Vec2f translate);
+	bool IsBlocking();
+	void Update(float) override;
 private:
 	Vec2f* m_size;
 	bool m_isBlocking;
