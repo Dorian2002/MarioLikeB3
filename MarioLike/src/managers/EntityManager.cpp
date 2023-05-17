@@ -34,7 +34,8 @@ void EntityManager::Update()
 	float deltaT = GameEngine::GetInstance()->GetDeltaTime();
 	for (Entity* entity : m_entities)
 	{
-		entity->Update(deltaT);
+		if(entity)
+			entity->Update(deltaT);
 	}
 }
 void EntityManager::AddEntity(Entity* entity)
@@ -115,11 +116,24 @@ void EntityManager::DeleteEntity(Entity* entity)
 				{
 					if (c == e->GetComponent<BoxColliderComponent>())
 					{
-						
+						m_blockCollider.erase(std::remove(m_blockCollider.begin(), m_blockCollider.end(), c), m_blockCollider.end());
 					}
 				}
 			}
+			else
+			{
+				for (auto& c: m_overlapCollider)
+				{
+					if (c == e->GetComponent<BoxColliderComponent>())
+					{
+						m_overlapCollider.erase(std::remove(m_overlapCollider.begin(), m_overlapCollider.end(), c), m_overlapCollider.end());
+					}
+				}
+			}
+			m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), e), m_entities.end());
+			break;
 		}
 	}
+	delete entity;
 }
 
