@@ -4,7 +4,7 @@ Player::Player() {
     MarioRun* run = new MarioRun(AssetManager::GetInstance()->GetTexture("littleMarioRun"), 3);
     MarioIdle* idle = new MarioIdle(AssetManager::GetInstance()->GetTexture("littleMarioIdle"), 1);
     Components = {
-        new Transform(this, {2,10}),
+        new Transform(this, {2,14}),
         new SpriteComponent(this, "littleMarioIdle"),
         new PhysicsComponent(this, true),
         new BoxColliderComponent(this, new Vec2f{16,16}, false),
@@ -168,6 +168,12 @@ void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
     if (overlapEntity->GetClassRttiName() == "Coin")
     {
         m_coins++;
+        EntityManager::GetInstance()->DeleteEntity(overlapEntity);
+        return;
+    }
+    if (overlapEntity->GetClassRttiName() == "Boomba")
+    {
+        EntityManager::GetInstance()->DeleteEntity(overlapEntity);
     }
 }
 

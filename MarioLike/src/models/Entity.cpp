@@ -12,7 +12,8 @@ void Entity::Start()
 void Entity::Update(float deltaT)
 {
 	for (auto& component : Components) {
-		component->Update(deltaT);
+		if (component != nullptr)
+			component->Update(deltaT);
 	}
 }
 
