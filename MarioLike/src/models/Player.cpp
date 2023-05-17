@@ -33,24 +33,23 @@ void Player::Update(float deltaT) {
     auto t = GetComponent<PhysicsComponent>();
     if (t->isJumping)
     {
-        speedCoefficient = 5.f;
+        speedCoefficient = 2.f;
     }
     else
     {
         speedCoefficient = 100.f;
     }
     Entity::Update(deltaT);
-# define multiplier speedCoefficient * deltaT
     if (left)
     {
-        SetVelX(-3.f * multiplier);
+        SetVelX(-3.f * speedCoefficient * deltaT);
         auto spriteComponent = GetComponent<SpriteComponent>();
         spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
         spriteComponent->m_sprite->setScale({ 1, 1 });
     }
     if (right)
     {
-        SetVelX(3.f * multiplier);
+        SetVelX(3.f * speedCoefficient * deltaT);
         auto sprite = GetComponent<SpriteComponent>()->m_sprite;
         sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
         sprite->setScale({ -1, 1 });
@@ -59,26 +58,17 @@ void Player::Update(float deltaT) {
     {
         if (t->velocity.x > 0)
         {
-            SetVelX(-3.f * multiplier);
+            SetVelX(-3.f * speedCoefficient * deltaT);
         }
         if (t->velocity.x < 0)
         {
-            SetVelX(3.f * multiplier);
+            SetVelX(3.f * speedCoefficient * deltaT);
         }
     }
     if (t->velocity.x < 0.5f * speedCoefficient / 100 && t->velocity.x > -0.5f * speedCoefficient / 100) {
         t->velocity.x = 0;
     }
-    auto dist = t->velocity.x * deltaT;
-
-    if (dist > 0)
-    {
-        Move(dist);
-    }
-    else
-    {
-        Move(dist);
-    }
+    Move(t->velocity.x * deltaT);
 }
 
 void Player::Move(float dist)
