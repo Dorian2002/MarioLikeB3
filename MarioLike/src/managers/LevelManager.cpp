@@ -88,7 +88,6 @@ void LevelManager::MoveLevel()
 	auto t = EntityManager::GetInstance()->m_player;
 	auto cameraView = GameEngine::GetInstance()->GetWindow();
 	sf::View currentView = cameraView->getView();
-	int levelSize = m_level->m_map[0].size();
 	bool right = false;
 	bool left = false;
 
@@ -96,17 +95,17 @@ void LevelManager::MoveLevel()
 	RenderManager* renderManager = RenderManager::GetInstance();
 
 	//If player position is milddle screen an dplayer go to the right
-	if (t->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x && t->m_isWalking)
+	if (t->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x && t->m_isWalking && t->velocity.x > 0)
 	{
 		//Move the map to the right
-		currentView.move(0.1, 0);
+		currentView.move(t->velocity.x, 0);
 		cameraView->setView(currentView);
 		right = true;
 	}
-	else if (t->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x / 2 && t->m_isWalking && t->velocity.x < 0)
+	else if (t->GetComponent<Transform>()->m_position.x * 16 <= currentView.getCenter().x && t->m_isWalking && t->velocity.x < 0)
 	{
-		//Move the map to the right
-		currentView.move(-0.1, 0);
+		//Move the map to the left
+		currentView.move(t->velocity.x, 0);
 		cameraView->setView(currentView);
 		left = true;
 	}
@@ -115,7 +114,8 @@ void LevelManager::MoveLevel()
 	if (right)
 	{
 		//lock player in middle screen position
-		t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
+		//t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
+		//currentView.setCenter(t->GetComponent<Transform>()->m_position.x * 16, currentView.getCenter().y);
 
 		//If the main background not cover entirely cycle with the other background
 		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x + m_parallaxSky->GetComponent<SpriteComponent>()->m_spriteSize.x <= currentView.getCenter().x - currentView.getSize().x / 2)
@@ -130,8 +130,9 @@ void LevelManager::MoveLevel()
 	}
 	else if (left)
 	{
-		//lock player in 1/4 screen position
-		t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
+		//lock player in middle screen position
+		//t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
+		//currentView.setCenter(t->GetComponent<Transform>()->m_position.x * 16, currentView.getCenter().y);
 
 		//If the main background not cover entirely cycle with the other background
 		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x  >= currentView.getCenter().x + currentView.getSize().x / 2)
@@ -144,5 +145,4 @@ void LevelManager::MoveLevel()
 		m_sky->GetComponent<Transform>()->m_position.x += 0.0001;
 		m_parallaxSky->GetComponent<Transform>()->m_position.x += 0.0001;
 	}
-
 }

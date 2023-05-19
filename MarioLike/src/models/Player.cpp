@@ -43,17 +43,24 @@ void Player::Update(float deltaT) {
     if (left)
     {
         SetVelX(-0.05f * speedCoefficient);
-        auto spriteComponent = GetComponent<SpriteComponent>();
-        spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
-        spriteComponent->m_sprite->setScale({ 1, 1 });
+        if (velocity.x < 0)
+        {
+            auto spriteComponent = GetComponent<SpriteComponent>();
+            spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
+            spriteComponent->m_sprite->setScale({ 1, 1 });
+        }
         m_isWalking = true;
     }
     if (right)
     {
         SetVelX(0.05f * speedCoefficient);
-        auto sprite = GetComponent<SpriteComponent>()->m_sprite;
-        sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
-        sprite->setScale({ -1, 1 });
+        if (velocity.x > 0)
+        {
+            auto sprite = GetComponent<SpriteComponent>()->m_sprite;
+            sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
+            sprite->setScale({ -1, 1 });
+        }
+
         m_isWalking = true;
     }
     if (!left && !right)
