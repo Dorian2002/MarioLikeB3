@@ -18,7 +18,8 @@ public:
 	GameEngine(const GameEngine& _other) = delete;
 	void operator =(const GameEngine& _other) = delete;
 	static GameEngine* GetInstance();
-	bool Run();
+	bool RunGame();
+	bool RunMenu();
 	int m_frames = 0;
 	sf::RenderWindow* GetWindow();
 	float GetDeltaTime();
@@ -31,6 +32,7 @@ private:
 	void Update();
 	void Render();
 	bool LoadResources();
+	bool LoadMenuResources();
 	static GameEngine* m_engine;
 	sf::Clock m_clock;
 	void ResetTime();

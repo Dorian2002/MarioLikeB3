@@ -1,9 +1,10 @@
 #include "engine/GameEngine.h"
 #include "utils/Sling.h"
-#include <managers/AssetManager.h>
-#include "utils/Sling.h"
+#include "managers/AssetManager.h"
 #include "managers/EntityManager.h"
 #include "managers/LevelManager.h"
+#include "utils/Button.h"
+#include <SFML/Graphics.hpp>
 
 GameEngine* GameEngine::m_engine = nullptr;
 
@@ -29,7 +30,6 @@ GameEngine::~GameEngine()
 void GameEngine::Start()
 {
 	LoadResources();
-	m_window = new sf::RenderWindow(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Suuuuupair maria brasse");
 	m_levelManager = LevelManager::GetInstance();
 	m_levelManager->LoadLevel();
 	m_levelManager->RenderLevel();
@@ -59,7 +59,7 @@ void GameEngine::Render()
 	m_window->display();
 }
 
-bool GameEngine::Run()
+bool GameEngine::RunGame()
 {
 	Start();
 	
@@ -67,6 +67,7 @@ bool GameEngine::Run()
 	//auto gameTimeStart = clock::now();
 	//float frameTimeStart = 0.0f;
 	//std::chrono::nanoseconds accumulator(0);
+
 	while(m_window->isOpen())
 	{
 
@@ -81,6 +82,48 @@ bool GameEngine::Run()
 		 //= clock.getElapsedTime().asSeconds() - frameTimeStart;
 		//std::cout << "frames per second: " << (float)m_frames / ((float)millisPassed.count() / 1000.f) << std::endl;
 
+	}
+	return true;
+}
+
+bool GameEngine::RunMenu()
+{
+	#pragma region SetUpMenu
+	LoadMenuResources();
+		sf::Texture* texture = AssetManager::GetInstance()->GetTexture("menuBackground");
+		sf::Sprite* background = new sf::Sprite();
+		background->setScale(0.5, 0.5);
+		background->setTexture(*texture);
+		m_window = new sf::RenderWindow(sf::VideoMode(960,540), "Suuuuupair maria brasse");
+		Button playBtn(sf::Vector2f(30, 150), sf::Vector2f(100, 50));
+		playBtn.setOnClickCallback([this]() {
+			RunGame();
+			});
+		playBtn.setText("PLAY");
+		Button quitBtn(sf::Vector2f(30, 450), sf::Vector2f(80, 40));
+		quitBtn.setText("QUIT");
+		quitBtn.setOnClickCallback([this]() {
+			m_window->close();
+			});
+		//playBtn.setText("QUIT");
+	#pragma endregion
+
+	while (m_window->isOpen())
+	{
+		m_window->clear();
+		sf::Event event;
+		while (m_window->pollEvent(event))
+		{
+			// "close requested" event: we close the window
+			if (event.type == sf::Event::Closed)
+				m_window->close();
+			playBtn.handleEvent(&event, m_window);
+			quitBtn.handleEvent(&event, m_window);
+		}
+		m_window->draw(*background);
+		playBtn.draw(m_window);
+		quitBtn.draw(m_window);
+		m_window->display();
 	}
 	return true;
 }
@@ -115,13 +158,26 @@ bool GameEngine::LoadResources()
 	success &= assetManager->LoadTexture("coin.png", "coin");
 	success &= assetManager->LoadTexture("Sky.png", "Background");
 
-	//success &= assetManager->LoadTexture("map_assets/brick.png", "brick");
-	//success &= assetManager->LoadTexture("map_assets/wall.png", "wall");
-	//success &= assetManager->LoadTexture("map_assets/grass.png", "grass");
-	//success &= assetManager->LoadTexture("mc_animations/F1.png", "F1");
-	//success &= assetManager->LoadTexture("map_assets/opened_trap.png", "o_trap");
-	//success &= assetManager->LoadTexture("map_assets/closed_trap.png", "c_trap");
-	//success &= assetManager->LoadTexture("bomb_animations/B1.png", "B1");
+	if (success)
+	{
+		std::cout << ">> Loading resources was successful !" << std::endl;
+	}
+	else
+	{
+		std::cout << ">> Error while loading resources !" << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool GameEngine::LoadMenuResources()
+{
+	bool success = true;
+	AssetManager* assetManager = AssetManager::GetInstance();
+
+	success &= assetManager->LoadTexture("menuBackground.jpg", "menuBackground");
+	success &= assetManager->LoadFont("SuperMarioBros.ttf", "mainFont");
 
 	if (success)
 	{

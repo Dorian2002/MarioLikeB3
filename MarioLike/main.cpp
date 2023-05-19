@@ -4,6 +4,6 @@ int main()
 {
 	bool success = true;
 	GameEngine* game = GameEngine::GetInstance();
-	success = game->Run();
+	success = game->RunMenu();
 	return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }

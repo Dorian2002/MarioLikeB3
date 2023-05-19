@@ -1,6 +1,7 @@
 #include "managers/AssetManager.h"
 
-#define ASSETS_PATH "resources/images/"
+#define IMAGES_PATH "resources/images/"
+#define FONTS_PATH "resources/fonts/"
 
 AssetManager* AssetManager::m_instance = nullptr;
 std::unordered_map<std::string, sf::Texture*> AssetManager::m_textures;
@@ -37,7 +38,7 @@ AssetManager::~AssetManager()
 bool AssetManager::LoadTexture(const std::string& _fileName, const std::string& _assetId)
 {
 	sf::Texture* texture = new sf::Texture();
-	if (texture->loadFromFile(ASSETS_PATH + _fileName))
+	if (texture->loadFromFile(IMAGES_PATH + _fileName))
 	{
 		m_textures[_assetId] = texture;
 		return true;
@@ -51,7 +52,7 @@ bool AssetManager::LoadTexture(const std::string& _fileName, const std::string& 
 bool AssetManager::LoadFont(const std::string& _fileName, const std::string& _assetId)
 {
 	sf::Font* font = new sf::Font();
-	if (font->loadFromFile(ASSETS_PATH + _fileName))
+	if (font->loadFromFile(FONTS_PATH + _fileName))
 	{
 		m_fonts[_assetId] = font;
 		return true;

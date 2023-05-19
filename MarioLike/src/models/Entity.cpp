@@ -24,7 +24,7 @@ void Entity::Destroy()
 		delete Components[COMPONENT_INDEX];
 		Components[COMPONENT_INDEX] = nullptr;
 	}
-	delete Components;
+	Components.clear();
 }
 
 Entity::Entity(Vec2f _spriteSize)

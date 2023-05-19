@@ -3,7 +3,7 @@
 
 Background::Background(Vec2f position)
 {
-	Components = { new Transform(this,position), new SpriteComponent(this, "Background", {500, 500})};
+	Components = { new Transform(this,position), new SpriteComponent(this, "Background", {960, 540})};
 }
 
 
