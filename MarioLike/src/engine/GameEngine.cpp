@@ -54,7 +54,7 @@ void GameEngine::Update()
 void GameEngine::Render()
 {
 	m_window->clear();
-	//m_levelManager->MoveLevel();
+	m_levelManager->MoveLevel();
 	m_renderManager->RenderLevel(*m_window);
 	m_window->display();
 }

@@ -20,7 +20,6 @@ LevelManager* LevelManager::GetInstance()
 LevelManager::LevelManager()
 {
 	m_level = nullptr;
-	m_parallaxSky = new Background({0,0});
 }
 
 LevelManager::~LevelManager()
@@ -64,8 +63,9 @@ void LevelManager::RenderLevel()
 
 	//Create Background, define it as the main background and display it via drawCall
 	m_sky = new Background({ 0,0 });
-	m_mainSky = m_sky;
+	m_parallaxSky = new Background({ 1,0 });
 	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 2));
+	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 2));
 
 	//iterate over the m_map vector to render each element via drawCall
 	for (std::vector<Entity*> line : m_level->m_map) {
@@ -86,76 +86,63 @@ void LevelManager::MoveLevel()
 {
 	//We get the player in the EntityManager
 	auto t = EntityManager::GetInstance()->m_player;
+	auto cameraView = GameEngine::GetInstance()->GetWindow();
+	sf::View currentView = cameraView->getView();
+	int levelSize = m_level->m_map[0].size();
 	bool right = false;
 	bool left = false;
 
 	//Get render manager
 	RenderManager* renderManager = RenderManager::GetInstance();
 
-	//For each element in the map
-	for (std::vector<Entity*> line : m_level->m_map) {
-		for (Entity* entity : line) {
-
-			//If player position is milddle screen an dplayer go to the right
-			if (t->GetComponent<Transform>()->m_position.x * 16 >= WINDOW_SIZE / 2 && entity->GetComponent<Transform>() && t->m_lastposition.x <= t->GetComponent<Transform>()->m_position.x)
-			{
-				//Move the map to the right
-				entity->GetComponent<Transform>()->m_position.x -= 0.1;
-				right = true;
-			}
-
-			//If player position is 1/4 screen and go to the left
-			else if(t->GetComponent<Transform>()->m_position.x * 16 < WINDOW_SIZE / 8 && entity->GetComponent<Transform>() && t->m_lastposition.x > t->GetComponent<Transform>()->m_position.x)
-			{
-				//Move the map to the left
-				entity->GetComponent<Transform>()->m_position.x += 0.1;
-				left = true;
-			}
-		}
+	//If player position is milddle screen an dplayer go to the right
+	if (t->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x && t->m_isWalking)
+	{
+		//Move the map to the right
+		currentView.move(0.1, 0);
+		cameraView->setView(currentView);
+		right = true;
+	}
+	else if (t->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x / 2 && t->m_isWalking && t->velocity.x < 0)
+	{
+		//Move the map to the right
+		currentView.move(-0.1, 0);
+		cameraView->setView(currentView);
+		left = true;
 	}
 
 	//If the level move to the right
 	if (right)
 	{
 		//lock player in middle screen position
-		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
 
-		//If the main background not cover entirely cicle with the other background
-		if (m_mainSky->GetComponent<Transform>()->m_position.x < -0.85)
-		{
-			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x + 0.85;
-		}
-		else if (m_mainSky->GetComponent<Transform>()->m_position.x < 0)
-		{
-			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x + 0.85;
-			std::cout << m_sky->GetComponent<Transform>()->m_position.x << std::endl;
-			RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 3));
-		}
+		//If the main background not cover entirely cycle with the other background
+		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x + m_parallaxSky->GetComponent<SpriteComponent>()->m_spriteSize.x <= currentView.getCenter().x - currentView.getSize().x / 2)
+			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x + 0.999;
+
+		else if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x + m_sky->GetComponent<SpriteComponent>()->m_spriteSize.x <= currentView.getCenter().x + currentView.getSize().x / 2)
+			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x + 0.999;
 
 		//Move the backgrounds
-		m_sky->GetComponent<Transform>()->m_position.x -= 0.001;
-		m_parallaxSky->GetComponent<Transform>()->m_position.x -= 0.001;
+		m_sky->GetComponent<Transform>()->m_position.x -= 0.0001;
+		m_parallaxSky->GetComponent<Transform>()->m_position.x -= 0.0001;
 	}
 	else if (left)
 	{
 		//lock player in 1/4 screen position
-		t->GetComponent<Transform>()->m_position = t->m_lastposition;
+		t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
 
-		//If the main background not cover entirely cicle with the other background
-		if (m_mainSky->GetComponent<Transform>()->m_position.x > 0.85)
-		{
-			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x - 0.85;
-		}
-		else if (m_mainSky->GetComponent<Transform>()->m_position.x > 0)
-		{
-			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x - 0.85;
-			std::cout << m_sky->GetComponent<Transform>()->m_position.x << std::endl;
-			RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 3));
-		}
+		//If the main background not cover entirely cycle with the other background
+		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x  >= currentView.getCenter().x + currentView.getSize().x / 2)
+			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x - 0.999;
+
+		else if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x  >= currentView.getCenter().x - currentView.getSize().x / 2)
+			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x - 0.999;
 
 		//Move the backgrounds
-		m_sky->GetComponent<Transform>()->m_position.x += 0.001;
-		m_parallaxSky->GetComponent<Transform>()->m_position.x += 0.001;
+		m_sky->GetComponent<Transform>()->m_position.x += 0.0001;
+		m_parallaxSky->GetComponent<Transform>()->m_position.x += 0.0001;
 	}
 
 }
