@@ -46,6 +46,7 @@ void Player::Update(float deltaT) {
         auto spriteComponent = GetComponent<SpriteComponent>();
         spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
         spriteComponent->m_sprite->setScale({ 1, 1 });
+        m_isWalking = true;
     }
     if (right)
     {
@@ -53,6 +54,7 @@ void Player::Update(float deltaT) {
         auto sprite = GetComponent<SpriteComponent>()->m_sprite;
         sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
         sprite->setScale({ -1, 1 });
+        m_isWalking = true;
     }
     if (!left && !right)
     {
@@ -64,9 +66,11 @@ void Player::Update(float deltaT) {
         {
             SetVelX(0.05f * speedCoefficient);
         }
+        m_isWalking = false;
     }
     if (velocity.x < 0.05f * speedCoefficient && velocity.x > -0.05f * speedCoefficient) {
         velocity.x = 0;
+        m_isWalking = false;
     }
     auto dist = velocity.x * deltaT;
 
