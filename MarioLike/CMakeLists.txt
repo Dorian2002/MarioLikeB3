@@ -68,6 +68,7 @@ set (HEADERS
     ${HEADER_DIR}/utils/BlackBoard/BlackboardT.inl
     ${HEADER_DIR}/utils/BlackBoard/Valuehandle.hpp
     ${HEADER_DIR}/utils/BlackBoard/Valuehandle.inl
+    ${HEADER_DIR}/utils/Button.h
     ${HEADER_DIR}/utils/Rtti.h
     ${HEADER_DIR}/utils/Sling.h
     ${HEADER_DIR}/utils/Vector2.h
