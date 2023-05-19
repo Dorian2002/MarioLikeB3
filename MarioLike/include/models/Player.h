@@ -20,7 +20,6 @@ class Player : public Entity
 public:
     bool left = false;
     bool right = false;
-
     Vec2f m_lastposition;
     DEFINE_RTTI(Player);
 
@@ -44,7 +43,8 @@ public:
 
     void jump();
 
-    void IsWalking(bool val);
+    void AnimIsWalking(bool val);
+    bool IsWalking();
 
     void SetUpAnimatorLink(Animation* run, Animation* idle);
 

@@ -43,23 +43,21 @@ void Player::Update(float deltaT) {
     if (left)
     {
         SetVelX(-3.f * speedCoefficient * deltaT);
-        if (velocity.x < 0)
+        if (t->velocity.x < 0)
         {
             auto spriteComponent = GetComponent<SpriteComponent>();
             spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
             spriteComponent->m_sprite->setScale({ 1, 1 });
         }
-        m_isWalking = true;
     }
     if (right)
     {
         SetVelX(3.f * speedCoefficient * deltaT);
-        if (velocity.x > 0) {
+        if (t->velocity.x > 0) {
             auto sprite = GetComponent<SpriteComponent>()->m_sprite;
             sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
             sprite->setScale({ -1, 1 });
         }
-        m_isWalking = true;
     }
     if (!left && !right)
     {
@@ -71,7 +69,6 @@ void Player::Update(float deltaT) {
         {
             SetVelX(3.f * speedCoefficient * deltaT);
         }
-        m_isWalking = false;
     }
     if (t->velocity.x < 0.5f * speedCoefficient / 100 && t->velocity.x > -0.5f * speedCoefficient / 100) {
         t->velocity.x = 0;
@@ -145,21 +142,28 @@ void Player::jump() {
     }
 }
 
-void Player::IsWalking(bool val) {
+void Player::AnimIsWalking(bool val) {
     if ((GetComponent<PhysicsComponent>()->velocity.x != 0) == val) {
         GetComponent<Animator>()->m_changeAnim = true;
     }
+}
+
+bool Player::IsWalking() {
+    if (GetComponent<PhysicsComponent>()->velocity.x != 0) {
+        return true;
+    }
+    return false;
 }
 
 void Player::SetUpAnimatorLink(Animation* run, Animation* idle) {
     Animator* animator = GetComponent<Animator>();
 
     Event::Signal<bool>* sigRunToIdle = new Event::Signal<bool>();
-    sigRunToIdle->connect(new Event::Slot<bool>(this, &Player::IsWalking));
+    sigRunToIdle->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
     animator->CreateLink(run, idle, sigRunToIdle, false);
 
     Event::Signal<bool>* sigIdleToRun = new Event::Signal<bool>();
-    sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::IsWalking));
+    sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
     animator->CreateLink(idle, run, sigIdleToRun, true);
 }
 void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)

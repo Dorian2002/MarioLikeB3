@@ -85,7 +85,7 @@ Level* LevelManager::GetLevel()
 void LevelManager::MoveLevel()
 {
 	//We get the player in the EntityManager
-	auto t = EntityManager::GetInstance()->m_player;
+	auto player = EntityManager::GetInstance()->m_player;
 	auto cameraView = GameEngine::GetInstance()->GetWindow();
 	sf::View currentView = cameraView->getView();
 	bool right = false;
@@ -93,19 +93,19 @@ void LevelManager::MoveLevel()
 
 	//Get render manager
 	RenderManager* renderManager = RenderManager::GetInstance();
-
+	auto velX = player->GetComponent<PhysicsComponent>()->velocity.x;
 	//If player position is milddle screen an dplayer go to the right
-	if (t->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x && t->m_isWalking && t->velocity.x > 0)
+	if (player->GetComponent<Transform>()->m_position.x * 16 >= currentView.getCenter().x && player->IsWalking() && velX > 0)
 	{
 		//Move the map to the right
-		currentView.move(t->velocity.x, 0);
+		currentView.move(velX/16, 0);
 		cameraView->setView(currentView);
 		right = true;
 	}
-	else if (t->GetComponent<Transform>()->m_position.x * 16 <= currentView.getCenter().x && t->m_isWalking && t->velocity.x < 0)
+	else if (player->GetComponent<Transform>()->m_position.x * 16 <= currentView.getCenter().x && player->IsWalking() && velX < 0)
 	{
 		//Move the map to the left
-		currentView.move(t->velocity.x, 0);
+		currentView.move(velX/16, 0);
 		cameraView->setView(currentView);
 		left = true;
 	}
