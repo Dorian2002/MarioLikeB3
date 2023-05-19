@@ -64,15 +64,9 @@ bool GameEngine::RunGame()
 	Start();
 	
 	auto clock = sf::Clock();
-	//auto gameTimeStart = clock::now();
-	//float frameTimeStart = 0.0f;
-	//std::chrono::nanoseconds accumulator(0);
-
 	while(m_window->isOpen())
 	{
-
 		deltatime = clock.restart().asSeconds();
-		
 		HandleInput();
 		Update();
 		Render();
@@ -136,7 +130,6 @@ sf::RenderWindow* GameEngine::GetWindow()
 
 float GameEngine::GetDeltaTime()
 {
-	//return std::chrono::duration<float>(FRAMETIME).count();
 	return deltatime;
 }
 

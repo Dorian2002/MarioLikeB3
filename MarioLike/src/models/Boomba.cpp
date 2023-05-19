@@ -9,7 +9,7 @@ Boomba::Boomba()
         new Transform(this, {2,10}),
         new SpriteComponent(this, "boombaIdle"),
         new PhysicsComponent(this, true),
-        new BoxColliderComponent(this, new Vec2f{16,16}),
+        new BoxColliderComponent(this, new Vec2f{16,16}, false),
         new Animator(
             this,
             std::vector<Animation*>{

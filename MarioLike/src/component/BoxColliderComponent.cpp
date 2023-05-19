@@ -58,17 +58,19 @@ bool BoxColliderComponent::CheckCollisions(Vec2f translate)
 	for (std::vector<Entity*> l : map) {
 		for (Entity* e : l) {
 			if (BoxColliderComponent* col = e->GetComponent<BoxColliderComponent>()) {
-				if (col->m_isBlocking)
-				{
-					Vec2f etp = e->GetComponent<Transform>()->GetPosition();
-					Vec2f esp = e->GetComponent<SpriteComponent>()->m_spriteSize;
-					float posLeft = floor(etp.x * esp.x);
-					float posRight = std::round(etp.x * esp.x + esp.x);
-					float posTop = floor(etp.y * esp.y);
-					float posBot = std::round(etp.y * esp.y + esp.y);
-					if (rootRight >= posLeft && rootLeft <= posRight && rootBot >= posTop && rootTop <= posBot) {
+				Vec2f etp = e->GetComponent<Transform>()->GetPosition();
+				Vec2f esp = e->GetComponent<SpriteComponent>()->m_spriteSize;
+				float posLeft = floor(etp.x * esp.x);
+				float posRight = std::round(etp.x * esp.x + esp.x);
+				float posTop = floor(etp.y * esp.y);
+				float posBot = std::round(etp.y * esp.y + esp.y);
+				if (rootRight >= posLeft && rootLeft <= posRight && rootBot >= posTop && rootTop <= posBot) {
+					if (col->m_isBlocking)
+					{
+						m_root->OnCollide(this, e);
 						return false;
 					}
+					m_root->OnOverlap(this, e);
 				}
 			}
 		}
