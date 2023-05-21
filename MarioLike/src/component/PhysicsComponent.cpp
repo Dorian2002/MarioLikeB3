@@ -31,10 +31,12 @@ void PhysicsComponent::Update(float deltaT)
 
         if (!EntityManager::GetInstance()->MoveEntity(m_root))
         {
+            if (velocity.y > 0) {
+                isGrounded = true;
+                isJumping = false;
+            }
             velocity.y = 0;
             t->SetPosition(lastPos);
-            isGrounded = true;
-            isJumping = false;
         }
     }
 }
