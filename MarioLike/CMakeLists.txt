@@ -44,6 +44,7 @@ set (HEADERS
     ${HEADER_DIR}/models/Bouseur.h
     ${HEADER_DIR}/models/Coin.h
     ${HEADER_DIR}/models/Component.h
+    ${HEADER_DIR}/models/Menu.h
     ${HEADER_DIR}/models/Ennemy.h
     ${HEADER_DIR}/models/Entity.h
     ${HEADER_DIR}/models/GameObject.h
@@ -90,6 +91,7 @@ set (SOURCES
     ${SOURCE_DIR}/managers/InputManager.cpp
     ${SOURCE_DIR}/models/Block.cpp
     ${SOURCE_DIR}/models/Boomba.cpp
+    ${SOURCE_DIR}/models/Menu.cpp
     ${SOURCE_DIR}/models/Bouseur.cpp
     ${SOURCE_DIR}/models/Coin.cpp
     ${SOURCE_DIR}/models/Component.cpp

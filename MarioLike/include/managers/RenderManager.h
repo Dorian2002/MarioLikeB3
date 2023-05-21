@@ -8,6 +8,7 @@
 class RenderManager
 {
 public:
+	~RenderManager();
 	static RenderManager* GetInstance();
 	static RenderManager* m_instance;
 	std::vector<DrawCall*> m_toRender;

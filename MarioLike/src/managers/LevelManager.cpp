@@ -27,17 +27,15 @@ LevelManager::~LevelManager()
 	if (m_level != nullptr)
 	{
 		delete m_level;
-	}
-
-	if (m_instance != nullptr)
-	{
-		delete m_instance;
+		m_level = nullptr;
 	}
 
 	if (m_parallaxSky != nullptr)
 	{
 		delete m_parallaxSky;
+		m_parallaxSky = nullptr;
 	}
+	m_instance = nullptr;
 }
 
 //Function that Load the level structure from text file

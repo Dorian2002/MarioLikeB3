@@ -4,6 +4,14 @@
 #include <algorithm>
 
 RenderManager* RenderManager::m_instance = nullptr;
+RenderManager::~RenderManager()
+{
+	for (DrawCall* drawcall : m_toRender) {
+		delete drawcall;
+	}
+	m_instance = nullptr;
+}
+
 RenderManager* RenderManager::GetInstance()
 {
 	if (m_instance == nullptr)
@@ -12,6 +20,8 @@ RenderManager* RenderManager::GetInstance()
 	}
 	return m_instance;
 }
+
+
 
 struct
 {

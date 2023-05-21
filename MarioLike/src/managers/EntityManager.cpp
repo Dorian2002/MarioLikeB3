@@ -39,6 +39,22 @@ void EntityManager::Update()
 	}
 }
 
+EntityManager::~EntityManager()
+{
+	m_player = nullptr;
+
+	for (Entity* entity : m_entities) {
+		delete entity;
+	}
+	for (BoxColliderComponent* collider : m_blockCollider) {
+		delete collider;
+	}
+	for (BoxColliderComponent* collider : m_overlapCollider) {
+		delete collider;
+	}
+	m_instance = nullptr;
+}
+
 void EntityManager::AddEntity(Entity* entity)
 {
 	m_entities.push_back(entity);
@@ -136,5 +152,6 @@ void EntityManager::DeleteEntity(Entity* entity)
 		}
 	}
 	delete entity;
+	entity = nullptr;
 }
 

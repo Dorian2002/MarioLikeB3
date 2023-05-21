@@ -22,17 +22,15 @@ AssetManager::~AssetManager()
 	for (auto& it : m_textures)
 	{
 		delete it.second;
+		it.second = nullptr;
 	}
 
 	for (auto& it : m_fonts)
 	{
 		delete it.second;
+		it.second = nullptr;
 	}
-
-	if (m_instance != nullptr)
-	{
-		delete m_instance;
-	}
+	m_instance = nullptr;
 }
 
 bool AssetManager::LoadTexture(const std::string& _fileName, const std::string& _assetId)

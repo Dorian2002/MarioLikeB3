@@ -35,35 +35,40 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 
 			for (auto& c : line)
 			{
-				Vec2u position = { column, row };
+				try {
+					Vec2u position = { column, row };
 
-				switch (c)
-				{
-				case '1':
-				{
-					EntityManager::GetInstance()->AddEntity(new Block(position));
-					/*Block* entity = new Block(position);
-					rowEntities.emplace_back(entity);
-					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());*/
-					//entity->GetComponent<Transform>()->Scale(Vec2f{ 64.0f, 64.0f });
-					break;
+					switch (c)
+					{
+					case '1':
+					{
+						EntityManager::GetInstance()->AddEntity(new Block(position));
+						/*Block* entity = new Block(position);
+						rowEntities.emplace_back(entity);
+						m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());*/
+						//entity->GetComponent<Transform>()->Scale(Vec2f{ 64.0f, 64.0f });
+						break;
+					}
+					case '3':
+					{
+						EntityManager::GetInstance()->AddEntity(new Coin(position));
+						/*Coin* entity = new Coin(position);
+						rowEntities.emplace_back(entity);
+						m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());*/
+						break;
+					}
+					default:
+					{
+						Void* entity = new Void();
+						rowEntities.emplace_back(entity);
+						break;
+					}
+					}
+					column++;
 				}
-				case '3':
-				{
-					EntityManager::GetInstance()->AddEntity(new Coin(position));
-					/*Coin* entity = new Coin(position);
-					rowEntities.emplace_back(entity);
-					m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());*/
-					break;
+				catch (const std::exception& e){
+					e.what();
 				}
-				default:
-				{
-					Void* entity = new Void();
-					rowEntities.emplace_back(entity);
-					break;
-				}
-				}
-				column++;
 			}
 			m_map.emplace_back(rowEntities);
 			row++;

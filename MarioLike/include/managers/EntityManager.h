@@ -12,6 +12,7 @@ public:
 	static EntityManager* GetInstance();
 	void Start();
 	void Update();
+	~EntityManager();
 	bool MoveEntity(Entity*);
 	void AddEntity(Entity* entity);
     Player* m_player;

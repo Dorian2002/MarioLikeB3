@@ -8,7 +8,6 @@ InputManager* InputManager::m_instance = nullptr;
 
 InputManager::~InputManager()
 {
-	delete m_instance;
 	for (const auto& it : m_signals)
 	{
 		for (const auto& iterator : it.second)
@@ -16,6 +15,7 @@ InputManager::~InputManager()
 			delete iterator.second;
 		}
 	}
+	m_instance = nullptr;
 }
 
 void InputManager::HandleInput()

@@ -1,12 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include "managers/AssetManager.h"
 
-class Button {
+class UIButton {
 public:
-    Button(const sf::Vector2f& position, const sf::Vector2f& size)
-        : m_position(position), m_size(size) {
+    UIButton(const sf::Vector2f& position, const sf::Vector2f& size)
+    {
+        m_position = position;
+        m_size = size;
         m_shape.setPosition(position);
         m_shape.setSize(size);
+        m_text = new sf::Text();
+    }
+
+    ~UIButton() {
+        delete m_text;
+        m_text = new sf::Text();
     }
 
     template <typename T>
@@ -27,7 +36,6 @@ public:
     }
 
     void setText(const std::string& text, const sf::Color& color, unsigned int fontSize, const sf::Font& font ) {
-        m_text = new sf::Text();
         m_text->setString(text);
         m_text->setCharacterSize(fontSize);
         m_text->setFont(font);
@@ -36,7 +44,6 @@ public:
         m_text->setPosition(m_position.x + (m_size.x - textBounds.width) / 2, m_position.y + (m_size.y - textBounds.height) / 2);
     }
     void setText(const std::string& text, unsigned int fontSize, const sf::Font& font) {
-        m_text = new sf::Text();
         m_text->setString(text);
         m_text->setCharacterSize(fontSize);
         m_text->setFont(font);
@@ -45,7 +52,6 @@ public:
         m_text->setPosition(m_position.x + (m_size.x - textBounds.width) / 2, m_position.y + (m_size.y - textBounds.height) / 2);
     }
     void setText(const std::string& text, unsigned int fontSize, const sf::Color& color) {
-        m_text = new sf::Text();
         m_text->setString(text);
         m_text->setCharacterSize(fontSize);
         m_text->setFont(*AssetManager::GetInstance()->GetFont("mainFont"));
@@ -54,7 +60,6 @@ public:
         m_text->setPosition(m_position.x + (m_size.x - textBounds.width) / 2, m_position.y + (m_size.y - textBounds.height) / 2);
     }
     void setText(const std::string& text) {
-        m_text = new sf::Text();
         m_text->setString(text);
         m_text->setCharacterSize(30);
         m_text->setFont(*AssetManager::GetInstance()->GetFont("mainFont"));

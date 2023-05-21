@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 #include <chrono>
+#include <models/Menu.h>
 
 #define WINDOW_SIZE 500
 
@@ -20,6 +21,7 @@ public:
 	static GameEngine* GetInstance();
 	bool RunGame();
 	bool RunMenu();
+	void BackToMenu();
 	int m_frames = 0;
 	sf::RenderWindow* GetWindow();
 	float GetDeltaTime();
@@ -40,4 +42,5 @@ private:
 	EntityManager* m_entityManager;
 	RenderManager* m_renderManager;
 	InputManager* m_inputManager;
+	Menu* m_Menu;
 };

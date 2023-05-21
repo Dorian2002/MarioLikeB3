@@ -38,13 +38,13 @@ void GameEngine::Start()
 	m_renderManager = RenderManager::GetInstance();
 	m_renderManager->RenderLevel(*m_window);
 	m_inputManager = InputManager::GetInstance();
+	m_inputManager->AddKeyBind(sf::Keyboard::Escape, new Event::Slot<>(this, &GameEngine::BackToMenu), onKeyPress);
 }
 
 void GameEngine::HandleInput()
 {
 	m_inputManager->HandleInput();
 }
-
 
 void GameEngine::Update()
 {
@@ -61,6 +61,9 @@ void GameEngine::Render()
 
 bool GameEngine::RunGame()
 {
+	delete m_Menu;
+	m_Menu = nullptr;
+
 	Start();
 	
 	auto clock = sf::Clock();
@@ -80,27 +83,17 @@ bool GameEngine::RunGame()
 	return true;
 }
 
+
+
 bool GameEngine::RunMenu()
 {
-	#pragma region SetUpMenu
 	LoadMenuResources();
-		sf::Texture* texture = AssetManager::GetInstance()->GetTexture("menuBackground");
-		sf::Sprite* background = new sf::Sprite();
-		background->setScale(0.5, 0.5);
-		background->setTexture(*texture);
+	if (!m_window)
 		m_window = new sf::RenderWindow(sf::VideoMode(960,540), "Suuuuupair maria brasse");
-		Button playBtn(sf::Vector2f(30, 150), sf::Vector2f(100, 50));
-		playBtn.setOnClickCallback([this]() {
-			RunGame();
-			});
-		playBtn.setText("PLAY");
-		Button quitBtn(sf::Vector2f(30, 450), sf::Vector2f(80, 40));
-		quitBtn.setText("QUIT");
-		quitBtn.setOnClickCallback([this]() {
-			m_window->close();
-			});
-		//playBtn.setText("QUIT");
-	#pragma endregion
+	sf::View currentView = m_window->getView();
+	currentView.reset(sf::FloatRect(0, 0, m_window->getSize().x, m_window->getSize().y));
+	m_window->setView(currentView);
+	m_Menu = new Menu(m_window);
 
 	while (m_window->isOpen())
 	{
@@ -110,16 +103,29 @@ bool GameEngine::RunMenu()
 		{
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
+			{
 				m_window->close();
-			playBtn.handleEvent(&event, m_window);
-			quitBtn.handleEvent(&event, m_window);
+				return true;
+			}
+			m_Menu->HandleEvents(&event);
 		}
-		m_window->draw(*background);
-		playBtn.draw(m_window);
-		quitBtn.draw(m_window);
+		m_Menu->DrawMenu();
 		m_window->display();
 	}
 	return true;
+}
+
+void GameEngine::BackToMenu()
+{
+	delete m_entityManager;
+	m_entityManager = nullptr;
+	delete m_levelManager;
+	m_levelManager = nullptr;
+	delete m_renderManager;
+	m_renderManager = nullptr;
+	delete m_inputManager;
+	m_inputManager = nullptr;
+	RunMenu();
 }
 
 sf::RenderWindow* GameEngine::GetWindow()
