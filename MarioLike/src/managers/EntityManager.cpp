@@ -34,10 +34,11 @@ void EntityManager::Update()
 	float deltaT = GameEngine::GetInstance()->GetDeltaTime();
 	for (Entity* entity : m_entities)
 	{
-		if(entity)
+		if (entity && std::find(m_entities.begin(), m_entities.end(), entity) != m_entities.end())
 			entity->Update(deltaT);
 	}
 }
+
 void EntityManager::AddEntity(Entity* entity)
 {
 	m_entities.push_back(entity);
