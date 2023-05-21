@@ -113,10 +113,6 @@ void LevelManager::MoveLevel()
 	//If the level move to the right
 	if (right)
 	{
-		//lock player in middle screen position
-		//t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
-		//currentView.setCenter(t->GetComponent<Transform>()->m_position.x * 16, currentView.getCenter().y);
-
 		//If the main background not cover entirely cycle with the other background
 		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x + m_parallaxSky->GetComponent<SpriteComponent>()->m_spriteSize.x <= currentView.getCenter().x - currentView.getSize().x / 2)
 			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x + 0.999;
@@ -130,10 +126,6 @@ void LevelManager::MoveLevel()
 	}
 	else if (left)
 	{
-		//lock player in middle screen position
-		//t->GetComponent<Transform>()->m_position.x = currentView.getCenter().x / 16;
-		//currentView.setCenter(t->GetComponent<Transform>()->m_position.x * 16, currentView.getCenter().y);
-
 		//If the main background not cover entirely cycle with the other background
 		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x  >= currentView.getCenter().x + currentView.getSize().x / 2)
 			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x - 0.999;
