@@ -17,7 +17,7 @@ if(DEFINED ENV{PATH_VCPKG})
 	include($ENV{PATH_VCPKG})
 endif()
 
-find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
+find_package(SFML COMPONENTS system window graphics REQUIRED)
 
 set (HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
