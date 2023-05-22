@@ -10,6 +10,7 @@
 #include <models/Coin.h>
 #include <models/Void.h>
 #include "managers/EntityManager.h"
+#include "models/Finish.h"
 
 Level::Level()
 {
@@ -57,10 +58,10 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 						m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());*/
 						break;
 					}
+					case '5':
+						EntityManager::GetInstance()->AddEntity(new Finish(position));
 					default:
 					{
-						Void* entity = new Void();
-						rowEntities.emplace_back(entity);
 						break;
 					}
 					}

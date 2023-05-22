@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "models/Background.h"
+
 RenderManager* RenderManager::m_instance = nullptr;
 RenderManager::~RenderManager()
 {
@@ -44,7 +46,16 @@ void RenderManager::RenderLevel(sf::RenderTarget& _target)
 		}
 		if (auto* T = call->m_entity->GetComponent<SpriteComponent>(); T) {
 			size = T->m_spriteSize;
-			T->m_sprite->setPosition(position * size);//A check, peut TOUT PETER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			if(call->m_entity->GetClassRttiName() == Background::GetStaticRName())
+			{
+				position *= size;
+			}
+			else
+			{
+				position *= 16;
+			}
+			T->m_sprite->setPosition(position);//A check, peut TOUT PETER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			
 			_target.draw(*T->m_sprite);
 		}
 	}

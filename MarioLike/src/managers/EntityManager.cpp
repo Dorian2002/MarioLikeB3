@@ -32,6 +32,11 @@ void EntityManager::Start()
 void EntityManager::Update()
 {
 	float deltaT = GameEngine::GetInstance()->GetDeltaTime();
+	for (auto& entity: m_entitiesToDelete)
+	{
+		DeleteEntity(entity);
+	}
+	m_entitiesToDelete.clear();
 	for (Entity* entity : m_entities)
 	{
 		if (entity && std::find(m_entities.begin(), m_entities.end(), entity) != m_entities.end())
@@ -52,6 +57,9 @@ EntityManager::~EntityManager()
 	for (BoxColliderComponent* collider : m_overlapCollider) {
 		delete collider;
 	}
+	m_entities.clear();
+	m_blockCollider.clear();
+	m_overlapCollider.clear();
 	m_instance = nullptr;
 }
 
@@ -90,7 +98,7 @@ std::vector<BoxColliderComponent*> EntityManager::GetBlockingColliders()
 bool EntityManager::MoveEntity(Entity* entity)
 {
 	if (auto col = entity->GetComponent<BoxColliderComponent>()) {
-		if (col->CheckCollisions()) {
+		if (col->CheckCollisions(Vec2f(0,0))) {
 			RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
 			return true;
 		}
@@ -153,5 +161,10 @@ void EntityManager::DeleteEntity(Entity* entity)
 	}
 	delete entity;
 	entity = nullptr;
+}
+
+void EntityManager::DeferDeleteEntity(Entity* entity)
+{
+	m_entitiesToDelete.push_back(entity);
 }
 

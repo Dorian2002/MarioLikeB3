@@ -21,8 +21,10 @@ public:
 	std::vector<BoxColliderComponent*> GetOverlapColliders();
 	std::vector<BoxColliderComponent*> GetBlockingColliders();
 	void DeleteEntity(Entity* entity);
+	void DeferDeleteEntity(Entity* entity);
 private:
 	static EntityManager* m_instance;
+	std::vector<Entity*> m_entitiesToDelete;
 	std::vector<Entity*> m_entities;
 	std::vector<BoxColliderComponent*> m_overlapCollider;
 	std::vector<BoxColliderComponent*> m_blockCollider;

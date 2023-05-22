@@ -12,7 +12,6 @@ class BoxColliderComponent : public Component
 public:
 	DEFINE_RTTI(BoxColliderComponent)
 	BoxColliderComponent(Entity*, Vec2f*, bool isBlocking = true);
-	bool CheckCollisions();
 	bool CheckCollisions(Vec2f translate);
 	bool IsBlocking();
 	void Update(float) override;

@@ -89,7 +89,7 @@ bool GameEngine::RunMenu()
 {
 	LoadMenuResources();
 	if (!m_window)
-		m_window = new sf::RenderWindow(sf::VideoMode(960,540), "Suuuuupair maria brasse");
+		m_window = new sf::RenderWindow(sf::VideoMode(960,540), "Suuuuupair maria brasse", sf::Style::Titlebar | sf::Style::Close);
 	sf::View currentView = m_window->getView();
 	currentView.reset(sf::FloatRect(0, 0, m_window->getSize().x, m_window->getSize().y));
 	m_window->setView(currentView);
@@ -156,6 +156,7 @@ bool GameEngine::LoadResources()
 	success &= assetManager->LoadTexture("Block.png", "block");
 	success &= assetManager->LoadTexture("coin.png", "coin");
 	success &= assetManager->LoadTexture("Sky.png", "Background");
+	success &= assetManager->LoadTexture("Finish.png", "finish");
 
 	if (success)
 	{

@@ -73,7 +73,6 @@ void Player::Update(float deltaT) {
     if (t->velocity.x < 0.5f * speedCoefficient / 100 && t->velocity.x > -0.5f * speedCoefficient / 100) {
         t->velocity.x = 0;
     }
-    Move(t->velocity.x * deltaT);
 }
 
 void Player::Move(float dist)
@@ -84,11 +83,11 @@ void Player::Move(float dist)
         dist = -dist;
     while (dist > val)
     {
-        if (!EntityManager::GetInstance()->MoveEntity(this, Vec2f(isNegative ? -val : val, 0)))
-        {
-            break;
-        }
-        dist -= val;
+	        if (!EntityManager::GetInstance()->MoveEntity(this, Vec2f(isNegative ? -val : val, 0)))
+	        {
+	            break;
+	        }
+	        dist -= val;
     }
     if (isNegative)
     {
@@ -104,7 +103,6 @@ void Player::Move(float dist)
             EntityManager::GetInstance()->MoveEntity(this, Vec2f(dist, 0));
         }
     }
-
 }
 void Player::SetVelX(float acceleration)
 {
@@ -137,7 +135,7 @@ void Player::jump() {
         if (t->isGrounded) {
             t->velocity.y = -10.f;
             t->isGrounded = false;
-            t->isJumping = true;
+            t->isJumping = true; 
         }
     }
 }
@@ -185,7 +183,15 @@ void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
     }
     if (overlapEntity->GetClassRttiName() == "Boomba")
     {
-        EntityManager::GetInstance()->DeleteEntity(overlapEntity);
+        if (GetComponent<Transform>()->GetPosition().y + 0.9f <= overlapEntity->GetComponent<Transform>()->GetPosition().y)
+        {
+            EntityManager::GetInstance()->DeleteEntity(overlapEntity);
+        }
+        else
+        {
+            GameEngine::GetInstance()->BackToMenu();
+        }
+        
     }
 }
 

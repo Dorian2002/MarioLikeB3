@@ -31,14 +31,6 @@ public:
 
     void Update(float deltaT) override;
 
-    void StartRight();
-
-    void StopRight();
-
-    void StopLeft();
-
-    void StartLeft();
-
     bool MoveRight() override;
 
     bool MoveLeft() override;

@@ -15,6 +15,7 @@ InputManager::~InputManager()
 			delete iterator.second;
 		}
 	}
+	m_signals.clear();
 	m_instance = nullptr;
 }
 

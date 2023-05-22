@@ -53,6 +53,7 @@ set (HEADERS
     ${HEADER_DIR}/models/Player.h
     ${HEADER_DIR}/models/Background.h
     ${HEADER_DIR}/models/Void.h
+    ${HEADER_DIR}/models/Finish.h
     ${HEADER_DIR}/utils/AI/Nodes/Patrol.h
     ${HEADER_DIR}/utils/AI/Node.h
     ${HEADER_DIR}/utils/AI/Selector.h
@@ -100,6 +101,7 @@ set (SOURCES
     ${SOURCE_DIR}/models/Level.cpp
     ${SOURCE_DIR}/models/Player.cpp
     ${SOURCE_DIR}/models/Background.cpp
+    ${SOURCE_DIR}/models/Finish.cpp
     ${SOURCE_DIR}/utils/Animation.cpp
     ${SOURCE_DIR}/utils/Link.cpp
     ${SOURCE_DIR}/utils/DrawCall.cpp
