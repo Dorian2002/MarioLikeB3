@@ -11,5 +11,6 @@ public:
 	bool LoadLevel(const std::string _fileNameFront,const std::string _fileNameBack);
 	std::vector<std::vector<Entity*>> m_map;
 	std::vector<BoxColliderComponent*> m_colliders;
+	int levelSize = 0;
 };
 

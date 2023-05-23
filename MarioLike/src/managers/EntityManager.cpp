@@ -20,7 +20,6 @@ void EntityManager::Start()
 {
 	m_player = new Player();
 	AddEntity(m_player);
-	AddEntity(new Boomba());
 	
 	for (Entity* entity : m_entities)
 	{

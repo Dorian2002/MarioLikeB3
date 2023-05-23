@@ -24,5 +24,6 @@ void Finish::Update(float deltaT)
 
 void Finish::OnOverlap(Component* overlapedComponent, Entity* overlapedEntity)
 {
-    GameEngine::GetInstance()->BackToMenu();
+    if (overlapedEntity->GetClassRttiName() == Player::GetStaticRName())
+		GameEngine::GetInstance()->BackToMenu();
 }

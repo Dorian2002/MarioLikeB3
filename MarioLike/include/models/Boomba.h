@@ -25,7 +25,7 @@ public:
     bool left = false;
     bool right = false;
 
-    Boomba();
+    Boomba(Vec2f position);
 
     void Start() override;
 

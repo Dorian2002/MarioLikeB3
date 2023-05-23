@@ -1,12 +1,13 @@
 #include "models/Boomba.h"
 #include "managers/EntityManager.h"
 
-Boomba::Boomba()
+Boomba::Boomba(Vec2f position)
 {
     BoombaRun* run = new BoombaRun(AssetManager::GetInstance()->GetTexture("boombaRun"), 2);
     BoombaIdle* idle = new BoombaIdle(AssetManager::GetInstance()->GetTexture("boombaIdle"), 1);
+    position.y -= 0.1f;
     Components = {
-        new Transform(this, {2,10}),
+        new Transform(this, position),
         new SpriteComponent(this, "boombaIdle"),
         new PhysicsComponent(this, true),
         new BoxColliderComponent(this, new Vec2f{16,16}, false),
@@ -57,7 +58,7 @@ bool Boomba::MoveRight()
     if (!EntityManager::GetInstance()->MoveEntity(this))
     {
         t->SetPosition(lastPos);
-        std::cout << "collide right" << std::endl;
+        //std::cout << "collide right" << std::endl;
         return false;
     }
     return true;
@@ -84,7 +85,7 @@ bool Boomba::MoveLeft()
     if (!EntityManager::GetInstance()->MoveEntity(this))
     {
         t->SetPosition(lastPos);
-        std::cout << "collide left : " << lastPos.x << lastPos.y << std::endl;
+        //std::cout << "collide left : " << lastPos.x << lastPos.y << std::endl;
         return false;
     }
     return true;

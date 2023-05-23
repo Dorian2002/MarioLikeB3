@@ -31,7 +31,7 @@ public:
 
     void Move(float dist);
 
-    void SetVelX(float acceleration);
+    void SetVelX(float acceleration, float min = -6.f, float max = 6.f);
 
     void StartRight();
 

@@ -4,7 +4,7 @@ Player::Player() {
     MarioRun* run = new MarioRun(AssetManager::GetInstance()->GetTexture("littleMarioRun"), 3);
     MarioIdle* idle = new MarioIdle(AssetManager::GetInstance()->GetTexture("littleMarioIdle"), 1);
     Components = {
-        new Transform(this, {2,14}),
+        new Transform(this, {2,0}),
         new SpriteComponent(this, "littleMarioIdle"),
         new PhysicsComponent(this, true),
         new BoxColliderComponent(this, new Vec2f{16,16}, false),
@@ -63,16 +63,14 @@ void Player::Update(float deltaT) {
     {
         if (t->velocity.x > 0)
         {
-            SetVelX(-3.f * speedCoefficient * deltaT);
+            SetVelX(-3.f * speedCoefficient * deltaT, 0);
         }
         if (t->velocity.x < 0)
         {
-            SetVelX(3.f * speedCoefficient * deltaT);
+            SetVelX(3.f * speedCoefficient * deltaT, -6.f, 0);
         }
     }
-    if (t->velocity.x < 0.5f * speedCoefficient / 100 && t->velocity.x > -0.5f * speedCoefficient / 100) {
-        t->velocity.x = 0;
-    }
+    std::cout << t->velocity.x << std::endl;
 }
 
 void Player::Move(float dist)
@@ -104,9 +102,9 @@ void Player::Move(float dist)
         }
     }
 }
-void Player::SetVelX(float acceleration)
+void Player::SetVelX(float acceleration, float min, float max)
 {
-    GetComponent<PhysicsComponent>()->velocity.x = std::clamp(GetComponent<PhysicsComponent>()->velocity.x + acceleration, -6.f, 6.f);
+    GetComponent<PhysicsComponent>()->velocity.x = std::clamp(GetComponent<PhysicsComponent>()->velocity.x + acceleration, min, max);
 }
 
 void Player::StartRight()

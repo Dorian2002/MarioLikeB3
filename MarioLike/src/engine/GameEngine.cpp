@@ -74,7 +74,7 @@ bool GameEngine::RunGame()
 		Update();
 		Render();
 
-		std::cout << GetDeltaTime() << std::endl;
+		//std::cout << GetDeltaTime() << std::endl;
 
 		 //= clock.getElapsedTime().asSeconds() - frameTimeStart;
 		//std::cout << "frames per second: " << (float)m_frames / ((float)millisPassed.count() / 1000.f) << std::endl;

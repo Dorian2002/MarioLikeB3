@@ -10,6 +10,7 @@
 #include <models/Coin.h>
 #include <models/Void.h>
 #include "managers/EntityManager.h"
+#include "models/Boomba.h"
 #include "models/Finish.h"
 
 Level::Level()
@@ -58,8 +59,12 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 						m_colliders.push_back(entity->GetComponent<BoxColliderComponent>());*/
 						break;
 					}
+					case '4':
+						EntityManager::GetInstance()->AddEntity(new Boomba(position));
+						break;
 					case '5':
 						EntityManager::GetInstance()->AddEntity(new Finish(position));
+						break;
 					default:
 					{
 						break;
@@ -72,6 +77,10 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 				}
 			}
 			m_map.emplace_back(rowEntities);
+			if(column > levelSize)
+			{
+				levelSize = column;
+			}
 			row++;
 		}
 		fileFront.close();
