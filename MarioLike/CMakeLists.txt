@@ -85,7 +85,7 @@ set (SOURCES
     ${SOURCE_DIR}/component/SpriteComponent.cpp
     ${SOURCE_DIR}/component/BoxColliderComponent.cpp
     ${SOURCE_DIR}/component/PhysicsComponent.cpp
-    ${HEADER_DIR}/component/BehaviorTree.cpp
+    ${SOURCE_DIR}/component/BehaviorTree.cpp
     ${SOURCE_DIR}/engine/GameEngine.cpp
     ${SOURCE_DIR}/managers/EntityManager.cpp
     ${SOURCE_DIR}/managers/AssetManager.cpp
@@ -104,7 +104,7 @@ set (SOURCES
     ${SOURCE_DIR}/models/Player.cpp
     ${SOURCE_DIR}/models/Background.cpp
     ${SOURCE_DIR}/models/Finish.cpp
-    ${HEADER_DIR}/models/UIGameLevel.cpp
+    ${SOURCE_DIR}/models/UIGameLevel.cpp
     ${SOURCE_DIR}/utils/AI/Node.cpp
     ${SOURCE_DIR}/utils/Animation.cpp
     ${SOURCE_DIR}/utils/Link.cpp

@@ -119,8 +119,8 @@ void LevelManager::MoveLevel()
 		left = false;
 		right = false;
 	}
-	currentView.setCenter({centerX, currentView.getCenter().y});
-	
+	currentView.setCenter({ centerX, currentView.getCenter().y });
+
 	cameraView->setView(currentView);
 
 	//If the level move to the right
@@ -141,10 +141,10 @@ void LevelManager::MoveLevel()
 	{
 
 		//If the main background not cover entirely cycle with the other background
-		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x  >= currentView.getCenter().x + currentView.getSize().x / 2)
+		if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x >= currentView.getCenter().x + currentView.getSize().x / 2)
 			m_sky->GetComponent<Transform>()->m_position.x = m_parallaxSky->GetComponent<Transform>()->m_position.x - 0.999;
 
-		else if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x  >= currentView.getCenter().x - currentView.getSize().x / 2)
+		else if (m_sky->GetComponent<SpriteComponent>()->m_sprite->getPosition().x >= currentView.getCenter().x - currentView.getSize().x / 2)
 			m_parallaxSky->GetComponent<Transform>()->m_position.x = m_sky->GetComponent<Transform>()->m_position.x - 0.999;
 
 		//Move the backgrounds
