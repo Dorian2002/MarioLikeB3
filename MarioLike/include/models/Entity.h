@@ -24,6 +24,7 @@ private:
 	std::map<std::string, int> tab;
 };
 
+//Method to get a Component by passing the class of the one we want, return nullptr if not found
 template<typename T>
 inline T* Entity::GetComponent()
 {

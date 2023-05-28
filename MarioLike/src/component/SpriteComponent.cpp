@@ -28,8 +28,6 @@ void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _posit
 		m_sprite = new sf::Sprite();
 		m_sprite->setTexture(*texture);
 
-		m_sprite->setOrigin(sf::Vector2f(0, _size.y-16));
-
 		if (_size.x > 0 && _size.y > 0)
 		{
 			m_sprite->setTextureRect(sf::IntRect(_position.x, _position.y, _size.x, _size.y));

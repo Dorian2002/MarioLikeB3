@@ -161,7 +161,7 @@ bool GameEngine::LoadResources()
 	success &= assetManager->LoadTexture("Block.png", "block");
 	success &= assetManager->LoadTexture("coin.png", "coin");
 	success &= assetManager->LoadTexture("Sky.png", "Background");
-	success &= assetManager->LoadTexture("Flag.png", "flag");
+	success &= assetManager->LoadTexture("Flag.png", "finish");
 	success &= assetManager->LoadFont("SuperMarioBros.ttf", "mainFont");
 
 	if (success)

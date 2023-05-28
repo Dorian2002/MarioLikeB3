@@ -65,7 +65,7 @@ void LevelManager::RenderLevel()
 
 	//Create Background, define it as the main background and display it via drawCall
 	m_sky = new Background({ 0,0 });
-	m_parallaxSky = new Background({ 1,0 });
+	m_parallaxSky = new Background({ 1,0});
 	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 2));
 	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 2));
 

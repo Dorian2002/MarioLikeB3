@@ -43,15 +43,17 @@ public:
 
     void jump();
 
-    void AnimIsWalking(bool val);
     bool IsWalking();
-
-    void SetUpAnimatorLink(Animation* run, Animation* idle);
 
     void OnCollide(Component* overlapComponent, Entity* overlapEntity) override;
 
     void OnOverlap(Component* overlapComponent, Entity* overlapEntity) override;
     int* GetCoinCount();
+
+    void SetUpAnimatorLink(Animation* run, Animation* idle);
+
+    void AnimIsWalking(bool val);
+
 
 private:
     float speedCoefficient = 1.0f;

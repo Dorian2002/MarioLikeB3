@@ -8,7 +8,7 @@ Finish::Finish(Vec2f position)
 {
     Vec2f Size = { 25, 87 };
     position.y = position.y - (Size.y - 16) / 16;
-    Components = { new Transform(this,position), new SpriteComponent(this, "flag", Size), new BoxColliderComponent(this, {25,87}, false) };
+    Components = { new Transform(this,position), new SpriteComponent(this, "finish", Size), new BoxColliderComponent(this, {25,87}, false) };
 }
 
 void Finish::Start()

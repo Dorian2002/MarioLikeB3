@@ -43,7 +43,7 @@ bool Boomba::MoveRight()
     auto t = GetComponent<Transform>();
     m_isWalking = true;
     auto lastPos = t->GetPosition();
-    lastPos.x -= 0.05;
+    lastPos.x -= 0.2;
     if (velocity.x < 0.02) {
         velocity.x += 0.02;
     }
@@ -70,7 +70,7 @@ bool Boomba::MoveLeft()
     m_isWalking = true;
     auto t = GetComponent<Transform>();
     auto lastPos = t->GetPosition();
-    lastPos.x += 0.05;
+    lastPos.x += 0.2;
     if (velocity.x > -0.02) {
         velocity.x += -0.02;
     }
@@ -98,6 +98,7 @@ void Boomba::IsWalking(bool val)
     }
 }
 
+//Method that set up links between animations
 void Boomba::SetUpAnimatorLink(Animation* run, Animation* idle)
 {
     Animator* animator = GetComponent<Animator>();

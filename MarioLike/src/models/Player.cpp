@@ -85,11 +85,11 @@ void Player::Move(float dist)
         dist = -dist;
     while (dist > val)
     {
-	        if (!EntityManager::GetInstance()->MoveEntity(this, Vec2f(isNegative ? -val : val, 0)))
-	        {
-	            break;
-	        }
-	        dist -= val;
+	    if (!EntityManager::GetInstance()->MoveEntity(this, Vec2f(isNegative ? -val : val, 0)))
+	    {
+	        break;
+	    }
+	    dist -= val;
     }
     if (isNegative)
     {
@@ -142,12 +142,6 @@ void Player::jump() {
     }
 }
 
-void Player::AnimIsWalking(bool val) {
-    if ((GetComponent<PhysicsComponent>()->velocity.x != 0) == val) {
-        GetComponent<Animator>()->m_changeAnim = true;
-    }
-}
-
 bool Player::IsWalking() {
     if (GetComponent<PhysicsComponent>()->velocity.x != 0) {
         return true;
@@ -155,17 +149,13 @@ bool Player::IsWalking() {
     return false;
 }
 
-void Player::SetUpAnimatorLink(Animation* run, Animation* idle) {
-    Animator* animator = GetComponent<Animator>();
-
-    Event::Signal<bool>* sigRunToIdle = new Event::Signal<bool>();
-    Event::SlotKey sig1Key = sigRunToIdle->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
-    animator->CreateLink(run, idle, sigRunToIdle, false, &sig1Key);
-
-    Event::Signal<bool>* sigIdleToRun = new Event::Signal<bool>();
-    Event::SlotKey sig2Key = sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
-    animator->CreateLink(idle, run, sigIdleToRun, true, &sig2Key);
+void Player::AnimIsWalking(bool val)
+{
+    if ((GetComponent<PhysicsComponent>()->velocity.x != 0) == val) {
+        GetComponent<Animator>()->m_changeAnim = true;
+    }
 }
+
 void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)
 {
 	if(overlapEntity->GetClassRttiName() == Block::GetStaticRName())
@@ -200,5 +190,19 @@ void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
 int* Player::GetCoinCount()
 {
     return &m_coins;
+}
+
+//Method that set up links between animations
+void Player::SetUpAnimatorLink(Animation* run, Animation* idle)
+{
+    Animator* animator = GetComponent<Animator>();
+
+    Event::Signal<bool>* sigRunToIdle = new Event::Signal<bool>();
+    Event::SlotKey sig1Key = sigRunToIdle->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
+    animator->CreateLink(run, idle, sigRunToIdle, false, &sig1Key);
+
+    Event::Signal<bool>* sigIdleToRun = new Event::Signal<bool>();
+    Event::SlotKey sig2Key = sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
+    animator->CreateLink(idle, run, sigIdleToRun, true, &sig2Key);
 }
 

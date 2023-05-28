@@ -6,14 +6,18 @@
 
 void Animator::Play(Animation* anim)
 {
+	//Load texture and sprite
 	sf::Texture* texture = anim->GetTexture();
 	auto spriteComponent = m_root->GetComponent<SpriteComponent>();
+
+	//If we have to change anim wee apply texture and rect then reset the timer and frame index
 	if (m_changeAnim) {
 		spriteComponent->m_sprite->setTexture(*texture);
 		spriteComponent->m_sprite->setTextureRect(sf::IntRect(0, 0, spriteComponent->m_spriteSize.x, spriteComponent->m_spriteSize.y));
 		Timer = 0;
 		m_animIndex = 0;
 	}
+	//Otherwise we check timer and if needed, reset it and change frame, also we manage last frame case
 	else {
 		if (Timer >= anim->GetFrameTime()) {
 			Timer = 0;
@@ -53,6 +57,7 @@ Animator::Animator(Entity* root, std::vector<Animation*> states)
 	m_links = std::vector<Link*>();
 	m_changeAnim = false;
 	m_animIndex = 0;
+	//We check if there is an Idle anim and if so, set it as current anim
 	for (Animation* state : m_states) {
 		if (state->GetClassRttiName().find("Idle") != std::string::npos) {
 			m_currentState = state;
@@ -79,6 +84,7 @@ Animator::~Animator()
 
 void Animator::CheckState()
 {
+	//We loop on all links coming from current anim to others and check if we have to change or not
 	m_changeAnim = false;
 	for (Link* link : GetLinksWithOrigin(m_currentState)) {
 		link->CheckCondition();
