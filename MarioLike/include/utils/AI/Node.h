@@ -13,24 +13,13 @@ enum NodeState{
 class Node {
 public:
 	Node* m_parent;
-	Node() {
-		m_parent = nullptr;
-		m_state = SUCCESS;
-	}
-	Node(std::vector<Node*> children) {
-		for (Node* node : children) {
-			Attach(node);
-		}
-	}
-	virtual NodeState Evaluate() {
-		return FAILURE;
-	}
+	Node();
+	Node(std::vector<Node*> children);
+	~Node();
+	virtual NodeState Evaluate();
 	NodeState m_state;
 	std::vector<Node*> m_children;
 private:
 	Container::Blackboard<int, bool, std::string> blackboard;
-	void Attach(Node* node) {
-		node->m_parent = this;
-		m_children.push_back(node);
-	}
+	void Attach(Node* node);
 };

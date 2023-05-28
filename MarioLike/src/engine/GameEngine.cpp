@@ -49,6 +49,7 @@ void GameEngine::HandleInput()
 void GameEngine::Update()
 {
 	m_entityManager->Update();
+	m_gameUI->Update(deltatime);
 }
 
 void GameEngine::Render()
@@ -65,7 +66,8 @@ bool GameEngine::RunGame()
 	m_Menu = nullptr;
 
 	Start();
-	
+	m_gameUI = new UIGameLevel(m_window);
+
 	auto clock = sf::Clock();
 	while(m_window->isOpen())
 	{
@@ -123,8 +125,11 @@ void GameEngine::BackToMenu()
 	m_levelManager = nullptr;
 	delete m_renderManager;
 	m_renderManager = nullptr;
+	m_inputManager->ClearKeyBinds();
 	delete m_inputManager;
 	m_inputManager = nullptr;
+	delete m_gameUI;
+	m_gameUI = nullptr;
 	RunMenu();
 }
 
@@ -148,7 +153,7 @@ bool GameEngine::LoadResources()
 {
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
-
+	assetManager->UnloadAll();
 	success &= assetManager->LoadTexture("littleMarioRun.png", "littleMarioRun");
 	success &= assetManager->LoadTexture("littleMarioIdle.png", "littleMarioIdle");
 	success &= assetManager->LoadTexture("BoombaRun.png", "boombaRun");
@@ -156,7 +161,8 @@ bool GameEngine::LoadResources()
 	success &= assetManager->LoadTexture("Block.png", "block");
 	success &= assetManager->LoadTexture("coin.png", "coin");
 	success &= assetManager->LoadTexture("Sky.png", "Background");
-	success &= assetManager->LoadTexture("Finish.png", "finish");
+	success &= assetManager->LoadTexture("Flag.png", "flag");
+	success &= assetManager->LoadFont("SuperMarioBros.ttf", "mainFont");
 
 	if (success)
 	{
@@ -175,7 +181,7 @@ bool GameEngine::LoadMenuResources()
 {
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
-
+	assetManager->UnloadAll();
 	success &= assetManager->LoadTexture("menuBackground.jpg", "menuBackground");
 	success &= assetManager->LoadFont("SuperMarioBros.ttf", "mainFont");
 

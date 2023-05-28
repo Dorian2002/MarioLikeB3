@@ -3,7 +3,7 @@
 
 Coin::Coin(Vec2f position)
 {
-	Components = { new Transform(this,position), new SpriteComponent(this, "coin"), new BoxColliderComponent(this,new Vec2f({16,16}), false) };
+	Components = { new Transform(this,position), new SpriteComponent(this, "coin"), new BoxColliderComponent(this, {16,16}, false) };
 }
 
 

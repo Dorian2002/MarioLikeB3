@@ -37,7 +37,11 @@ void RenderManager::RenderLevel(sf::RenderTarget& _target)
 	for (DrawCall* call : m_toRender) 
 	{
 		if (call->m_entity == nullptr) {
-			remove(m_toRender.begin(), m_toRender.end(), call);
+			auto it = remove(m_toRender.begin(), m_toRender.end(), call);
+			/*std::erase_if(m_toRender.begin(), m_toRender.end(), [&](DrawCall* c) {
+				return c == call;
+				});*/
+			m_toRender.erase(it);
 		}
 		Vec2f position;
 		Vec2f size;

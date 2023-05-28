@@ -12,6 +12,7 @@ InputManager::~InputManager()
 	{
 		for (const auto& iterator : it.second)
 		{
+			iterator.second->clear();
 			delete iterator.second;
 		}
 	}
@@ -29,6 +30,8 @@ void InputManager::HandleInput()
 		{
 		case event::Closed:
 			m_window->close();
+			break;
+		case event::Resized:
 			break;
 		case event::KeyPressed:
 			if (m_signals[onKeyPress].contains(e.key.code) && !m_keyPressed[e.key.code])

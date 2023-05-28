@@ -40,9 +40,9 @@ void Animator::Start()
 {
 }
 
-void Animator::CreateLink(Animation* anim1, Animation* anim2, Event::Signal<bool>* sig, bool val)
+void Animator::CreateLink(Animation* anim1, Animation* anim2, Event::Signal<bool>* sig, bool val, Event::SlotKey* key)
 {
-	m_links.push_back(new Link(anim1, anim2, sig, val));
+	m_links.push_back(new Link(anim1, anim2, sig, val, key));
 }
 
 Animator::Animator(Entity* root, std::vector<Animation*> states)
@@ -61,6 +61,20 @@ Animator::Animator(Entity* root, std::vector<Animation*> states)
 			m_currentState = m_states[0];
 		}
 	}
+}
+
+Animator::~Animator()
+{
+	for (std::size_t i = 0; i < m_states.size(); i++)
+	{
+		delete m_states[i];
+	}
+	m_states.clear();
+	for (std::size_t i = 0; i < m_links.size(); i++)
+	{
+		delete m_links[i];
+	}
+	m_links.clear();
 }
 
 void Animator::CheckState()

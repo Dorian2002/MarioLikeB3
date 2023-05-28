@@ -12,7 +12,8 @@ public:
 	void Update(float) override;
 	void Start() override;
 	Animator(Entity*, std::vector<Animation*>);
-	void CreateLink(Animation*, Animation*, Event::Signal<bool>*, bool);
+	~Animator();
+	void CreateLink(Animation*, Animation*, Event::Signal<bool>*, bool, Event::SlotKey*);
 	bool m_changeAnim;
 private:
 	int m_animIndex;

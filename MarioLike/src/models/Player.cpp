@@ -1,5 +1,9 @@
 #include "models/Player.h"
 #include "managers/EntityManager.h"
+#include "models/Coin.h"
+#include "models/Block.h"
+#include "models/Boomba.h"
+
 Player::Player() {
     MarioRun* run = new MarioRun(AssetManager::GetInstance()->GetTexture("littleMarioRun"), 3);
     MarioIdle* idle = new MarioIdle(AssetManager::GetInstance()->GetTexture("littleMarioIdle"), 1);
@@ -7,7 +11,7 @@ Player::Player() {
         new Transform(this, {2,14}),
         new SpriteComponent(this, "littleMarioIdle"),
         new PhysicsComponent(this, true),
-        new BoxColliderComponent(this, new Vec2f{16,16}, false),
+        new BoxColliderComponent(this, {16,16}, false),
         new Animator(
             this,
             std::vector<Animation*>{
@@ -157,16 +161,16 @@ void Player::SetUpAnimatorLink(Animation* run, Animation* idle) {
     Animator* animator = GetComponent<Animator>();
 
     Event::Signal<bool>* sigRunToIdle = new Event::Signal<bool>();
-    sigRunToIdle->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
-    animator->CreateLink(run, idle, sigRunToIdle, false);
+    Event::SlotKey sig1Key = sigRunToIdle->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
+    animator->CreateLink(run, idle, sigRunToIdle, false, &sig1Key);
 
     Event::Signal<bool>* sigIdleToRun = new Event::Signal<bool>();
-    sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
-    animator->CreateLink(idle, run, sigIdleToRun, true);
+    Event::SlotKey sig2Key = sigIdleToRun->connect(new Event::Slot<bool>(this, &Player::AnimIsWalking));
+    animator->CreateLink(idle, run, sigIdleToRun, true, &sig2Key);
 }
 void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)
 {
-	if(overlapEntity->GetClassRttiName() == "Block")
+	if(overlapEntity->GetClassRttiName() == Block::GetStaticRName())
 	{
         return;
 	}
@@ -175,13 +179,13 @@ void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)
 void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
 {
 	std::cout << overlapEntity->GetClassRttiName()<< std::endl;
-    if (overlapEntity->GetClassRttiName() == "Coin")
+    if (overlapEntity->GetClassRttiName() == Coin::GetStaticRName())
     {
         m_coins++;
         EntityManager::GetInstance()->DeleteEntity(overlapEntity);
         return;
     }
-    if (overlapEntity->GetClassRttiName() == "Boomba")
+    if (overlapEntity->GetClassRttiName() == Boomba::GetStaticRName())
     {
         if (GetComponent<Transform>()->GetPosition().y + 0.9f <= overlapEntity->GetComponent<Transform>()->GetPosition().y)
         {
@@ -193,5 +197,10 @@ void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
         }
         
     }
+}
+
+int* Player::GetCoinCount()
+{
+    return &m_coins;
 }
 

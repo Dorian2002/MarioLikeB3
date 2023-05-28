@@ -33,6 +33,22 @@ AssetManager::~AssetManager()
 	m_instance = nullptr;
 }
 
+void AssetManager::UnloadAll() {
+	for (auto& it : m_textures)
+	{
+		delete it.second;
+		it.second = nullptr;
+	}
+	m_textures.clear();
+
+	for (auto& it : m_fonts)
+	{
+		delete it.second;
+		it.second = nullptr;
+	}
+	m_fonts.clear();
+}
+
 bool AssetManager::LoadTexture(const std::string& _fileName, const std::string& _assetId)
 {
 	sf::Texture* texture = new sf::Texture();

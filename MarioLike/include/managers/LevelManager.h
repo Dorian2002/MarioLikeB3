@@ -23,5 +23,4 @@ private:
 	Level* m_level;
 	Background* m_sky;
 	Background* m_parallaxSky;
-	Background* m_mainSky;
 };

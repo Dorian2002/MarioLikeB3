@@ -8,6 +8,6 @@ public:
 	virtual void Start() override {};
 	virtual void Update(float) {};
 	Entity* m_root;
-	~Component() = default;
+	virtual ~Component() = default;
 };
 

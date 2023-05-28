@@ -15,7 +15,7 @@ public:
 
     ~UIButton() {
         delete m_text;
-        m_text = new sf::Text();
+        m_text = nullptr;
     }
 
     template <typename T>

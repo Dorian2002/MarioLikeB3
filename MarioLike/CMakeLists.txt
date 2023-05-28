@@ -54,6 +54,7 @@ set (HEADERS
     ${HEADER_DIR}/models/Background.h
     ${HEADER_DIR}/models/Void.h
     ${HEADER_DIR}/models/Finish.h
+    ${HEADER_DIR}/models/UIGameLevel.h
     ${HEADER_DIR}/utils/AI/Nodes/Patrol.h
     ${HEADER_DIR}/utils/AI/Node.h
     ${HEADER_DIR}/utils/AI/Selector.h
@@ -84,6 +85,7 @@ set (SOURCES
     ${SOURCE_DIR}/component/SpriteComponent.cpp
     ${SOURCE_DIR}/component/BoxColliderComponent.cpp
     ${SOURCE_DIR}/component/PhysicsComponent.cpp
+    ${HEADER_DIR}/component/BehaviorTree.cpp
     ${SOURCE_DIR}/engine/GameEngine.cpp
     ${SOURCE_DIR}/managers/EntityManager.cpp
     ${SOURCE_DIR}/managers/AssetManager.cpp
@@ -102,6 +104,8 @@ set (SOURCES
     ${SOURCE_DIR}/models/Player.cpp
     ${SOURCE_DIR}/models/Background.cpp
     ${SOURCE_DIR}/models/Finish.cpp
+    ${HEADER_DIR}/models/UIGameLevel.cpp
+    ${SOURCE_DIR}/utils/AI/Node.cpp
     ${SOURCE_DIR}/utils/Animation.cpp
     ${SOURCE_DIR}/utils/Link.cpp
     ${SOURCE_DIR}/utils/DrawCall.cpp
