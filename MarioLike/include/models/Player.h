@@ -51,6 +51,7 @@ public:
     void OnCollide(Component* overlapComponent, Entity* overlapEntity) override;
 
     void OnOverlap(Component* overlapComponent, Entity* overlapEntity) override;
+    int* GetCoinCount();
 
 private:
     float speedCoefficient = 1.0f;

@@ -9,6 +9,7 @@ public:
 	DEFINE_RTTI(Animation)
 	bool GetIsPlaying();
 	Animation(sf::Texture*, int);
+	~Animation();
 	sf::Texture* GetTexture();
 	float GetFrameTime();
 	int GetFrameNumber();

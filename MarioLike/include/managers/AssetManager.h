@@ -12,6 +12,7 @@ public:
 	void operator=(const AssetManager& _other) = delete;
 	static AssetManager* GetInstance();
 
+	void UnloadAll();
 	bool LoadTexture(const std::string& _fileName, const std::string& _assetId);
 	bool LoadFont(const std::string& _fileName, const std::string& _assetId);
 	sf::Texture* GetTexture(const std::string& _assetId);

@@ -17,19 +17,18 @@ void Entity::Update(float deltaT)
 	}
 }
 
-void Entity::Destroy()
-{
-	for (int COMPONENT_INDEX = Components.size(); COMPONENT_INDEX >= 0; COMPONENT_INDEX--)
-	{
-		Components[COMPONENT_INDEX]->Destroy();
-		delete Components[COMPONENT_INDEX];
-		Components[COMPONENT_INDEX] = nullptr;
-	}
-	Components.clear();
-}
-
 Entity::Entity(Vec2f _spriteSize)
 {
+}
+
+Entity::~Entity()
+{
+	for (std::size_t i = 0; i< Components.size(); i++)
+	{
+		Components[i]->Destroy();
+		delete Components[i];
+	}
+	Components.clear();
 }
 
 void Entity::OnOverlap(Component* overlapComponent, Entity* overlapEntity)

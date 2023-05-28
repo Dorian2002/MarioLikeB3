@@ -13,6 +13,11 @@ Animation::Animation(sf::Texture* texture, int frames)
 	m_frameTime = 0.1f;
 }
 
+Animation::~Animation()
+{
+	m_texture = nullptr;
+}
+
 sf::Texture* Animation::GetTexture()
 {
 	return m_texture;

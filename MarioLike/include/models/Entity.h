@@ -10,14 +10,13 @@ class Entity : public GameObject {
 public:
 	void Start() override;
 	void Update(float) override;
-	void Destroy() override;
 	static const int id;
 	std::vector<Component*> Components;
 	template<typename T>
 	T* GetComponent();
 	Entity() {};
 	Entity(Vec2f _spriteSize);
-	~Entity() = default;
+	~Entity();
 	virtual void OnOverlap(Component* overlapComponent, Entity* overlapEntity);
 	virtual void OnCollide(Component* overlapComponent, Entity* overlapEntity);
 	

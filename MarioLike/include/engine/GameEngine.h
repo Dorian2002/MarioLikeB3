@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include <chrono>
 #include <models/Menu.h>
+#include "models/UIGameLevel.h"
 
 #define WINDOW_SIZE 500
 
@@ -10,7 +11,6 @@ class LevelManager;
 class EntityManager;
 class RenderManager;
 class InputManager;
-
 
 class GameEngine
 {
@@ -43,4 +43,5 @@ private:
 	RenderManager* m_renderManager;
 	InputManager* m_inputManager;
 	Menu* m_Menu;
+	UIGameLevel* m_gameUI;
 };

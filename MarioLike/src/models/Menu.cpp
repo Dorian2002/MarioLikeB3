@@ -29,8 +29,6 @@ Menu::~Menu()
 {
 	delete m_background;
 	m_background = nullptr;
-	delete m_texture;
-	m_texture = nullptr;
 	delete m_playButton;
 	m_playButton = nullptr;
 	delete m_quitButton;

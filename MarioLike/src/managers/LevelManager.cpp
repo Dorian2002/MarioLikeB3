@@ -29,11 +29,15 @@ LevelManager::~LevelManager()
 		delete m_level;
 		m_level = nullptr;
 	}
-
 	if (m_parallaxSky != nullptr)
 	{
 		delete m_parallaxSky;
 		m_parallaxSky = nullptr;
+	}
+	if (m_sky != nullptr)
+	{
+		delete m_sky;
+		m_sky = nullptr;
 	}
 	m_instance = nullptr;
 }

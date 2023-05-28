@@ -3,7 +3,7 @@
 
 Block::Block(Vec2f position)
 {
-	Components = { new Transform(this,position), new SpriteComponent(this, "block"), new BoxColliderComponent(this,new Vec2f({16,16}))};
+	Components = { new Transform(this,position), new SpriteComponent(this, "block"), new BoxColliderComponent(this,{16,16})};
 }
 
 

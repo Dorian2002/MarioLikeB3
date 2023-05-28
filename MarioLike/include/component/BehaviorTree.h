@@ -10,6 +10,7 @@ public:
 	BehaviorTree(Ennemy* host) {
 		m_rootNode = SetUpTree(host);
 	}
+	~BehaviorTree();
 	void Update(float) override {
 		if (m_rootNode != nullptr) {
 			m_rootNode->Evaluate();

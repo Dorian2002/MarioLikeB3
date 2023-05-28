@@ -34,9 +34,9 @@ namespace Event
 
             void releaseSlot() {
                 this->slot->connection = nullptr;
-                if (this->managed) {
+                //if (this->managed) {
                     delete this->slot;
-                }
+                //}
             }
         };
 

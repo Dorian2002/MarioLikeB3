@@ -9,10 +9,10 @@
 #define GetTransform() m_root->GetComponent<Transform>()
 #define GetSprite() m_root->GetComponent<SpriteComponent>()
 
-BoxColliderComponent::BoxColliderComponent(Entity* root, Vec2f* size , bool isBlocking)
+BoxColliderComponent::BoxColliderComponent(Entity* root, Vec2f size , bool isBlocking)
 {
 	m_root = root;
-	m_size = size;
+	m_size = &size;
 	m_isBlocking = isBlocking;
 }
 

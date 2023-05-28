@@ -9,6 +9,7 @@
 #include <models/Block.h>
 #include <models/Coin.h>
 #include <models/Void.h>
+#include <models/Finish.h>
 #include "managers/EntityManager.h"
 #include "models/Boomba.h"
 #include "models/Finish.h"
@@ -37,8 +38,7 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 
 			for (auto& c : line)
 			{
-				try {
-					Vec2u position = { column, row };
+				Vec2u position = { column, row };
 
 					switch (c)
 					{
@@ -71,10 +71,6 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 					}
 					}
 					column++;
-				}
-				catch (const std::exception& e){
-					e.what();
-				}
 			}
 			m_map.emplace_back(rowEntities);
 			if(column > levelSize)

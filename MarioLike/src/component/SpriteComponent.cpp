@@ -1,11 +1,17 @@
 #include "component/SpriteComponent.h"
 
 SpriteComponent::SpriteComponent(Entity* root, const std::string& _assetId, const Vec2f& _size)
-{
+{ 
 	m_sprite = nullptr;
 	m_spriteSize = _size;
 	SetSprite(_assetId, {0,0}, m_spriteSize);
 	m_root = root;
+}
+
+SpriteComponent::~SpriteComponent()
+{
+	delete m_sprite;
+	m_sprite = nullptr;
 }
 
 void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _position, const Vec2f& _size)
@@ -21,6 +27,8 @@ void SpriteComponent::SetSprite(const std::string& _assetId, const Vec2f& _posit
 
 		m_sprite = new sf::Sprite();
 		m_sprite->setTexture(*texture);
+
+		m_sprite->setOrigin(sf::Vector2f(0, _size.y-16));
 
 		if (_size.x > 0 && _size.y > 0)
 		{

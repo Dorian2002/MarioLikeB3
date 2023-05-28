@@ -10,7 +10,7 @@ Boomba::Boomba(Vec2f position)
         new Transform(this, position),
         new SpriteComponent(this, "boombaIdle"),
         new PhysicsComponent(this, true),
-        new BoxColliderComponent(this, new Vec2f{16,16}, false),
+        new BoxColliderComponent(this, {16,16}, false),
         new Animator(
             this,
             std::vector<Animation*>{
@@ -103,10 +103,10 @@ void Boomba::SetUpAnimatorLink(Animation* run, Animation* idle)
     Animator* animator = GetComponent<Animator>();
 
     Event::Signal<bool>* sigRunToIdle = new Event::Signal<bool>();
-    sigRunToIdle->connect(new Event::Slot<bool>(this, &Boomba::IsWalking));
-    animator->CreateLink(run, idle, sigRunToIdle, false);
+    Event::SlotKey sig1Key = sigRunToIdle->connect(new Event::Slot<bool>(this, &Boomba::IsWalking));
+    animator->CreateLink(run, idle, sigRunToIdle, false, &sig1Key);
 
     Event::Signal<bool>* sigIdleToRun = new Event::Signal<bool>();
-    sigIdleToRun->connect(new Event::Slot<bool>(this, &Boomba::IsWalking));
-    animator->CreateLink(idle, run, sigIdleToRun, true);
+    Event::SlotKey sig2Key = sigIdleToRun->connect(new Event::Slot<bool>(this, &Boomba::IsWalking));
+    animator->CreateLink(idle, run, sigIdleToRun, true, &sig2Key);
 }
