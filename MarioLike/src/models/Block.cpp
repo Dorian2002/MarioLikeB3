@@ -9,7 +9,6 @@ Block::Block(Vec2f position)
 
 void Block::Start()
 {
-	std::cout << GetClassRttiName() << std::endl;
 	Entity::Start();
 }
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include <chrono>
 #include <models/Menu.h>
 #include "models/UIGameLevel.h"
 
@@ -22,7 +21,6 @@ public:
 	bool RunGame();
 	bool RunMenu();
 	void BackToMenu();
-	int m_frames = 0;
 	sf::RenderWindow* GetWindow();
 	float GetDeltaTime();
 	float deltatime = 0.0f;	

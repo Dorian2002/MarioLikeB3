@@ -75,12 +75,6 @@ bool GameEngine::RunGame()
 		HandleInput();
 		Update();
 		Render();
-
-		//std::cout << GetDeltaTime() << std::endl;
-
-		 //= clock.getElapsedTime().asSeconds() - frameTimeStart;
-		//std::cout << "frames per second: " << (float)m_frames / ((float)millisPassed.count() / 1000.f) << std::endl;
-
 	}
 	return true;
 }
@@ -185,15 +179,5 @@ bool GameEngine::LoadMenuResources()
 	success &= assetManager->LoadTexture("menuBackground.jpg", "menuBackground");
 	success &= assetManager->LoadFont("SuperMarioBros.ttf", "mainFont");
 
-	if (success)
-	{
-		std::cout << ">> Loading resources was successful !" << std::endl;
-	}
-	else
-	{
-		std::cout << ">> Error while loading resources !" << std::endl;
-		return false;
-	}
-
-	return true;
+	return success;
 }

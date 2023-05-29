@@ -13,7 +13,6 @@ Finish::Finish(Vec2f position)
 
 void Finish::Start()
 {
-    std::cout << GetClassRttiName() << std::endl;
     Entity::Start();
 }
 

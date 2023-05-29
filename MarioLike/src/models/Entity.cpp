@@ -3,10 +3,7 @@
 
 void Entity::Start()
 {
-	for (auto& component : Components) {
-		std::cout << " - " << component->GetClassRttiName() << std::endl;
-	}
-	std::cout << std::endl;
+
 }
 
 void Entity::Update(float deltaT)

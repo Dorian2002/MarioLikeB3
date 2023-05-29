@@ -24,7 +24,6 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 	std::ifstream fileFront(_fileNameFront, std::ios_base::in);
 	if (fileFront.is_open())
 	{
-		std::cout << ">> File level is open" << std::endl;
 		std::string line;
 		unsigned int row = 0;
 		unsigned int column = 0;
@@ -34,7 +33,6 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 		while (std::getline(fileFront, line))
 		{
 			column = 0;
-			std::vector<Entity*> rowEntities;
 
 			for (auto& c : line)
 			{
@@ -72,7 +70,6 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 					}
 					column++;
 			}
-			m_map.emplace_back(rowEntities);
 			if(column > levelSize)
 			{
 				levelSize = column;
@@ -82,9 +79,5 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 		fileFront.close();
 		return true;
 	}
-	else
-	{
-		std::cout << ">> File level cannot be open !" << std::endl;
-		return false;
-	}
+	return false;
 }

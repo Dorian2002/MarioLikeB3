@@ -88,22 +88,6 @@ std::vector<BoxColliderComponent*> EntityManager::GetBlockingColliders()
 	return m_blockCollider;
 }
 
-
-bool EntityManager::MoveEntity(Entity* entity)
-{
-	if (auto col = entity->GetComponent<BoxColliderComponent>()) {
-		if (col->CheckCollisions(Vec2f(0,0))) {
-			RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
-			return true;
-		}
-	}
-	else {
-		RenderManager::GetInstance()->AddDrawCall(new DrawCall(entity, 1));
-		return true;
-	}
-	return false;
-}
-
 bool EntityManager::MoveEntity(Entity* entity, Vec2f translate, bool moving)
 {
 	if (auto col = entity->GetComponent<BoxColliderComponent>()) {

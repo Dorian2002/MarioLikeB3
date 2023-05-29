@@ -9,7 +9,6 @@ Coin::Coin(Vec2f position)
 
 void Coin::Start()
 {
-	std::cout << GetClassRttiName() << std::endl;
 	Entity::Start();
 }
 

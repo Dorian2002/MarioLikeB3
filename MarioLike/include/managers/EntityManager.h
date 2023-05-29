@@ -13,10 +13,9 @@ public:
 	void Start();
 	void Update();
 	~EntityManager();
-	bool MoveEntity(Entity*);
 	void AddEntity(Entity* entity);
     Player* m_player;
-	bool MoveEntity(Entity*, Vec2f translate , bool moving = true);
+	bool MoveEntity(Entity*, Vec2f translate = { 0,0 }, bool moving = true);
 	std::vector<Entity*> GetEntities();
 	std::vector<BoxColliderComponent*> GetOverlapColliders();
 	std::vector<BoxColliderComponent*> GetBlockingColliders();

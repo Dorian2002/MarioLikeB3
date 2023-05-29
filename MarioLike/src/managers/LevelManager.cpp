@@ -68,13 +68,6 @@ void LevelManager::RenderLevel()
 	m_parallaxSky = new Background({ 1,0});
 	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_sky, 2));
 	RenderManager::GetInstance()->AddDrawCall(new DrawCall(m_parallaxSky, 2));
-
-	//iterate over the m_map vector to render each element via drawCall
-	for (std::vector<Entity*> line : m_level->m_map) {
-		for (Entity* entity : line) {
-			renderManager->AddDrawCall(new DrawCall(entity, 1));
-		}
-	}
 }
 
 //m_level getter

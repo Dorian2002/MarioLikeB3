@@ -25,7 +25,6 @@ Boomba::Boomba(Vec2f position)
 
 void Boomba::Start()
 {
-    std::cout << GetClassRttiName() << std::endl;
     Entity::Start();
 }
 

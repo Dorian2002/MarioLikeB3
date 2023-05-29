@@ -74,7 +74,6 @@ void Player::Update(float deltaT) {
             SetVelX(3.f * speedCoefficient * deltaT, -6.f, 0);
         }
     }
-    std::cout << t->velocity.x << std::endl;
 }
 
 void Player::Move(float dist)
@@ -166,8 +165,7 @@ void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)
 
 void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
 {
-	std::cout << overlapEntity->GetClassRttiName()<< std::endl;
-    if (overlapEntity->GetClassRttiName() == Coin::GetStaticRName())
+	if (overlapEntity->GetClassRttiName() == Coin::GetStaticRName())
     {
         m_coins++;
         EntityManager::GetInstance()->DeleteEntity(overlapEntity);
