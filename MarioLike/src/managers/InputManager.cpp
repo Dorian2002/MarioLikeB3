@@ -91,11 +91,6 @@ void InputManager::AddKeyBind(sf::Keyboard::Key key, Event::Slot<>* slot, KeyInp
 	m_signals[state][key]->connect(slot);
 }
 
-void InputManager::RemoveKeyBind(sf::Keyboard::Key key, Event::Slot<>* slot)
-{
-	m_signals[onKeyHeld][key]->disconnect(slot);
-}
-
 void InputManager::ClearKeyBinds()
 {
 	for (const auto& it : m_signals)

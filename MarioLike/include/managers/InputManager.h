@@ -20,7 +20,6 @@ public:
 	void HandleInput();
 	static InputManager* GetInstance();
 	void AddKeyBind(sf::Keyboard::Key key, Event::Slot<>* slot, KeyInput state = onKeyHeld);
-	void RemoveKeyBind(sf::Keyboard::Key key, Event::Slot<>* slot);
 	void ClearKeyBinds();
 private:
 	InputManager();
