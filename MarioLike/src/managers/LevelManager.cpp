@@ -88,7 +88,7 @@ void LevelManager::MoveLevel()
 
 	//Get render manager
 	RenderManager* renderManager = RenderManager::GetInstance();
-	auto velX = player->GetComponent<PhysicsComponent>()->velocity.x;
+	auto velX = player->GetComponent<PhysicsComponent>()->m_velocity.x;
 	auto posX = player->GetComponent<Transform>()->m_position.x;
 	//If player position is milddle screen an dplayer go to the right
 	float centerX = currentView.getCenter().x;
@@ -106,7 +106,7 @@ void LevelManager::MoveLevel()
 		left = true;
 	}
 
-	centerX = std::clamp(centerX + offset, currentView.getSize().x * 0.5f, m_level->levelSize * 16 - currentView.getSize().x * 0.5f);
+	centerX = std::clamp(centerX + offset, currentView.getSize().x * 0.5f, m_level->m_levelSize * 16 - currentView.getSize().x * 0.5f);
 	if (currentView.getCenter().x == centerX)
 	{
 		left = false;

@@ -13,11 +13,11 @@ public:
     void Move(Vec2f dist);
     bool GetIsKinematic();
     void SetIsKinematic(bool);
-    Vec2f velocity;
-    bool isGrounded;
-    float jumpForce = 0;
-    bool isJumping = true;
-    float maxVel = 0;
+    Vec2f m_velocity;
+    bool m_isGrounded;
+    float m_jumpForce = 0;
+    bool m_isJumping = true;
+    float m_maxVel = 0;
 private:
     bool m_isKinematic;
 };

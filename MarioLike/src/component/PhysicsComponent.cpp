@@ -12,24 +12,24 @@ PhysicsComponent::PhysicsComponent(Entity* root, bool isKinematic)
 {
     m_isKinematic = isKinematic;
     m_root = root;
-    velocity = { 0,0 };
-    isGrounded = false;
+    m_velocity = { 0,0 };
+    m_isGrounded = false;
 }
 
 void PhysicsComponent::Update(float deltaT)
 {
 
-    if (isGrounded)
+    if (m_isGrounded)
     {
-        isGrounded = !EntityManager::GetInstance()->MoveEntity(m_root, Vec2f{ 0, 9.81f * deltaT * 0.005f }, false);
+        m_isGrounded = !EntityManager::GetInstance()->MoveEntity(m_root, Vec2f{ 0, 9.81f * deltaT * 0.005f }, false);
     }
 
     if (m_isKinematic) {
-        if (!isGrounded)
+        if (!m_isGrounded)
         {
-            velocity.y += 9.81f * deltaT * 2;
+            m_velocity.y += 9.81f * deltaT * 2;
         }
-        Move(velocity * deltaT);
+        Move(m_velocity * deltaT);
 
         if (m_root->GetComponent<SpriteComponent>()->m_sprite->getPosition().y > GameEngine::GetInstance()->GetWindow()->getSize().y)
         {
@@ -103,7 +103,7 @@ void PhysicsComponent::Move (Vec2f dist)
 	    {
             if (!EntityManager::GetInstance()->MoveEntity(m_root, Vec2f(isNegativeX ? -dist.x : dist.x, 0)))
             {
-                velocity.x = 0;
+                m_velocity.x = 0;
                 break;
             }
             dist.x = 0;
@@ -112,7 +112,7 @@ void PhysicsComponent::Move (Vec2f dist)
         {
             if (!EntityManager::GetInstance()->MoveEntity(m_root, Vec2f(isNegativeX ? -val : val, 0)))
             {
-                velocity.x = 0;
+                m_velocity.x = 0;
                 break;
             }
             dist.x -= val;
@@ -124,12 +124,12 @@ void PhysicsComponent::Move (Vec2f dist)
 	    {
             if (!EntityManager::GetInstance()->MoveEntity(m_root, Vec2f(0, isNegativeY ? -dist.y : dist.y)))
             {
-                if (velocity.y > 0)
+                if (m_velocity.y > 0)
                 {
-                    isGrounded = true;
-                    isJumping = false;
+                    m_isGrounded = true;
+                    m_isJumping = false;
                 }
-                velocity.y = 0;
+                m_velocity.y = 0;
                 break;
             }
             dist.y = 0;
@@ -138,12 +138,12 @@ void PhysicsComponent::Move (Vec2f dist)
         {
             if (!EntityManager::GetInstance()->MoveEntity(m_root, Vec2f(0, isNegativeY ? -val : val)))
             {
-                if (velocity.y > 0)
+                if (m_velocity.y > 0)
                 {
-                    isGrounded = true;
-                    isJumping = false;
+                    m_isGrounded = true;
+                    m_isJumping = false;
                 }
-                velocity.y = 0;
+                m_velocity.y = 0;
                 break;
             }
             dist.y -= val;

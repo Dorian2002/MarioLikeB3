@@ -14,13 +14,13 @@ void Animator::Play(Animation* anim)
 	if (m_changeAnim) {
 		spriteComponent->m_sprite->setTexture(*texture);
 		spriteComponent->m_sprite->setTextureRect(sf::IntRect(0, 0, spriteComponent->m_spriteSize.x, spriteComponent->m_spriteSize.y));
-		Timer = 0;
+		m_timer = 0;
 		m_animIndex = 0;
 	}
 	//Otherwise we check timer and if needed, reset it and change frame, also we manage last frame case
 	else {
-		if (Timer >= anim->GetFrameTime()) {
-			Timer = 0;
+		if (m_timer >= anim->GetFrameTime()) {
+			m_timer = 0;
 			if (m_animIndex == anim->GetFrameNumber()) {
 				spriteComponent->m_sprite->setTextureRect(sf::IntRect(0, 0, spriteComponent->m_spriteSize.x, spriteComponent->m_spriteSize.y));
 				m_animIndex = 0;
@@ -35,7 +35,7 @@ void Animator::Play(Animation* anim)
 
 void Animator::Update(float deltaT)
 {
-	Timer += deltaT;
+	m_timer += deltaT;
 	CheckState();
 	Play(m_currentState);
 }
@@ -51,7 +51,7 @@ void Animator::CreateLink(Animation* anim1, Animation* anim2, Event::Signal<bool
 
 Animator::Animator(Entity* root, std::vector<Animation*> states)
 {
-	Timer = 0;
+	m_timer = 0;
 	m_root = root;
 	m_states = states;
 	m_links = std::vector<Link*>();

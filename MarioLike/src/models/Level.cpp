@@ -70,9 +70,9 @@ bool Level::LoadLevel(const std::string _fileNameFront, const std::string _fileN
 					}
 					column++;
 			}
-			if(column > levelSize)
+			if(column > m_levelSize)
 			{
-				levelSize = column;
+				m_levelSize = column;
 			}
 			row++;
 		}

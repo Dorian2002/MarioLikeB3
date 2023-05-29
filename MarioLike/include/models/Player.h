@@ -18,9 +18,9 @@
 class Player : public Entity
 {
 public:
-    bool left = false;
-    bool right = false;
-    Vec2f m_lastposition;
+    bool m_left = false;
+    bool m_right = false;
+    Vec2f m_lastPosition;
     DEFINE_RTTI(Player);
 
     Player();
@@ -41,7 +41,7 @@ public:
 
     void StartLeft();
 
-    void jump();
+    void Jump();
 
     bool IsWalking();
 
@@ -56,6 +56,6 @@ public:
 
 
 private:
-    float speedCoefficient = 1.0f;
+    float m_speedCoefficient = 1.0f;
     int m_coins = 0;
 };

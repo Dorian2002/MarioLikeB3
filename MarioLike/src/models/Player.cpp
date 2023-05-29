@@ -30,48 +30,52 @@ void Player::Start() {
     inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &Player::StartRight), onKeyPress);
     inputManager->AddKeyBind(sf::Keyboard::Q, new Event::Slot<>(this, &Player::StopLeft), onKeyRelease);
     inputManager->AddKeyBind(sf::Keyboard::D, new Event::Slot<>(this, &Player::StopRight), onKeyRelease);
-    inputManager->AddKeyBind(sf::Keyboard::Space, new Event::Slot<>(this, &Player::jump), onKeyHeld);
+    inputManager->AddKeyBind(sf::Keyboard::Left, new Event::Slot<>(this, &Player::StartLeft), onKeyPress);
+    inputManager->AddKeyBind(sf::Keyboard::Right, new Event::Slot<>(this, &Player::StartRight), onKeyPress);
+    inputManager->AddKeyBind(sf::Keyboard::Left, new Event::Slot<>(this, &Player::StopLeft), onKeyRelease);
+    inputManager->AddKeyBind(sf::Keyboard::Right, new Event::Slot<>(this, &Player::StopRight), onKeyRelease);
+    inputManager->AddKeyBind(sf::Keyboard::Space, new Event::Slot<>(this, &Player::Jump), onKeyHeld);
 }
 
 void Player::Update(float deltaT) {
     auto t = GetComponent<PhysicsComponent>();
-    if (t->isJumping)
+    if (t->m_isJumping)
     {
-        speedCoefficient = 2.f;
+        m_speedCoefficient = 2.f;
     }
     else
     {
-        speedCoefficient = 100.f;
+        m_speedCoefficient = 100.f;
     }
     Entity::Update(deltaT);
-    if (left)
+    if (m_left)
     {
-        SetVelX(-3.f * speedCoefficient * deltaT);
-        if (t->velocity.x < 0)
+        SetVelX(-3.f * m_speedCoefficient * deltaT);
+        if (t->m_velocity.x < 0)
         {
             auto spriteComponent = GetComponent<SpriteComponent>();
             spriteComponent->m_sprite->setOrigin({ spriteComponent->m_sprite->getLocalBounds().width - spriteComponent->m_spriteSize.x, 0 });
             spriteComponent->m_sprite->setScale({ 1, 1 });
         }
     }
-    if (right)
+    if (m_right)
     {
-        SetVelX(3.f * speedCoefficient * deltaT);
-        if (t->velocity.x > 0) {
+        SetVelX(3.f * m_speedCoefficient * deltaT);
+        if (t->m_velocity.x > 0) {
             auto sprite = GetComponent<SpriteComponent>()->m_sprite;
             sprite->setOrigin({ sprite->getLocalBounds().width, 0 });
             sprite->setScale({ -1, 1 });
         }
     }
-    if (!left && !right)
+    if (!m_left && !m_right)
     {
-        if (t->velocity.x > 0)
+        if (t->m_velocity.x > 0)
         {
-            SetVelX(-3.f * speedCoefficient * deltaT, 0);
+            SetVelX(-3.f * m_speedCoefficient * deltaT, 0);
         }
-        if (t->velocity.x < 0)
+        if (t->m_velocity.x < 0)
         {
-            SetVelX(3.f * speedCoefficient * deltaT, -6.f, 0);
+            SetVelX(3.f * m_speedCoefficient * deltaT, -6.f, 0);
         }
     }
 }
@@ -107,42 +111,42 @@ void Player::Move(float dist)
 }
 void Player::SetVelX(float acceleration, float min, float max)
 {
-    GetComponent<PhysicsComponent>()->velocity.x = std::clamp(GetComponent<PhysicsComponent>()->velocity.x + acceleration, min, max);
+    GetComponent<PhysicsComponent>()->m_velocity.x = std::clamp(GetComponent<PhysicsComponent>()->m_velocity.x + acceleration, min, max);
 }
 
 void Player::StartRight()
 {
-    right = true;
+    m_right = true;
 }
 
 void Player::StopRight()
 {
-    right = false;
+    m_right = false;
 }
 
 void Player::StopLeft()
 {
-    left = false;
+    m_left = false;
 }
 
 void Player::StartLeft()
 {
-    left = true;
+    m_left = true;
 }
 
-void Player::jump() {
+void Player::Jump() {
     auto t = GetComponent<PhysicsComponent>();
-    if (t->isGrounded) {
-        if (t->isGrounded) {
-            t->velocity.y = -10.f;
-            t->isGrounded = false;
-            t->isJumping = true; 
+    if (t->m_isGrounded) {
+        if (t->m_isGrounded) {
+            t->m_velocity.y = -10.f;
+            t->m_isGrounded = false;
+            t->m_isJumping = true; 
         }
     }
 }
 
 bool Player::IsWalking() {
-    if (GetComponent<PhysicsComponent>()->velocity.x != 0) {
+    if (GetComponent<PhysicsComponent>()->m_velocity.x != 0) {
         return true;
     }
     return false;
@@ -150,7 +154,7 @@ bool Player::IsWalking() {
 
 void Player::AnimIsWalking(bool val)
 {
-    if ((GetComponent<PhysicsComponent>()->velocity.x != 0) == val) {
+    if ((GetComponent<PhysicsComponent>()->m_velocity.x != 0) == val) {
         GetComponent<Animator>()->m_changeAnim = true;
     }
 }

@@ -9,6 +9,6 @@ public:
 	Level();
 	~Level() = default;
 	bool LoadLevel(const std::string _fileNameFront,const std::string _fileNameBack);
-	int levelSize = 0;
+	int m_levelSize = 0;
 };
 

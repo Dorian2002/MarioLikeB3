@@ -17,7 +17,7 @@ public:
 	bool m_changeAnim;
 private:
 	int m_animIndex;
-	float Timer;
+	float m_timer;
 	std::vector<Animation*> m_states;
 	Animation* m_currentState;
 	void Play(Animation* anim);

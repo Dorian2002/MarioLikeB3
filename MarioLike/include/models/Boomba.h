@@ -22,8 +22,6 @@ public:
     bool m_isWalking;
     Vec2f velocity;
     DEFINE_RTTI(Boomba);
-    bool left = false;
-    bool right = false;
 
     Boomba(Vec2f position);
 
