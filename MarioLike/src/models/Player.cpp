@@ -169,23 +169,23 @@ void Player::OnCollide(Component* overlapComponent, Entity* overlapEntity)
 
 void Player::OnOverlap(Component* overlapComponent, Entity* overlapEntity)
 {
-	if (overlapEntity->GetClassRttiName() == Coin::GetStaticRName())
+    if (overlapEntity->GetClassRttiName() == Coin::GetStaticRName())
     {
         m_coins++;
-        EntityManager::GetInstance()->DeleteEntity(overlapEntity);
+        EntityManager::GetInstance()->DeferDeleteEntity(overlapEntity);
         return;
     }
     if (overlapEntity->GetClassRttiName() == Boomba::GetStaticRName())
     {
         if (GetComponent<Transform>()->GetPosition().y + 0.9f <= overlapEntity->GetComponent<Transform>()->GetPosition().y)
         {
-            EntityManager::GetInstance()->DeleteEntity(overlapEntity);
+            EntityManager::GetInstance()->DeferDeleteEntity(overlapEntity);
         }
         else
         {
             GameEngine::GetInstance()->BackToMenu();
         }
-        
+
     }
 }
 
